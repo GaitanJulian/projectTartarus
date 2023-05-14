@@ -31,6 +31,7 @@ public class CharacterMovementAlternative : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Apply movement
         Vector2 playerInput = move.ReadValue<Vector2>();
         if (playerInput != Vector2.zero) 
         {
@@ -40,9 +41,10 @@ public class CharacterMovementAlternative : MonoBehaviour
         }
         else
         {
+            // if the player is not moving the desired speed is zero
             desiredVelocity = Vector2.zero;
             currentVelocity = rb.velocity;
-            rb.velocity = Vector2.Lerp(currentVelocity, desiredVelocity, movementStats.deceleration * Time.fixedDeltaTime);
+            rb.velocity = Vector2.Lerp(currentVelocity, desiredVelocity, movementStats.acceleration * Time.fixedDeltaTime);
         }
     }
 }

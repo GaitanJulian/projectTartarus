@@ -10,7 +10,7 @@ public class CharacterController : MonoBehaviour
     private float timeCounter;
     private float aceleration;
 
-    private Vector2 moveDirection = Vector2.zero;
+
     private InputAction move;
 
     private void Awake()

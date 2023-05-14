@@ -44,7 +44,7 @@ public class CharacterMovementAlternative : MonoBehaviour
             // if the player is not moving the desired speed is zero
             desiredVelocity = Vector2.zero;
             currentVelocity = rb.velocity;
-            rb.velocity = Vector2.Lerp(currentVelocity, desiredVelocity, movementStats.acceleration * Time.fixedDeltaTime);
+            rb.velocity = Vector2.Lerp(currentVelocity, desiredVelocity, movementStats.deceleration * Time.fixedDeltaTime);
         }
     }
 }

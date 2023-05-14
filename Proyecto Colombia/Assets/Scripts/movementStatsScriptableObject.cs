@@ -1,12 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "movementStatsScriptableObject", menuName = "Movement Stats")]
-public class movementStatsScriptableObject : ScriptableObject
-{
-    public string characterName;
-
+[CreateAssetMenu(fileName = "MovementStatsScriptableObject", menuName = "Movement Stats")]
+public class MovementStatsScriptableObject : ScriptableObject
+{ 
     [Header("Movement system")]
     public float maxSpeed;
- 
+    public float acceleration;
+    public float deceleration;
 
 }

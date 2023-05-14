@@ -1,13 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class characterController : MonoBehaviour
+public class CharacterController : MonoBehaviour
 {
-    [SerializeField] private movementStatsScriptableObject movementStats;
+    [SerializeField] private MovementStatsScriptableObject movementStats;
+
+    private PlayerInputActions playerControls;
 
     private float timeCounter;
     private float aceleration;
+
+    private Vector2 moveDirection = Vector2.zero;
+    private InputAction move;
+
+    private void Awake()
+    {
+        playerControls = new PlayerInputActions();
+    }
+
+    private void OnEnable()
+    {
+        move = playerControls.Player.Move;
+        move.Enable();
+    }
+
+    private void OnDisable()
+    {
+        move.Disable();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +38,8 @@ public class characterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
+        Vector2 playerInput = move.ReadValue<Vector2>();
+        Vector3 movement = new Vector3(playerInput.x, playerInput.y, 0);
         movement.Normalize();
         if (movement != Vector3.zero) 
         {      

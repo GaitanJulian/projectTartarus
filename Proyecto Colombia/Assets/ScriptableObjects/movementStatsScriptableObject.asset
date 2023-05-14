@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c7a79617ee530a4688cfeff047910f4, type: 3}
   m_Name: MovementStatsScriptableObject
   m_EditorClassIdentifier: 
-  maxSpeed: 5
-  acceleration: 10
+  maxSpeed: 7
+  acceleration: 15
+  deceleration: 20

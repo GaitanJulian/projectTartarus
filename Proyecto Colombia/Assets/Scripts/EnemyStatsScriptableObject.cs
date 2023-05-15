@@ -7,8 +7,11 @@ public class EnemyStatsScriptableObject : ScriptableObject
     public float maxSpeed;
     public float acceleration;
     public float deceleration;
+    public float freeMovementTime;
 
     [Header("Attack system")]
     public float damage;
+    public float attackRange;
+    public float attackTime;
 
 }

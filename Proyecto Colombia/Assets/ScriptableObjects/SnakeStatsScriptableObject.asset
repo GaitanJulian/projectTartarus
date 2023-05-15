@@ -18,4 +18,4 @@ MonoBehaviour:
   freeMovementTime: 2
   damage: 5
   attackRange: 2
-  attackTime: 3
+  attackTime: 0.3

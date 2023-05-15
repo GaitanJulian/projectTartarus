@@ -8,10 +8,14 @@ public class EnemyStatsScriptableObject : ScriptableObject
     public float acceleration;
     public float deceleration;
     public float freeMovementTime;
+    public float wallCheckDistance;
 
     [Header("Attack system")]
     public float damage;
     public float attackRange;
     public float attackTime;
 
+    [Header("LayerMasks")]
+    public LayerMask playerLayerMask;
+    public LayerMask wallLayerMask;
 }

@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 479291426}
   - component: {fileID: 479291425}
   - component: {fileID: 479291424}
+  - component: {fileID: 479291427}
   m_Layer: 0
   m_Name: Snake
   m_TagString: Untagged
@@ -271,6 +272,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _snakeStats: {fileID: 11400000, guid: fb428c56ce22b2c4bbe3e5de92e91c7d, type: 2}
   _player: {fileID: 0}
+--- !u!95 &479291427
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479291421}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8687263baca6ad149ad38e302d56c32e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +377,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1856182914049969527
+--- !u!1001 &1770338631
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -366,21 +388,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_Placeholder
       objectReference: {fileID: 0}
-    - target: {fileID: 1856182915447936576, guid: d684f029c0fdcd14d86acbcc9c96b5d8, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 1856182915447936587, guid: d684f029c0fdcd14d86acbcc9c96b5d8, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1856182915447936587, guid: d684f029c0fdcd14d86acbcc9c96b5d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.29
+      value: -5.121822
       objectReference: {fileID: 0}
     - target: {fileID: 1856182915447936587, guid: d684f029c0fdcd14d86acbcc9c96b5d8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.13
+      value: 0.12223089
       objectReference: {fileID: 0}
     - target: {fileID: 1856182915447936587, guid: d684f029c0fdcd14d86acbcc9c96b5d8, type: 3}
       propertyPath: m_LocalPosition.z

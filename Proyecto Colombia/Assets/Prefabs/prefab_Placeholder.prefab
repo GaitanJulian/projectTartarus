@@ -9,16 +9,22 @@ GameObject:
   serializedVersion: 6
   m_Component:
 <<<<<<< HEAD
+<<<<<<< HEAD
   - component: {fileID: 8101636634411651448}
   - component: {fileID: 8101636634411651399}
   - component: {fileID: 3077060529530038611}
   - component: {fileID: 8101636634411651449}
 =======
+=======
+>>>>>>> cfb02286057bb679ea7d6ede254cb565516376ef
   - component: {fileID: 5177163105324624125}
   - component: {fileID: 5177163105324624122}
   - component: {fileID: 5177163105324624123}
   - component: {fileID: 5177163105324624120}
+<<<<<<< HEAD
 >>>>>>> characterMovement
+=======
+>>>>>>> cfb02286057bb679ea7d6ede254cb565516376ef
   m_Layer: 0
   m_Name: prefab_Placeholder
   m_TagString: Untagged
@@ -94,10 +100,14 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!114 &3077060529530038611
 =======
 --- !u!114 &5177163105324624123
 >>>>>>> characterMovement
+=======
+--- !u!114 &5177163105324624123
+>>>>>>> cfb02286057bb679ea7d6ede254cb565516376ef
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,10 +121,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementStats: {fileID: 11400000, guid: dad494336d3e2314485dea80b9418889, type: 2}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!50 &8101636634411651449
 =======
 --- !u!50 &5177163105324624120
 >>>>>>> characterMovement
+=======
+--- !u!50 &5177163105324624120
+>>>>>>> cfb02286057bb679ea7d6ede254cb565516376ef
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

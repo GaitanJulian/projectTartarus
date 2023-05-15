@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8101636634411651448}
   - component: {fileID: 8101636634411651399}
-  - component: {fileID: 982567374013009339}
+  - component: {fileID: 3073374751894213722}
   - component: {fileID: 8101636634411651449}
   m_Layer: 0
   m_Name: prefab_Placeholder
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &982567374013009339
+--- !u!114 &3073374751894213722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -15,7 +15,14 @@ MonoBehaviour:
   maxSpeed: 3
   acceleration: 10
   deceleration: 10
-  freeMovementTime: 2
+  freeMovementTime: 1
+  wallCheckDistance: 3.5
   damage: 5
   attackRange: 2
   attackTime: 0.3
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 64

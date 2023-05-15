@@ -32,6 +32,7 @@ public class SnakeEnemy : MonoBehaviour
         StartCoroutine(_freeMovementState);
         ChangeAnimationState(SNAKE_IDLE);
     }
+    /*
 
     private void Update()
     {
@@ -44,7 +45,7 @@ public class SnakeEnemy : MonoBehaviour
             Debug.DrawRay(transform.position, _lastAttackDirection * _snakeStats.attackRange, Color.red);
         }
     }
-
+    */
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag(_playerTag))
@@ -78,7 +79,7 @@ public class SnakeEnemy : MonoBehaviour
             RaycastHit2D wallHit = Physics2D.Raycast(transform.position, _freeMoveDirection , _snakeStats.wallCheckDistance, _snakeStats.wallLayerMask);
             if (wallHit.collider == null)
             {
-                print("Me puedo mover, no hubo collider");
+                //print("Me puedo mover, no hubo collider");
                 // Move the snake in the specified direction
                 _rb.velocity = _freeMoveDirection * _snakeStats.maxSpeed;
 
@@ -94,7 +95,7 @@ public class SnakeEnemy : MonoBehaviour
                 RaycastHit2D oppositeWallHit = Physics2D.Raycast(transform.position, -_freeMoveDirection, _snakeStats.wallCheckDistance, _snakeStats.wallLayerMask);
                 if (oppositeWallHit.collider == null)
                 {
-                    print("Me movi en direccion contraria");
+                    //print("Me movi en direccion contraria");
                     // Calculate the opposite direction of the wall
                     _freeMoveDirection = Vector2.Reflect(-_freeMoveDirection, oppositeWallHit.normal);
 

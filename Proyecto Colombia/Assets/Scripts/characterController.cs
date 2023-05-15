@@ -9,7 +9,7 @@ public class CharacterController : MonoBehaviour
     private PlayerInputActions _playerControls; // New Input system
     private InputAction _move; // Input Action for movement
 
-    
+    private Vector2 _playerInput;
     private Vector2 _desiredVelocity; // Variable that indicates the max Speed the player can get in any direction
     private Vector2 _currentVelocity; // Current speed in a frame
     private void Awake()
@@ -29,10 +29,14 @@ public class CharacterController : MonoBehaviour
         _move.Disable();
     }
 
+    private void Update()
+    {
+        _playerInput = _move.ReadValue<Vector2>();
+    }
+
     private void FixedUpdate()
     {
         // Apply movement
-        Vector2 _playerInput = _move.ReadValue<Vector2>();
         if (_playerInput != Vector2.zero) 
         {
             _desiredVelocity = _playerInput * _movementStats.maxSpeed;

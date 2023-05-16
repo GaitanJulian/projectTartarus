@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class SnakeEnemyBase : MonoBehaviour
 {
     [SerializeField] protected EnemyStatsScriptableObject _snakeStats;
-    protected Transform _player;
+    protected Transform _playerTransform;
     protected Rigidbody2D _rb;
     protected bool _isAggressive = false;
     protected Vector2 _lastAttackDirection;
@@ -15,8 +15,8 @@ public abstract class SnakeEnemyBase : MonoBehaviour
     protected Animator _animator;
 
     // Animation States
-    const string SNAKE_IDLE = "snake_idle";
-    const string SNAKE_ATTACK = "snake_attack";
+    protected const string SNAKE_IDLE = "snake_idle";
+    protected const string SNAKE_ATTACK = "snake_attack";
 
     protected virtual void Awake()
     {
@@ -25,7 +25,7 @@ public abstract class SnakeEnemyBase : MonoBehaviour
         _freeMovementState = MoveFreelyCoroutine();
         _attackState = AttackCoroutine();
     }
-
+    
     protected virtual void Start()
     {
         StartCoroutine(_freeMovementState);
@@ -37,7 +37,7 @@ public abstract class SnakeEnemyBase : MonoBehaviour
         if (collision.gameObject.CompareTag(_playerTag))
         {
             StopCoroutine(_freeMovementState);
-            _player = collision.gameObject.transform;
+            _playerTransform = collision.gameObject.transform;
             _isAggressive = true;
             StartCoroutine(_attackState);
         }

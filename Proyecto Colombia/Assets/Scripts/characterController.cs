@@ -3,75 +3,52 @@ using UnityEngine.InputSystem;
 
 public class CharacterController : MonoBehaviour
 {
-    [SerializeField] private MovementStatsScriptableObject movementStats;
+    [SerializeField] private MovementStatsScriptableObject _movementStats;
 
-    private PlayerInputActions playerControls;
+    private Rigidbody2D _rb;
+    private PlayerInputActions _playerControls; // New Input system
+    private InputAction _move; // Input Action for movement
 
-    private float timeCounter;
-    private float aceleration;
-
-
-    private InputAction move;
-
+    private Vector2 _playerInput;
+    private Vector2 _desiredVelocity; // Variable that indicates the max Speed the player can get in any direction
+    private Vector2 _currentVelocity; // Current speed in a frame
     private void Awake()
     {
-        playerControls = new PlayerInputActions();
+        _rb = GetComponent<Rigidbody2D>();
+        _playerControls = new PlayerInputActions();
     }
 
     private void OnEnable()
     {
-        move = playerControls.Player.Move;
-        move.Enable();
+        _move = _playerControls.Player.Move;
+        _move.Enable();
     }
 
     private void OnDisable()
     {
-        move.Disable();
+        _move.Disable();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        timeCounter = 0;
+        _playerInput = _move.ReadValue<Vector2>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        Vector2 playerInput = move.ReadValue<Vector2>();
-        Vector3 movement = new Vector3(playerInput.x, playerInput.y, 0);
-        movement.Normalize();
-        if (movement != Vector3.zero) 
-        {      
-            if (timeCounter >= 5)
-            {
-                timeCounter = 5;
-            }
-            else
-            {
-                timeCounter += Time.deltaTime * 5;
-            }
-
-            aceleration = acelerationModifier(timeCounter);
-            transform.position += movement * aceleration * movementStats.maxSpeed * Time.deltaTime;
-
+        // Apply movement
+        if (_playerInput != Vector2.zero) 
+        {
+            _desiredVelocity = _playerInput * _movementStats.maxSpeed;
+            _currentVelocity = _rb.velocity;
+            _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.acceleration * Time.fixedDeltaTime);
         }
         else
         {
-            timeCounter = 0;
+            // if the player is not moving the desired speed is zero
+            _desiredVelocity = Vector2.zero;
+            _currentVelocity = _rb.velocity;
+            _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.deceleration * Time.fixedDeltaTime);
         }
-
-
-
     }
-
-
-
-    private float acelerationModifier(float time)
-    {
-
-        return -Mathf.Exp(-time) + 1;
-    }
-
-
 }

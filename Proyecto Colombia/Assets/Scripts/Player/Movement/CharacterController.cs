@@ -33,7 +33,6 @@ public class CharacterController : MonoBehaviour
     private void Update()
     {
         _playerInput = _move.ReadValue<Vector2>();
-        print(_lastDireciton);
     }
 
     private void FixedUpdate()

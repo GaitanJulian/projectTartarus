@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cef55934dc32734c827047b67bcfb02, type: 3}
+  m_Name: NewItem
+  m_EditorClassIdentifier: 
+  _name: Star
+  _icon: {fileID: -11546612, guid: 546590d1889de1849806ff9c4fdf2de3, type: 3}

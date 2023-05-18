@@ -37,6 +37,7 @@ public class SeekBehaviour : SteeringBehaviour
 
         //First check if we have reached the target
         if (Vector2.Distance(transform.position, targetPositionCached) < targetRechedThreshold)
+            //this last line prevents a bug but I think is prone to breaking. This is so it does not forget the player as target
         {
             reachedLastTarget = true;
             aiData._currentTarget = null;

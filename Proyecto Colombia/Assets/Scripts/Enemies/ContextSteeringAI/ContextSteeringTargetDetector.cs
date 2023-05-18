@@ -6,7 +6,7 @@ public class ContextSteeringTargetDetector : ContextSteeringDetector
 {
     [SerializeField] private float _targetDetectionRange = 5;
     [SerializeField] private LayerMask _obstaclesLayerMask, _playerLayerMask;
-    [SerializeField] private bool _showGizmos = false;
+    [SerializeField] private bool _showGizmos = true;
     //gizmo parameters
     private List<Transform> _colliders;
 
@@ -44,7 +44,8 @@ public class ContextSteeringTargetDetector : ContextSteeringDetector
         if (_showGizmos == false)
             return;
 
-        Gizmos.DrawWireSphere(transform.position, _targetDetectionRange);
+        //Gizmos.DrawWireSphere(transform.position, _targetDetectionRange);
+        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, _targetDetectionRange);
 
         if (_colliders == null)
             return;

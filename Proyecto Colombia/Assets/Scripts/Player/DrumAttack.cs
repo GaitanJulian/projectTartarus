@@ -8,7 +8,7 @@ public class DrumAttack : MonoBehaviour
     //PolygonCollider2D _polygonCollider;
     [SerializeField][Range(0f, 1f)] float _heightRelation = 0.5f; 
     Vector3 _proportions;
-    [SerializeField] float _startingSize = 0f, _maxSize = 3f, _growSpeed = 10f, _permanenceTime = 0.1f, _cooldown = 0f, _inputBufferTime = 0.2f;
+    [SerializeField] float _startingSize = 0f, _maxSize = 3f, _growSpeed = 10f, _permanenceTime = 0.1f, _cooldown = 0f, _inputBufferTime = 0.2f, _damage = 2f;
     float _size, _inputBufferCounter;
     bool _ableToAttack = true;
     PlayerInputActions playerInput;
@@ -66,9 +66,9 @@ public class DrumAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<Damagable>() != null)
+        if(collision.gameObject.GetComponent<Damageable>() != null)
         {
-            collision.gameObject.GetComponent<Damagable>().GetDamaged();
+            collision.gameObject.GetComponent<Damageable>().GetDamaged(_damage);
         }
     }
 }

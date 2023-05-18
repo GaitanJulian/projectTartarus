@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MovementStatsScriptableObject", menuName = "Movement Stats")]
+[CreateAssetMenu(fileName = "MovementStatsScriptableObject", menuName = "Scriptable objects/Movement Stats")]
 public class MovementStatsScriptableObject : ScriptableObject
 { 
     [Header("Movement system")]

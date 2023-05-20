@@ -2,12 +2,12 @@ using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour
 {
-    protected EnemyStateManagerScriptableObject _stateManager;
+    [SerializeField] public EnemyStateManagerScriptableObject _stateManager;
 
-    [SerializeField] private EnemyStatsScriptableObject _enemyStats;
+    [SerializeField] public EnemyStatsScriptableObject _enemyStats;
     [SerializeField] public EnemyAiWithContextSteering _contextSteering;
 
-    private Rigidbody2D _rb;
+    public Rigidbody2D _rb;
 
     protected virtual void Start()
     {
@@ -17,7 +17,7 @@ public abstract class EnemyController : MonoBehaviour
     }
     protected void Update()
     {
-        _stateManager._currentState.UpdateState(_stateManager, _rb);
+        _stateManager._currentState.UpdateState(_stateManager, this);
     }
 
 }

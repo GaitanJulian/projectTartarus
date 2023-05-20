@@ -8,6 +8,6 @@ public class GreenSnakeIdleState : EnemyBaseState
 
     public override void UpdateState(EnemyStateManagerScriptableObject _stateManager, EnemyController _controller)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

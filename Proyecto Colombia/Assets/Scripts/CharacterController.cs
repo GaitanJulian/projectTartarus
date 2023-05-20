@@ -5,6 +5,7 @@ public class CharacterController : MonoBehaviour
 {
     [SerializeField] private MovementStatsScriptableObject _movementStats;
 
+    [SerializeField] private Animator _animator;
     private Rigidbody2D _rb;
     private PlayerInputActions _playerControls; // New Input system
     private InputAction _move; // Input Action for movement
@@ -12,10 +13,13 @@ public class CharacterController : MonoBehaviour
     private Vector2 _playerInput;
     private Vector2 _desiredVelocity; // Variable that indicates the max Speed the player can get in any direction
     private Vector2 _currentVelocity; // Current speed in a frame
+
+    const string _animParamHorizontal = "Horizontal", _animParamVertical = "Vertical";
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerControls = new PlayerInputActions();
+       // _animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -42,6 +46,8 @@ public class CharacterController : MonoBehaviour
             _desiredVelocity = _playerInput * _movementStats.maxSpeed;
             _currentVelocity = _rb.velocity;
             _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.acceleration * Time.fixedDeltaTime);
+            _animator.SetFloat("Speed", 1);
+            Animate();
         }
         else
         {
@@ -49,6 +55,16 @@ public class CharacterController : MonoBehaviour
             _desiredVelocity = Vector2.zero;
             _currentVelocity = _rb.velocity;
             _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.deceleration * Time.fixedDeltaTime);
+            _animator.SetFloat("Speed", 0);
         }
+
+    }
+
+    private void Animate()
+    { 
+
+        _animator.SetFloat(_animParamHorizontal, _playerInput.x);
+        _animator.SetFloat(_animParamVertical, _playerInput.y);
+
     }
 }

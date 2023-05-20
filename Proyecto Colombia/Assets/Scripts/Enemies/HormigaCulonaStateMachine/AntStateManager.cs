@@ -58,7 +58,7 @@ public class AntStateManager : MonoBehaviour
     {
         if (_debugState)
         {
-            UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, _attackDistance);
+            //UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, _attackDistance);
         }
     }
 }

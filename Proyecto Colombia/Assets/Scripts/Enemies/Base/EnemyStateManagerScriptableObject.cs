@@ -1,18 +1,26 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "EnemyStateManager", menuName = "Enemy/State Manager")]
 public class EnemyStateManagerScriptableObject : ScriptableObject
 {
+    public EnemyBaseState _currentState;
     public EnemyBaseState _idleState;
     public EnemyBaseState _chasingState;
     public EnemyBaseState _attackingState;
 
-    [SerializeField] private EnemyStatsScriptableObject _enemyStats;
-    
+    private UnityEvent<EnemyBaseState> _stateChangeEvent;
     // Any additional data or properties specific to the state manager can be defined here
 
-    public EnemyBaseState GetInitialState()
+    private void OnEnable()
     {
-        return _idleState; // Return the initial state for the enemy
+        if (_stateChangeEvent == null)
+            _stateChangeEvent = new UnityEvent<EnemyBaseState>();
+    }
+
+    public void ChangeCurrentState(EnemyBaseState _state)
+    {
+        _currentState = _state;
+        _stateChangeEvent.Invoke(_state);
     }
 }

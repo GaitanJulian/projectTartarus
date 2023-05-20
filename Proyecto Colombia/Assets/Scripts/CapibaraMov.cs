@@ -14,12 +14,18 @@ public class CapibaraMov : MonoBehaviour
     {
         if (collision.transform.CompareTag("Water"))
         {
-            gameObject.GetComponent<Collider2D>().isTrigger = false;
-            Destroy(transform.GetChild(1).gameObject);
-            navigation = false;
+            salirAgua();
 
         }
     }
+
+    private void salirAgua()
+    {
+        gameObject.GetComponent<Collider2D>().isTrigger = false;
+        capibara.SetActive(false);
+        navigation = false;
+    }
+
     private void message()
     {
         canvas.gameObject.SetActive(true);
@@ -46,10 +52,12 @@ public class CapibaraMov : MonoBehaviour
     {
         gameObject.GetComponent<Collider2D>().isTrigger = true;
         canvas.gameObject.SetActive(false);
+        capibara.SetActive(true);
+        /*instanciar capibara en el player
         GameObject capibaraobject = Instantiate(capibara, transform.position, transform.rotation);
-        capibaraobject.transform.position = new Vector2(capibaraobject.transform.position.x, capibaraobject.transform.position.y - 0.5f);
-        
-        capibaraobject.transform.SetParent(transform);
+         capibaraobject.transform.position = new Vector2(capibaraobject.transform.position.x, capibaraobject.transform.position.y - 0.5f);
+
+         capibaraobject.transform.SetParent(transform);*/
         navigation = true;
     }
     

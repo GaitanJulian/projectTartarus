@@ -2,14 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CapibaraMov : MonoBehaviour
 {
     public GameObject capibara;
     bool navigation = false;
-   
+    PlayerInputActions playerInput;
+    InputAction nav;
+
     public Canvas canvas;
-   
+    private void Awake()
+    {
+        playerInput = new PlayerInputActions();
+    }
+    private void OnEnable()
+    {
+        nav = playerInput.Player.Swim;
+        nav.Enable();
+    }
+    private void OnDisable()
+    {
+        nav.Disable();
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Water"))
@@ -46,7 +61,8 @@ public class CapibaraMov : MonoBehaviour
 
     void Update()
     {
-            if (Input.GetKeyDown(KeyCode.M)&& canvas.isActiveAndEnabled){ si(); }
+       
+            if (nav.ReadValue<float>() > 0&& canvas.isActiveAndEnabled){ si(); }
     }
    void si()
     {

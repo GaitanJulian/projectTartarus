@@ -6,20 +6,20 @@ public class Damageable : MonoBehaviour
     [SerializeField] float _HitPoints = 100f;
     private Transform _attacker;
 
-    public UnityEvent<Transform, float> onDamageTaken = new UnityEvent<Transform, float>();
-    public UnityEvent onDeath = new UnityEvent();
+    public UnityEvent<Transform, float> _onDamageTaken = new UnityEvent<Transform, float>();
+    public UnityEvent _onDeath = new UnityEvent();
 
     public void GetDamaged(float magnitude)
     {
         if(_HitPoints > magnitude)
         {
             _HitPoints -= magnitude;
-            onDamageTaken.Invoke(_attacker, magnitude);
+            _onDamageTaken.Invoke(_attacker, magnitude);
         }
         else
         {
             _HitPoints = 0;
-            onDeath.Invoke();
+            _onDeath.Invoke();
         }
 
     }

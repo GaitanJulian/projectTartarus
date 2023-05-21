@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36fb7bb1f6f81a3488bae68477ff0825, type: 3}
   m_Name: GreenSnakeStateManagerSO
   m_EditorClassIdentifier: 
-  _currentState: {fileID: 0}
-  _idleState: {fileID: 0}
-  _chasingState: {fileID: 0}
+  _idleState: {fileID: 11400000, guid: 34066cdac2a8efe4eadfa12546b92ec6, type: 2}
+  _chasingState: {fileID: 11400000, guid: 34066cdac2a8efe4eadfa12546b92ec6, type: 2}
   _attackingState: {fileID: 0}
+  _stateChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []

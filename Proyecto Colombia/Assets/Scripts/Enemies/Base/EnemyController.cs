@@ -23,8 +23,17 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
         _chasing = ChaseState();
         _idle = IdleState();
         _damageable._onDamageTaken.AddListener(OnDamageTaken); // Event from the Damageable script
+        _damageable._onDeath.AddListener(OnDeath);
     }
+
+    private void OnDisable()
+    {
+        _damageable._onDamageTaken.RemoveListener(OnDamageTaken);
+        _damageable._onDeath.RemoveListener(OnDeath);
+    }
+
     protected abstract void OnDamageTaken(Transform _enemy, float _damage);
+    protected abstract void Attack();
     #region StandardCoroutines
     public abstract IEnumerator AttackState();
     public abstract IEnumerator ChaseState();
@@ -63,6 +72,9 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
 
     #endregion
 
-    
-   
+    protected void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+
 }

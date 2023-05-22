@@ -10,7 +10,7 @@ public abstract class EnemyController : MonoBehaviour
 
     [HideInInspector]public Rigidbody2D _rb;
 
-    public Damageable _damageable;
+    [HideInInspector] public Damageable _damageable;
 
 
     private void OnEnable()

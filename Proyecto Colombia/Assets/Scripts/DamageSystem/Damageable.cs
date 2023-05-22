@@ -14,12 +14,12 @@ public class Damageable : MonoBehaviour
         if(_HitPoints > magnitude)
         {
             _HitPoints -= magnitude;
-            _onDamageTaken.Invoke(_attacker, magnitude);
+            _onDamageTaken?.Invoke(_attacker, magnitude);
         }
         else
         {
             _HitPoints = 0;
-            _onDeath.Invoke();
+            _onDeath?.Invoke();
         }
 
     }

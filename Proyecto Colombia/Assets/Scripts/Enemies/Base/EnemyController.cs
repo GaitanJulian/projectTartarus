@@ -1,50 +1,68 @@
+using System.Collections;
 using UnityEngine;
 
-public abstract class EnemyController : MonoBehaviour
+public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
 {
-    [SerializeField] public EnemyStateManagerScriptableObject _stateManager;
-    [HideInInspector] public EnemyBaseState _currentState;
 
-    [SerializeField] public EnemyStatsScriptableObject _enemyStats;
-    [SerializeField] public EnemyAiWithContextSteering _contextSteering;
+    [SerializeField] protected EnemyStatsScriptableObject _enemyStats;
+    [SerializeField] protected EnemyAiWithContextSteering _contextSteering;
+    protected Rigidbody2D _rb;
+    protected Damageable _damageable;
+    private IEnumerator _attacking, _chasing, _idle; // Variables for stopping and starting coroutines
 
-    [HideInInspector]public Rigidbody2D _rb;
-
-    [HideInInspector] public Damageable _damageable;
-
-
-    private void OnEnable()
-    {
-        _stateManager._stateChangeEvent.AddListener(OnStateChange);
-    }
-
-    private void OnDisable()
-    {
-        _stateManager._stateChangeEvent.RemoveListener(OnStateChange);
-    }
 
     private void Awake()
     {
         _damageable = GetComponent<Damageable>();
-    }
-    protected virtual void Start()
-    {
         _rb = GetComponent<Rigidbody2D>();
-        _currentState = _stateManager._idleState;
-        _currentState.EnterState(_stateManager, this);
     }
-    protected void Update()
+
+    protected void Start()
     {
-        _currentState.UpdateState(_stateManager, this);
-        print(_currentState);
+        _attacking = AttackState();
+        _chasing = ChaseState();
+        _idle = IdleState();
+        _damageable._onDamageTaken.AddListener(OnDamageTaken); // Event from the Damageable script
     }
+    protected abstract void OnDamageTaken(Transform _enemy, float _damage);
+    #region StandardCoroutines
+    public abstract IEnumerator AttackState();
+    public abstract IEnumerator ChaseState();
+    public abstract IEnumerator IdleState();
 
-    private void OnStateChange(EnemyBaseState newState)
+    
+    protected void StopAtaccking()
     {
-        print("Cambio de estado !!!!!!");
-        _currentState = newState;
-        _currentState.EnterState(_stateManager, this);
+        StopCoroutine(_attacking);
     }
 
+    protected void StopChasing()
+    {
+        StopCoroutine(_chasing);
+    }
 
+    protected void StopIdle()
+    {
+        StopCoroutine(_idle);
+    }
+
+    protected void StartAttacking()
+    {
+        StartCoroutine(_attacking);
+    }
+
+    protected void StartChasing()
+    {
+        StartCoroutine(_chasing);
+    }
+
+    protected void StartIdle()
+    {
+        StartCoroutine(_idle);
+    }
+
+    #endregion
+
+    
+   
 }

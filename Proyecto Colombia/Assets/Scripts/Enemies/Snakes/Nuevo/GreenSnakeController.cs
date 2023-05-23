@@ -3,8 +3,9 @@ using UnityEngine;
 public class GreenSnakeController : EnemyController
 {
     private Vector2 _freeMoveDirection; // A random vector that is used in the IdleState for a free movement direction
-    private bool _isIdle = true; // A boolean to check if the enemy is in idle state, this will allow to change from idle to chasing.
-
+    protected bool _isIdle = true; // A boolean to check if the enemy is in idle state, this will allow to change from idle to chasing.
+    protected bool _isAttacking = false;
+    protected bool _isChasing = false;
     protected void Start()
     {
         StartCoroutine(_idleCoroutine);
@@ -14,6 +15,7 @@ public class GreenSnakeController : EnemyController
     {
         while (true)
         {
+            _isAttacking = true;
             _rb.velocity = Vector2.zero;
 
             // Attack the player
@@ -25,6 +27,7 @@ public class GreenSnakeController : EnemyController
             // Check if the player is still within attack range
             if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
             {
+                _isAttacking = false;
                 ChangeState(_attackCoroutine, _chasingCoroutine);
                 //ChangeAnimationState(SNAKE_IDLE);
             }
@@ -36,6 +39,7 @@ public class GreenSnakeController : EnemyController
     {
         while (true)
         {
+            _isChasing = true;
             if (_contextSteering.TargetOnSight()) //if the target is on sight
             {
                 if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
@@ -46,12 +50,13 @@ public class GreenSnakeController : EnemyController
                 }
                 else
                 {
-                    //_attackCoroutine = AttackState();
+                    _isChasing = false;
                     ChangeState(_chasingCoroutine, _attackCoroutine);
                 }
             }
             else
             {
+                _isChasing = false;
                 ChangeState(_chasingCoroutine, _idleCoroutine);
             }
             yield return null;

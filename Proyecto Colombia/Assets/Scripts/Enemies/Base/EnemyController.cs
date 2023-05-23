@@ -18,6 +18,9 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
     {
         _damageable = GetComponent<Damageable>();
         _rb = GetComponent<Rigidbody2D>();
+        _attackCoroutine = AttackState();
+        _chasingCoroutine = ChaseState();
+        _idleCoroutine = IdleState();
     }
 
     private void OnEnable()
@@ -35,53 +38,20 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
     protected abstract void OnDamageTaken(Transform _enemy, float _damage); // Method to handle damage taken by the enemy
     protected abstract void Attack(); // Method to perform the attack action
 
-    #region StandardCoroutines
-
     // Abstract methods representing the standard enemy states
     public abstract IEnumerator AttackState();
     public abstract IEnumerator ChaseState();
     public abstract IEnumerator IdleState();
 
-    // Method to stop the attacking coroutine
-    protected internal void StopAtaccking()
-    {
-        StopCoroutine(_attackCoroutine);
-    }
-
-    // Method to stop the chasing coroutine
-    protected internal void StopChasing()
-    {
-        StopCoroutine(_chasingCoroutine);
-    }
-
-    // Method to stop the idle coroutine
-    protected internal void StopIdle()
-    {
-        StopCoroutine(_idleCoroutine);
-    }
-
-    // Method to start the attacking coroutine
-    protected internal void StartAttacking()
-    {
-        StartCoroutine(_attackCoroutine);
-    }
-
-    // Method to start the chasing coroutine
-    protected internal void StartChasing()
-    {
-        StartCoroutine(_chasingCoroutine);
-    }
-
-    // Method to start the idle coroutine
-    protected void StartIdle()
-    {
-        StartCoroutine(_idleCoroutine);
-    }
-
-    #endregion
-
     protected void OnDeath()
     {
         Destroy(gameObject); // Destroy the enemy game object upon death
     }
+
+    protected void ChangeState(IEnumerator _stopState, IEnumerator _startState)
+    {
+        StopCoroutine(_stopState);
+        StartCoroutine(_startState);
+    }
+
 }

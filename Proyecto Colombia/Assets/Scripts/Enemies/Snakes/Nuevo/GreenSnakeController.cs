@@ -2,20 +2,12 @@ using System.Collections;
 using UnityEngine;
 public class GreenSnakeController : EnemyController
 {
-    private Vector2 _freeMoveDirection;
-    private bool _isAttacked = false;
-    protected override void Awake()
-    {
-        base.Awake();
-
-    }
+    private Vector2 _freeMoveDirection; // A random vector that is used in the IdleState for a free movement direction
+    private bool _isIdle = true; // A boolean to check if the enemy is in idle state, this will allow to change from idle to chasing.
 
     protected void Start()
     {
-        //SetCoroutines();
-        //base.Start();
-        _idleCoroutine = IdleState();
-        StartIdle();
+        StartCoroutine(_idleCoroutine);
     }
 
     public override IEnumerator AttackState()
@@ -33,8 +25,7 @@ public class GreenSnakeController : EnemyController
             // Check if the player is still within attack range
             if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
             {
-                StopAtaccking();
-                StartChasing();
+                ChangeState(_attackCoroutine, _chasingCoroutine);
                 //ChangeAnimationState(SNAKE_IDLE);
             }
         }
@@ -50,30 +41,28 @@ public class GreenSnakeController : EnemyController
                 if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
                 {
                     //if target is further than attack distance
-                    //_rb.velocity = _context._contextSteering.GetDirection() * _context.MoveVelocity;
                     _rb.velocity = _contextSteering.GetDirection() * _enemyStats.maxSpeed;
+     
                 }
                 else
                 {
-                    _attackCoroutine = AttackState();
-                    StartAttacking();
-                    StopChasing();
+                    //_attackCoroutine = AttackState();
+                    ChangeState(_chasingCoroutine, _attackCoroutine);
                 }
             }
             else
             {
-
-                StartIdle();
-                StopChasing();
+                ChangeState(_chasingCoroutine, _idleCoroutine);
             }
+            yield return null;
         }
-        
     }
 
     public override IEnumerator IdleState()
     {
         while (true)
         {
+            _isIdle = true;
             // Generate a random direction for the snake
             _freeMoveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
 
@@ -111,12 +100,10 @@ public class GreenSnakeController : EnemyController
 
     protected override void OnDamageTaken(Transform _attacker, float damage)
     {
-        if (!_isAttacked)
+        if (_isIdle)
         {
-            _isAttacked = true;
-            StopIdle();
-            _chasingCoroutine = ChaseState();
-            StartChasing();
+            _isIdle = false;
+            ChangeState(_idleCoroutine, _chasingCoroutine);
         }
         
     }

@@ -1,4 +1,6 @@
+using Events;
 using System.Collections;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 public class GreenSnakeController : EnemyController
 {
@@ -110,12 +112,11 @@ public class GreenSnakeController : EnemyController
             _isIdle = false;
             ChangeState(_idleCoroutine, _chasingCoroutine);
         }
-        
     }
 
     protected override void Attack()
     {
-        print("Attacking");
+        EventManager.Dispatch(ENUM_Player.alterHitpoints, -_enemyStats.damage);
     }
 
 

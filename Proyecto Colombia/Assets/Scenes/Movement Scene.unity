@@ -123,6 +123,79 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &93612200
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 613982363}
+    m_Modifications:
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564609997376683080, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_Name
+      value: Context Steering Component
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+--- !u!114 &93612201 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4984291413065754067, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+  m_PrefabInstance: {fileID: 93612200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 398f494418f91ec4bb5b00bec894ef54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &93612202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+  m_PrefabInstance: {fileID: 93612200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &262897862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -417,7 +490,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 93612202}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -434,10 +508,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _HitPoints: 100
-  onDamageTaken:
+  _onDamageTaken:
     m_PersistentCalls:
       m_Calls: []
-  onDeath:
+  _onDeath:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &613982365
@@ -452,13 +526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea05b6de48d8e9f4e818d4527ce893c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stateManager: {fileID: 11400000, guid: 12356bf59dff50c418513a1cbc8c34a2, type: 2}
-  _currentState: {fileID: 0}
   _enemyStats: {fileID: 11400000, guid: fb428c56ce22b2c4bbe3e5de92e91c7d, type: 2}
-  _contextSteering: {fileID: 0}
-  _rb: {fileID: 0}
-  _attacker: {fileID: 0}
-  _isAttacked: 0
+  _contextSteering: {fileID: 93612201}
 --- !u!1 &1180814305
 GameObject:
   m_ObjectHideFlags: 0

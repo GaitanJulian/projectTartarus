@@ -1,12 +1,23 @@
 using System.Collections;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 public class GreenSnakeController : EnemyController
 {
-    
-    private Transform _attacker;
-    private bool _isAttacked;
     private Vector2 _freeMoveDirection;
+    private bool _isAttacked = false;
+    protected override void Awake()
+    {
+        base.Awake();
+
+    }
+
+    protected void Start()
+    {
+        //SetCoroutines();
+        //base.Start();
+        _idleCoroutine = IdleState();
+        StartIdle();
+    }
+
     public override IEnumerator AttackState()
     {
         while (true)
@@ -22,8 +33,8 @@ public class GreenSnakeController : EnemyController
             // Check if the player is still within attack range
             if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
             {
-                StartChasing();
                 StopAtaccking();
+                StartChasing();
                 //ChangeAnimationState(SNAKE_IDLE);
             }
         }
@@ -44,12 +55,14 @@ public class GreenSnakeController : EnemyController
                 }
                 else
                 {
+                    _attackCoroutine = AttackState();
                     StartAttacking();
                     StopChasing();
                 }
             }
             else
             {
+
                 StartIdle();
                 StopChasing();
             }
@@ -92,20 +105,26 @@ public class GreenSnakeController : EnemyController
                     _rb.velocity = Vector2.zero;
                 }
             }
+            yield return new WaitForSeconds(_enemyStats.freeMovementTime);
         }
     }
 
     protected override void OnDamageTaken(Transform _attacker, float damage)
     {
-        this._attacker = _attacker;
-        StopIdle();
-        StartChasing();
-
+        if (!_isAttacked)
+        {
+            _isAttacked = true;
+            StopIdle();
+            _chasingCoroutine = ChaseState();
+            StartChasing();
+        }
+        
     }
 
     protected override void Attack()
     {
         print("Attacking");
     }
+
 
 }

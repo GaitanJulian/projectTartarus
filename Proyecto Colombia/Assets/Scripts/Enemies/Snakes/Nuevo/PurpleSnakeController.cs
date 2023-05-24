@@ -1,7 +1,7 @@
 
 public class PurpleSnakeController : GreenSnakeController
 {
-    private void Update()
+    protected virtual void Update()
     {
         if(_isIdle && _contextSteering.TargetCount() > 0)
         {

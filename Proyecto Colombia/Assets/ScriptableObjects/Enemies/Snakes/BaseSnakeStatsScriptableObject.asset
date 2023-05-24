@@ -20,6 +20,8 @@ MonoBehaviour:
   damage: 5
   attackRange: 2
   attackTime: 0.3
+  rotationSpeed: 10
+  evadeChance: 0.02
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 128

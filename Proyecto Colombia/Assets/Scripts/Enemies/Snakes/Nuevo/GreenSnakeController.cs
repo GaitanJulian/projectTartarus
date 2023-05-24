@@ -8,7 +8,7 @@ public class GreenSnakeController : EnemyController
     protected bool _isIdle = true; // A boolean to check if the enemy is in idle state, this will allow to change from idle to chasing.
     protected bool _isAttacking = false;
     protected bool _isChasing = false;
-    protected void Start()
+    protected virtual void Start()
     {
         StartCoroutine(_idleCoroutine);
     }

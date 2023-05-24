@@ -15,7 +15,13 @@ public class EnemyStatsScriptableObject : ScriptableObject
     public float attackRange;
     public float attackTime;
 
+    [Header("Evade Mechanic")]
+    public float rotationSpeed;
+    public float evadeChance;
+
     [Header("LayerMasks")]
     public LayerMask playerLayerMask;
     public LayerMask wallLayerMask;
+
+    
 }

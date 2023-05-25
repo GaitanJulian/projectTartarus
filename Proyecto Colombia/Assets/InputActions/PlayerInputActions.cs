@@ -62,6 +62,42 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ec4b2b7-3d7f-4807-9105-2f94e4e46173"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""844ad7e5-a237-42c8-a3a8-26088b4405f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Open/CloseInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""93407c67-0b83-4f4b-9bca-9d6ec039bcf2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""16e8d0ad-b4db-43d9-b0aa-d7d1c345a434"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -288,11 +324,55 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f3a03bfe-78e6-4b52-8103-3a6b710f8676"",
-                    ""path"": ""<Keyboard>/v"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8acdfd0d-204d-4a24-9bcc-5c1a671779a7"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""InventoryLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2fa7d191-5879-4627-944b-9ea59166641d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""InventoryRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4f2e825-f7ba-4acd-bac1-2c757c95147e"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Open/CloseInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3917ed4-8ba6-4508-b5bf-bc695a08306b"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -884,6 +964,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_InventoryLeft = m_Player.FindAction("InventoryLeft", throwIfNotFound: true);
+        m_Player_InventoryRight = m_Player.FindAction("InventoryRight", throwIfNotFound: true);
+        m_Player_OpenCloseInventory = m_Player.FindAction("Open/CloseInventory", throwIfNotFound: true);
+        m_Player_UseItem = m_Player.FindAction("UseItem", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -961,6 +1045,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_InventoryLeft;
+    private readonly InputAction m_Player_InventoryRight;
+    private readonly InputAction m_Player_OpenCloseInventory;
+    private readonly InputAction m_Player_UseItem;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -969,6 +1057,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @InventoryLeft => m_Wrapper.m_Player_InventoryLeft;
+        public InputAction @InventoryRight => m_Wrapper.m_Player_InventoryRight;
+        public InputAction @OpenCloseInventory => m_Wrapper.m_Player_OpenCloseInventory;
+        public InputAction @UseItem => m_Wrapper.m_Player_UseItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -990,6 +1082,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @InventoryLeft.started += instance.OnInventoryLeft;
+            @InventoryLeft.performed += instance.OnInventoryLeft;
+            @InventoryLeft.canceled += instance.OnInventoryLeft;
+            @InventoryRight.started += instance.OnInventoryRight;
+            @InventoryRight.performed += instance.OnInventoryRight;
+            @InventoryRight.canceled += instance.OnInventoryRight;
+            @OpenCloseInventory.started += instance.OnOpenCloseInventory;
+            @OpenCloseInventory.performed += instance.OnOpenCloseInventory;
+            @OpenCloseInventory.canceled += instance.OnOpenCloseInventory;
+            @UseItem.started += instance.OnUseItem;
+            @UseItem.performed += instance.OnUseItem;
+            @UseItem.canceled += instance.OnUseItem;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1006,6 +1110,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @InventoryLeft.started -= instance.OnInventoryLeft;
+            @InventoryLeft.performed -= instance.OnInventoryLeft;
+            @InventoryLeft.canceled -= instance.OnInventoryLeft;
+            @InventoryRight.started -= instance.OnInventoryRight;
+            @InventoryRight.performed -= instance.OnInventoryRight;
+            @InventoryRight.canceled -= instance.OnInventoryRight;
+            @OpenCloseInventory.started -= instance.OnOpenCloseInventory;
+            @OpenCloseInventory.performed -= instance.OnOpenCloseInventory;
+            @OpenCloseInventory.canceled -= instance.OnOpenCloseInventory;
+            @UseItem.started -= instance.OnUseItem;
+            @UseItem.performed -= instance.OnUseItem;
+            @UseItem.canceled -= instance.OnUseItem;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1192,6 +1308,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnInventoryLeft(InputAction.CallbackContext context);
+        void OnInventoryRight(InputAction.CallbackContext context);
+        void OnOpenCloseInventory(InputAction.CallbackContext context);
+        void OnUseItem(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

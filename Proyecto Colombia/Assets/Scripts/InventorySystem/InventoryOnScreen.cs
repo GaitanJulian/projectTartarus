@@ -1,39 +1,87 @@
 using Events;
 using System.Collections;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryOnScreen : MonoBehaviour
 {
-    Inventory _inventory;
     [SerializeField] GameObject _slotPrefab;
     [SerializeField] GameObject[] _aviableSlots;
-    [SerializeField] float _radius = 1f, _rotationSpeed = 3;
-    [SerializeField] int _numberVisible = 7;
-    [SerializeField][Range(0f, 1f)] float _fractionOfCircunference = 0.45f;
-    [SerializeField] Animator _arrowAnimator;
+    Inventory _inventory;
+    PlayerInputActions _playerControls;
+    InputAction _inventoryLeft, _inventoryRight, _useItem;
+    float _radius = 1f, _rotationSpeed = 2f;
+    int _numberVisible = 7;
+    [Range(0f, 1f)] float _fractionOfCircunference = 0.45f;
     float _angle, _thisAngle, _betweenPointsDistance;
     Vector3[] _slotPositions;
-    float[] _sizes = new float[] { 0.0f, 0.11f, 0.14f, 0.2f, 0.14f, 0.11f, 0.0f };
-    int[] _sortingOrder = new int[] { 0, 1, 2, 3, 2, 1, 0 };
+    float[] _sizes = new float[] { 0.07f, 0.12f, 0.16f, 0.2f, 0.16f, 0.12f, 0.07f };
+    int[] _sortingOrder = new int[] { 0, 2, 4, 6, 4, 2, 0 };
     int[] _childIndexes;
+    bool _ableToRotate = true;
+
+    Queue<InputAction> inputQueue = new Queue<InputAction>();
 
     private void Start()
     {
         _inventory = Inventory._instance;
         InitializeVariables();
     }
-
     private void Awake()
     {
-        EventManager.AddListener(ENUM_Inventory.actualizeUI, PlaceSlots);
+        _playerControls = new PlayerInputActions();
+        EventManager.AddListener(ENUM_Inventory.actualizeInventory, InitializeVariables);
     }
-
     private void OnDestroy()
     {
-        EventManager.RemoveListener(ENUM_Inventory.actualizeUI, PlaceSlots);
+        EventManager.RemoveListener(ENUM_Inventory.actualizeInventory, InitializeVariables);
     }
+    private void OnEnable()
+    {
+        _inventoryLeft = _playerControls.Player.InventoryLeft;
+        _inventoryLeft.Enable();
+        _inventoryRight = _playerControls.Player.InventoryRight;
+        _inventoryRight.Enable();
+        _useItem = _playerControls.Player.UseItem;
+        _useItem.Enable();
+    }
+    private void OnDisable()
+    {
+        _inventoryLeft.Disable();
+        _inventoryRight.Disable();
+        _useItem.Disable();
+    }
+    private void Update()
+    {
+        CalculateAngle();
 
+        if (_inventoryLeft.WasPressedThisFrame())
+        {
+            inputQueue.Enqueue(_inventoryLeft);
+        }
+        else if (_inventoryRight.WasPressedThisFrame())
+        {
+            inputQueue.Enqueue(_inventoryRight);
+        }
+
+        if (_ableToRotate && inputQueue.Count > 0)
+        {
+            _ableToRotate = false;
+            var action = inputQueue.Peek();
+            Debug.Log(action);
+            if ( action == _inventoryLeft )
+            {
+                StartCoroutine(RotateLeft());
+            }
+            else if ( action == _inventoryRight)
+            {
+                StartCoroutine(RotateRight());
+            }
+            inputQueue.Dequeue();
+        }
+
+    }
     private void InitializeVariables()
     {
         _slotPositions = new Vector3[_numberVisible];
@@ -47,30 +95,8 @@ public class InventoryOnScreen : MonoBehaviour
         GenerateSlots(_inventory);
         HideSlots();
         PlaceSlots();
+        EventManager.Dispatch(ENUM_Inventory.actualizeUI);
     }
-    private void Update()
-    {
-        CalculateAngle();
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            _slotPositions = new Vector3[(int)_numberVisible];
-            for (int i = transform.childCount - 1; i >= 0; i--) { Destroy(transform.GetChild(i).gameObject); }
-            CalculateAngle();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(RotateRight());
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            StartCoroutine(RotateLeft());
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            InitializeVariables();
-        }
-    }
-
     void DestroyAllSlots()
     {
         for (int i = 0; i < _aviableSlots.Length; i++)
@@ -78,13 +104,12 @@ public class InventoryOnScreen : MonoBehaviour
             _aviableSlots[i].GetComponent<SlotOfRadialInventory>().SelfDestroy();
         }
     }
-
     void GenerateSlots(Inventory inventory)
     {
         int numberOfPlaces = inventory._space;
 
         
-        //I'll hardcode the values considering 7 visible
+        //I'll hardcode the values considering 7 visible | Also this is so ugly, works, but needs refactorization
         if (numberOfPlaces >= 7)
         {
             _aviableSlots = new GameObject[numberOfPlaces];
@@ -146,7 +171,6 @@ public class InventoryOnScreen : MonoBehaviour
         HideSlots();
         PlaceSlots();
     }
-
     void CalculateAngle()
     {
         _angle = 360 * _fractionOfCircunference / _numberVisible;
@@ -159,6 +183,9 @@ public class InventoryOnScreen : MonoBehaviour
             float y = transform.position.y + _radius * Mathf.Sin(_thisAngle * Mathf.Deg2Rad);
             _slotPositions[i] = new Vector3(x, y, 0);
         }
+        //_slotPositions[3].y -= 0.05f;
+        _slotPositions[2].y -= 0.07f;
+        _slotPositions[4].y -= 0.07f;
         _betweenPointsDistance = Vector2.Distance(_slotPositions[0], _slotPositions[1]);
     }
     void HideSlots()
@@ -168,7 +195,6 @@ public class InventoryOnScreen : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
     void PlaceSlots()
     {
         HideSlots();
@@ -177,10 +203,10 @@ public class InventoryOnScreen : MonoBehaviour
             _aviableSlots[_childIndexes[i]].SetActive(true);
             _aviableSlots[_childIndexes[i]].transform.position = _slotPositions[i];
             _aviableSlots[_childIndexes[i]].transform.localScale = _sizes[i] * Vector3.one;
-            _aviableSlots[_childIndexes[i]].GetComponentInChildren<SpriteRenderer>().sortingOrder = _sortingOrder[i];
+            _aviableSlots[_childIndexes[i]].transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sortingOrder = _sortingOrder[i];
+            _aviableSlots[_childIndexes[i]].transform.GetChild(1).GetComponentInChildren<SpriteRenderer>().sortingOrder = _sortingOrder[i] + 1;
         }
     }
-
     void ChangePos(int number)
     {
         for (int i = 0; i < _childIndexes.Length; i++)
@@ -199,50 +225,48 @@ public class InventoryOnScreen : MonoBehaviour
             }
         }
     }
-
     IEnumerator RotateRight()
     {
-        _arrowAnimator.SetTrigger("arrowRight");
-
         float timer = _betweenPointsDistance;
 
         while (timer > 0)
         {
             for (int i = 1; i < _slotPositions.Length; i++)
             {
+                _aviableSlots[_childIndexes[i]].transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sortingOrder = _sortingOrder[i - 1];
+                _aviableSlots[_childIndexes[i]].transform.GetChild(1).GetComponentInChildren<SpriteRenderer>().sortingOrder = _sortingOrder[i - 1] + 1;
                 _aviableSlots[_childIndexes[i]].transform.position = Vector2.MoveTowards(_aviableSlots[_childIndexes[i]].transform.position, _slotPositions[i - 1], Time.deltaTime * _rotationSpeed);
-                _aviableSlots[_childIndexes[i]].transform.localScale = Vector2.MoveTowards(_aviableSlots[_childIndexes[i]].transform.localScale, _sizes[i - 1] * Vector3.one, Time.deltaTime * _rotationSpeed);
-                _aviableSlots[_childIndexes[i]].GetComponentInChildren<SpriteRenderer>().sortingOrder = _sortingOrder[i - 1];
+                _aviableSlots[_childIndexes[i]].transform.localScale = Vector2.MoveTowards(_aviableSlots[_childIndexes[i]].transform.localScale, _sizes[i - 1] * Vector3.one, Time.deltaTime * _rotationSpeed / 3);
             }
             timer = timer - Time.deltaTime * _rotationSpeed;
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(Time.deltaTime);
         }
         EventManager.Dispatch(ENUM_Inventory.actualizeUI);
         ChangePos(1);
         PlaceSlots();
-    }
 
+        _ableToRotate = true;
+    }
     IEnumerator RotateLeft()
     {
-        _arrowAnimator.SetTrigger("arrowLeft");
-
         float timer = _betweenPointsDistance;
 
         while (timer > 0)
         {
             for (int i = 0; i < _slotPositions.Length - 1; i++)
             {
+                _aviableSlots[_childIndexes[i]].transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().sortingOrder = _sortingOrder[i + 1];
+                _aviableSlots[_childIndexes[i]].transform.GetChild(1).GetComponentInChildren<SpriteRenderer>().sortingOrder = _sortingOrder[i + 1] + 1;
                 _aviableSlots[_childIndexes[i]].transform.position = Vector2.MoveTowards(_aviableSlots[_childIndexes[i]].transform.position, _slotPositions[i + 1], Time.deltaTime * _rotationSpeed);
-                _aviableSlots[_childIndexes[i]].transform.localScale = Vector2.MoveTowards(_aviableSlots[_childIndexes[i]].transform.localScale, _sizes[i + 1] * Vector3.one, Time.deltaTime * _rotationSpeed);
-                _aviableSlots[_childIndexes[i]].GetComponentInChildren<SpriteRenderer>().sortingOrder = _sortingOrder[i + 1];
+                _aviableSlots[_childIndexes[i]].transform.localScale = Vector2.MoveTowards(_aviableSlots[_childIndexes[i]].transform.localScale, _sizes[i + 1] * Vector3.one, Time.deltaTime * _rotationSpeed / 3);
             }
             timer = timer - Time.deltaTime * _rotationSpeed;
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(Time.deltaTime);
         }
         EventManager.Dispatch(ENUM_Inventory.actualizeUI);
         ChangePos(-1);
         PlaceSlots();
+
+        _ableToRotate = true;
     }
 }
-
-

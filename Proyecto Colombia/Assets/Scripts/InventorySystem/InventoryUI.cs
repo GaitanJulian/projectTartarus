@@ -24,6 +24,9 @@ public class InventoryUI : MonoBehaviour
     void UpdateUI()
     {
         _slots = _itemsParent.GetComponentsInChildren<SlotOfRadialInventory>();
+
+        if (_inventory == null) return;
+
         for (int i = 0; i < _inventory._items.Count; i++)
         {
             for (int j = 0; j < _slots.Length; j++)
@@ -33,6 +36,14 @@ public class InventoryUI : MonoBehaviour
                     _slots[j].AddItemToSlot(_inventory._items[i]);
                 }
             }
+        }
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            UpdateUI();
         }
     }
 }

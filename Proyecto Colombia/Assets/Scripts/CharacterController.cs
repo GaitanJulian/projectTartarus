@@ -14,7 +14,7 @@ public class CharacterController : MonoBehaviour
     private Vector2 _desiredVelocity; // Variable that indicates the max Speed the player can get in any direction
     private Vector2 _currentVelocity; // Current speed in a frame
 
-    const string _animParamHorizontal = "Horizontal", _animParamVertical = "Vertical";
+    const string _animParamHorizontal = "Horizontal", _animParamVertical = "Vertical", _animSpeed = "Speed";
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -46,7 +46,7 @@ public class CharacterController : MonoBehaviour
             _desiredVelocity = _playerInput * _movementStats.maxSpeed;
             _currentVelocity = _rb.velocity;
             _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.acceleration * Time.fixedDeltaTime);
-            _animator.SetFloat("Speed", 1);
+            _animator.SetFloat(_animSpeed, 1);
             Animate();
         }
         else
@@ -55,7 +55,7 @@ public class CharacterController : MonoBehaviour
             _desiredVelocity = Vector2.zero;
             _currentVelocity = _rb.velocity;
             _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.deceleration * Time.fixedDeltaTime);
-            _animator.SetFloat("Speed", 0);
+            _animator.SetFloat(_animSpeed, 0);
         }
 
     }

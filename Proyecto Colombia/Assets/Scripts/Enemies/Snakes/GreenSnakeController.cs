@@ -10,15 +10,21 @@ public class GreenSnakeController : EnemyController
     protected bool _isChasing = false;
     protected virtual void Start()
     {
-        StartCoroutine(_idleCoroutine);
+        StartCoroutine(_idleCoroutine); // The snake starts at the Idle Coroutine
     }
 
+    /// <summary>
+    /// Executes the attack behavior of the snake.
+    /// Right when the snake enters in attack state it stops moving, then attacks the player
+    /// this behavior is defined in the code, it could be different like moving slower while attacking.
+    /// Then the snake checks if the player is still in its attack range, if so, continues attacking.
+    /// </summary>
     public override IEnumerator AttackState()
     {
         while (true)
         {
             _isAttacking = true;
-            _rb.velocity = Vector2.zero;
+            _rb.velocity = Vector2.zero; // In this case, at the start of the attack the snake stops moving
 
             // Attack the player
             Attack();
@@ -26,17 +32,22 @@ public class GreenSnakeController : EnemyController
             // Wait for the attack duration
             yield return new WaitForSeconds(_enemyStats.attackTime);
 
-            // Check if the player is still within attack range
+            // Check if the player is still within attack range, using the context Steering along with the Attack range from _enemyStats Scriptable Object
             if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
             {
                 _isAttacking = false;
-                ChangeState(_attackCoroutine, _chasingCoroutine);
+                // If it is out of the attack range, we start chasing again
+                ChangeState(_attackCoroutine, _chasingCoroutine); 
                 //ChangeAnimationState(SNAKE_IDLE);
             }
         }
-        
     }
-
+    /// <summary>
+    /// Executes the chase state
+    /// This method uses the context steering for working.
+    /// if the target is on sight, it checks first if is out of attack range, if so, moves towards the player
+    /// if the target is on attack range, change its state to attack state.
+    /// </summary>
     public override IEnumerator ChaseState()
     {
         while (true)
@@ -64,7 +75,11 @@ public class GreenSnakeController : EnemyController
             yield return null;
         }
     }
-
+    /// <summary>
+    /// Basically, if the random direction in which it chooses to move has a wall, the snake will try to move just in the opposite direction,
+    /// but if it has a wall too, it will do nothing but wait for the next random vector. 
+    /// You can see that this state has no trigger for a chage of state, this happens in the OnDamageTaken method.
+    /// </summary>
     public override IEnumerator IdleState()
     {
         while (true)
@@ -104,7 +119,13 @@ public class GreenSnakeController : EnemyController
             yield return new WaitForSeconds(_enemyStats.freeMovementTime);
         }
     }
-
+    /// <summary>
+    /// This method is inherited from EnemyController. 
+    /// this method is a listener to the onDamageTaken event from Damageable script
+    /// </summary>
+    /// <param name="_attacker"></param>
+    /// the transform of the attacker, this could be removed later on
+    /// <param name="damage"></param>
     protected override void OnDamageTaken(Transform _attacker, float damage)
     {
         if (_isIdle)
@@ -113,7 +134,9 @@ public class GreenSnakeController : EnemyController
             ChangeState(_idleCoroutine, _chasingCoroutine);
         }
     }
-
+    /// <summary>
+    /// Attack method, calls the event to alter player hitpoints
+    /// </summary>
     protected override void Attack()
     {
         EventManager.Dispatch(ENUM_Player.alterHitpoints, -_enemyStats.damage);

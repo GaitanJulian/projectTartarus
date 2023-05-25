@@ -12,20 +12,20 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
     protected Damageable _damageable;
 
     // Coroutines for controlling enemy behavior
-    protected IEnumerator _attackCoroutine, _chasingCoroutine, _idleCoroutine;
+    protected IEnumerator _attackCoroutine, _chasingCoroutine, _idleCoroutine; // This variables allow to start and stop a certain coroutine
 
     protected virtual void Awake()
     {
         _damageable = GetComponent<Damageable>();
         _rb = GetComponent<Rigidbody2D>();
-        _attackCoroutine = AttackState();
+        _attackCoroutine = AttackState(); // Each variable must be assigned to its corresponding coroutine, this case the Attack State
         _chasingCoroutine = ChaseState();
         _idleCoroutine = IdleState();
     }
 
     private void OnEnable()
     {
-        _damageable._onDamageTaken.AddListener(OnDamageTaken); // Listen to the damage taken event
+        _damageable._onDamageTaken.AddListener(OnDamageTaken); // Listen to the damage taken event, check event from the Damageable script
         _damageable._onDeath.AddListener(OnDeath); // Listen to the death event
     }
 
@@ -48,7 +48,8 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
         Destroy(gameObject); // Destroy the enemy game object upon death
     }
 
-    protected void ChangeState(IEnumerator _stopState, IEnumerator _startState)
+    // This method allows you easily change from one coroutine to another
+    protected void ChangeState(IEnumerator _stopState, IEnumerator _startState) 
     {
         StopCoroutine(_stopState);
         StartCoroutine(_startState);

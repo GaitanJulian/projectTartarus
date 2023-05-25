@@ -69,6 +69,7 @@ public class DrumAttack : MonoBehaviour
         if(collision.gameObject.GetComponent<Damageable>() != null)
         {
             collision.gameObject.GetComponent<Damageable>().GetDamaged(_damage);
+            collision.gameObject.GetComponent<Damageable>().SetAttacker(transform);
         }
     }
 }

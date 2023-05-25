@@ -28,6 +28,7 @@ public class CapibaraMov : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Water"))
+        //cuando deja de colisionar con el objeto que tenga el tag de water llama la funcion para ocultar el capibara
         {
             salirAgua();
 

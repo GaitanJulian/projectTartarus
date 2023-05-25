@@ -308,7 +308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2637344583421746407, guid: c010a1f7142475d4080d57df584d2100, type: 3}
       propertyPath: m_Name
-      value: spaenAcordeon
+      value: spawnOnda
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c010a1f7142475d4080d57df584d2100, type: 3}

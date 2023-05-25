@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2039481967394056262}
   - component: {fileID: 2039481967394056263}
   m_Layer: 0
-  m_Name: Acordionist
+  m_Name: Accordionist
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

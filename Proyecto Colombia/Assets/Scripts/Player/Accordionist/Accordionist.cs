@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Acordionist : MonoBehaviour
+public class Accordionist : MonoBehaviour
 {
     [SerializeField] GameObject onda;
     [SerializeField] Transform salida;

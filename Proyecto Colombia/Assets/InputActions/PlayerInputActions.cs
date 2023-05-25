@@ -71,6 +71,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectTrap"",
+                    ""type"": ""Value"",
+                    ""id"": ""cf6a488b-3115-420d-997e-adb06b0e14c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -313,6 +322,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Swim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0bfd3eab-7e4b-4181-87a7-6615f51192f4"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SelectTrap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -905,6 +925,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Swim = m_Player.FindAction("Swim", throwIfNotFound: true);
+        m_Player_SelectTrap = m_Player.FindAction("SelectTrap", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -983,6 +1004,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Swim;
+    private readonly InputAction m_Player_SelectTrap;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -992,6 +1014,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Swim => m_Wrapper.m_Player_Swim;
+        public InputAction @SelectTrap => m_Wrapper.m_Player_SelectTrap;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1016,6 +1039,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Swim.started += instance.OnSwim;
             @Swim.performed += instance.OnSwim;
             @Swim.canceled += instance.OnSwim;
+            @SelectTrap.started += instance.OnSelectTrap;
+            @SelectTrap.performed += instance.OnSelectTrap;
+            @SelectTrap.canceled += instance.OnSelectTrap;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1035,6 +1061,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Swim.started -= instance.OnSwim;
             @Swim.performed -= instance.OnSwim;
             @Swim.canceled -= instance.OnSwim;
+            @SelectTrap.started -= instance.OnSelectTrap;
+            @SelectTrap.performed -= instance.OnSelectTrap;
+            @SelectTrap.canceled -= instance.OnSelectTrap;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1222,6 +1251,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnSwim(InputAction.CallbackContext context);
+        void OnSelectTrap(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

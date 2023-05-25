@@ -9,7 +9,7 @@ public class Accordionist : MonoBehaviour
     [SerializeField] float force, radio, timeatack, distance;
     private PlayerInputActions playerControls;
     CharacterController movControll;
-    private InputAction Atack;
+    private InputAction Attack;
     Vector2 direccion;
     float time;
     void Awake()
@@ -19,23 +19,23 @@ public class Accordionist : MonoBehaviour
     }
     private void OnEnable()
     {
-        Atack = playerControls.Player.Attack;
-        Atack.Enable();
+        Attack = playerControls.Player.Attack;
+        Attack.Enable();
     }
 
     private void OnDisable()
     {
-        Atack.Disable();
+        Attack.Disable();
     }
     // Update is called once per frame
     void Update()
     {
-        if (Atack.ReadValue<float>()>0 &&time<=0)
+        if (Attack.ReadValue<float>()>0 &&time<=0)
         {
             shoot();
-            time = timeatack;
+            time = Attack.ReadValue<float>();
         }
-        if (time >= 0)
+        if (time > 0)
         {
             time -= Time.deltaTime;
         }

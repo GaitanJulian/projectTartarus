@@ -7,7 +7,7 @@ public class CharacterController : MonoBehaviour
 
     private Rigidbody2D _rb;
     private PlayerInputActions _playerControls; // New Input system
-    private InputAction _move; // Input Action for movement
+    public InputAction _move; // Input Action for movement
 
     private Vector2 _playerInput;
     private Vector2 _desiredVelocity; // Variable that indicates the max Speed the player can get in any direction

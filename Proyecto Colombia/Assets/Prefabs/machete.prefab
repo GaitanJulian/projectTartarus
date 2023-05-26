@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capibara: {fileID: 4162634298925167055}
-  canvas: {fileID: 5156162138967603040}
+  TxInfo: {fileID: 5156162139840696569}
 --- !u!114 &6794844021973907097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeAttack: 0.3
+  damage: 0
 --- !u!1001 &4228943145191660441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -185,6 +186,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6794844021973907099}
     m_Modifications:
+    - target: {fileID: 9024764260990651232, guid: 2933b8dd9e15b3a4f9385f955079df46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9024764261712506108, guid: 2933b8dd9e15b3a4f9385f955079df46, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -273,16 +278,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: info
       objectReference: {fileID: 0}
+    - target: {fileID: 9024764261712506109, guid: 2933b8dd9e15b3a4f9385f955079df46, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2933b8dd9e15b3a4f9385f955079df46, type: 3}
---- !u!223 &5156162138967603040 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 9024764261712506105, guid: 2933b8dd9e15b3a4f9385f955079df46, type: 3}
-  m_PrefabInstance: {fileID: 4228943145191660441}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5156162138967603045 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9024764261712506108, guid: 2933b8dd9e15b3a4f9385f955079df46, type: 3}
+  m_PrefabInstance: {fileID: 4228943145191660441}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5156162139840696569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9024764260990651232, guid: 2933b8dd9e15b3a4f9385f955079df46, type: 3}
   m_PrefabInstance: {fileID: 4228943145191660441}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6580348874357193422

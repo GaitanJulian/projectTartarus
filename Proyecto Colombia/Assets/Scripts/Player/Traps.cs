@@ -48,8 +48,8 @@ public class Traps : MonoBehaviour
             {
                 if (!pass)
                 {
-                    if (mov.x > 0 && position < 2) { position++;  }
-                    if (mov.x < 0 && position > 0) { position--;  }
+                    if (mov.x > 0 && position < 3) { position++;  }
+                    if (mov.x < 0 && position > -1) { position--;  }
                     pass = true;
                 }
             }
@@ -70,7 +70,8 @@ public class Traps : MonoBehaviour
             pasive = false;
             gameObject.GetComponent<CharacterController>()._move.Enable();
             UIselect.SetActive(false);
-            Instantiate(traps[position],transform);
+            if(position>=0 && position <= 2) { Instantiate(traps[position], transform); }
+          
            
         }
     }

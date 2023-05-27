@@ -165,6 +165,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementStats: {fileID: 11400000, guid: dad494336d3e2314485dea80b9418889, type: 2}
+  _move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b62f05cb-2eb7-4171-82b4-092ae13815ac
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &6794844021973907043
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -42,14 +42,13 @@ public class Melee_Attack : MonoBehaviour
 
     private void atack()
     {
-        
         Collider2D[] colliders = Physics2D.OverlapCircleAll(posAttack,rangeAttack);
         foreach(Collider2D colider in colliders)
         {
-            if (colider.CompareTag(enemyTag))
+            if (colider.gameObject.GetComponent<Damageable>() != null)
             {
-               // Debug.Log("damage");
-                //aqui se llamaria la función de hacerle daño al enemigo
+                colider.gameObject.GetComponent<Damageable>().GetDamaged(damage);
+                colider.gameObject.GetComponent<Damageable>().SetAttacker(transform);
             }
         }
     }

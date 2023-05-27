@@ -6,7 +6,7 @@ enum ENUM_Player { alterHitpoints, reachedZero, reachedMax }
 public class PlayerHitPoints : MonoBehaviour
 {
     [SerializeField] float _HitPoints = 10f;
-    [SerializeField] float _MaxHitPoints = 15f;
+    [SerializeField] float _MaxHitPoints = 100f;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class PlayerHitPoints : MonoBehaviour
     /// Modifies player hitpoints either up or down, sends a message if reaches a limit
     /// </summary>
     /// <param name="magnitude"></param>
-    private void ModifyHitPoints(float magnitude)
+    public void ModifyHitPoints(float magnitude)
     {
         float _temp = _HitPoints + magnitude;
         if (_temp <= 0)

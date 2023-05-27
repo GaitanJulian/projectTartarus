@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 400765999613289853}
   - component: {fileID: 2039481967394056262}
   - component: {fileID: 2039481967394056263}
+  - component: {fileID: 8561923618251927938}
   m_Layer: 0
   m_Name: Accordionist
   m_TagString: Player
@@ -183,6 +184,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementStats: {fileID: 11400000, guid: dad494336d3e2314485dea80b9418889, type: 2}
+  _move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 62dc255b-4f2a-4b54-9081-08082b52fd89
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+--- !u!114 &8561923618251927938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039481967394056270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1777b68ee6fd4f043bab282cf8a76d72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _HitPoints: 10
+  _MaxHitPoints: 15
 --- !u!1001 &1824952666515907600
 PrefabInstance:
   m_ObjectHideFlags: 0

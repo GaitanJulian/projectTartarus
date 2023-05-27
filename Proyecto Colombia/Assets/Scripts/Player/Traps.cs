@@ -70,7 +70,11 @@ public class Traps : MonoBehaviour
             pasive = false;
             gameObject.GetComponent<CharacterController>()._move.Enable();
             UIselect.SetActive(false);
-            if(position>=0 && position <= 2) { Instantiate(traps[position], transform); }
+            if(position>=0 && position <= 2) { 
+                GameObject trap= Instantiate(traps[position], transform);
+                trap.transform.parent = null;
+
+            }
           
            
         }

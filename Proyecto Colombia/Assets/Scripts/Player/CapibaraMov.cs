@@ -6,12 +6,12 @@ using UnityEngine.InputSystem;
 
 public class CapibaraMov : MonoBehaviour
 {
-    public GameObject capibara;
+    [SerializeField] GameObject capibara,TxInfo;
     bool navigation = false;
     PlayerInputActions playerInput;
     InputAction nav;
 
-    public Canvas canvas;
+ 
     private void Awake()
     {
         playerInput = new PlayerInputActions();
@@ -28,6 +28,7 @@ public class CapibaraMov : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Water"))
+        //cuando deja de colisionar con el objeto que tenga el tag de water llama la funcion para ocultar el capibara
         {
             salirAgua();
 
@@ -43,7 +44,7 @@ public class CapibaraMov : MonoBehaviour
 
     private void message()
     {
-        canvas.gameObject.SetActive(true);
+        TxInfo.gameObject.SetActive(true);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -56,18 +57,19 @@ public class CapibaraMov : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        canvas.gameObject.SetActive(false);
+        TxInfo.gameObject.SetActive(false);
     }
 
     void Update()
     {
        
-            if (nav.ReadValue<float>() > 0&& canvas.isActiveAndEnabled){ si(); }
+            if (nav.ReadValue<float>() > 0&& TxInfo.activeInHierarchy){ si(); }
+            if (nav.ReadValue<float>() > 0&& TxInfo.activeInHierarchy){ si(); }
     }
    void si()
     {
         gameObject.GetComponent<Collider2D>().isTrigger = true;
-        canvas.gameObject.SetActive(false);
+        TxInfo.gameObject.SetActive(false);
         capibara.SetActive(true);
         /*instanciar capibara en el player
         GameObject capibaraobject = Instantiate(capibara, transform.position, transform.rotation);

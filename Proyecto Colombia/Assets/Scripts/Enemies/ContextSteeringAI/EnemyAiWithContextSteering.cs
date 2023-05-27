@@ -82,6 +82,12 @@ public class EnemyAiWithContextSteering : MonoBehaviour
             return Vector2.Distance(_aiData._currentTarget.position, transform.position);
         }
     }
+
+    public Transform GetCurrentTarget()
+    {
+        return _aiData._currentTarget;
+    }
+
 }
 
 //TRASH BUT I'M AFRAID TO ERASE IT:

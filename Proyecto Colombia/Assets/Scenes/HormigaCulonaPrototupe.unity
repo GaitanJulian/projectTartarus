@@ -1223,11 +1223,6 @@ Transform:
   m_Father: {fileID: 1024684305}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1437027808 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4057328952339019698, guid: b1e5c72c77ded054cb684d3590f9a56d, type: 3}
-  m_PrefabInstance: {fileID: 1982565221}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1553431963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,21 +1641,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4057328952022864389, guid: b1e5c72c77ded054cb684d3590f9a56d, type: 3}
-      propertyPath: _c
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4057328952022864389, guid: b1e5c72c77ded054cb684d3590f9a56d, type: 3}
-      propertyPath: _sprite
-      value: 
-      objectReference: {fileID: 1437027808}
     - target: {fileID: 4057328952022864504, guid: b1e5c72c77ded054cb684d3590f9a56d, type: 3}
       propertyPath: m_Name
       value: hormiga_Culona
-      objectReference: {fileID: 0}
-    - target: {fileID: 4057328952339019708, guid: b1e5c72c77ded054cb684d3590f9a56d, type: 3}
-      propertyPath: m_FlipX
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1e5c72c77ded054cb684d3590f9a56d, type: 3}
@@ -2012,13 +1995,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8991186761097583787, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: _move.m_Id
+      value: af7fa481-86ca-4c0c-9f52-c85b338acaff
+      objectReference: {fileID: 0}
+    - target: {fileID: 8991186761097583787, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: _move.m_Name
+      value: Move
+      objectReference: {fileID: 0}
     - target: {fileID: 8991186761097583828, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 8991186761097583828, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8991186761097583839, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
       propertyPath: m_RootOrder

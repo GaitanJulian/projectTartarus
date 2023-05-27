@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _radius: 2
   _agentColliderSize: 0.6
-  _showGizmo: 1
+  _showGizmo: 0
 --- !u!1 &4057328950546662722
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7357b0977c95d498c8c18a99607db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showGizmos: 1
+  _showGizmos: 0
 --- !u!1 &4057328950867668869
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
   _obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 576
-  _showGizmos: 1
+  _showGizmos: 0
 --- !u!1 &4057328951112224848
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   _playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  _showGizmos: 1
+  _showGizmos: 0
 --- !u!1 &4057328951872112283
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   _aiData: {fileID: 4057328951872112292}
   _movementDirectionSolver: {fileID: 4057328950546662733}
   _detectionDelay: 0.01
-  _gizmos: 1
+  _gizmos: 0
 --- !u!114 &4057328951872112292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRechedThreshold: 0.5
-  showGizmo: 1
+  showGizmo: 0
 --- !u!1 &4057328952022864504
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,13 +427,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _contextSteering: {fileID: 4057328951872112282}
-  _debugState: 1
+  _sprite: {fileID: 4057328952339019698}
+  _debugState: 0
   _attackDistance: 1.1
   _moveVelocity: 2
   _moveWhileAttackingVelocity: 0.2
   _attackWaitTime: 0.1
   _attackMagnitude: 1
-  _bait: {fileID: 4556998582326656773, guid: 6758d30e591711247b8de7a16ca4406f, type: 3}
+  _c: 30
 --- !u!70 &4057328952022864506
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -546,7 +547,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 1867619246, guid: bb6ebca311d647542871974fb32dd4aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.475, y: 1.33}

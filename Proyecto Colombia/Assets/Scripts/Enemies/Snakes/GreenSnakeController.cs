@@ -139,6 +139,7 @@ public class GreenSnakeController : EnemyController
     /// </summary>
     protected override void Attack()
     {
+        print("Done " + _enemyStats.damage + " dmg");
         EventManager.Dispatch(ENUM_Player.alterHitpoints, -_enemyStats.damage);
     }
 

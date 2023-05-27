@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Slider slider;
-
+    public Slider _slider;
+    public Gradient _gradient;
+    public Image _fill;
     private void Awake()
     {
         EventManager.AddListener<float>(ENUM_Player.alterHitpoints, SetHealth);
@@ -17,13 +18,18 @@ public class HealthBar : MonoBehaviour
     }
     public void SetMaxHealth(float health)
     {
-        slider.maxValue = health;
-        slider.value = health;
+        _slider.maxValue = health;
+        _slider.value = health;
+
+        _fill.color = _gradient.Evaluate(1f);
+
+        
     }
 
     public void SetHealth(float health)
     {
-        slider.value = health;
+        _slider.value += health;
+        _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
 
 }

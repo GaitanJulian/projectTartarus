@@ -450,6 +450,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementStats: {fileID: 11400000, guid: dad494336d3e2314485dea80b9418889, type: 2}
   _animator: {fileID: 975749437}
+  _move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1111494e-c0af-4f6f-a78d-9ad213503703
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!50 &8991186761097583834
 Rigidbody2D:
   serializedVersion: 4

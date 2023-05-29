@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class CapibaraMov : MonoBehaviour
 {
     [SerializeField] GameObject capibara,TxInfo;
-    bool navigation = false;
+    private bool navigation = false;
     PlayerInputActions playerInput;
     InputAction nav;
 

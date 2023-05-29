@@ -73,6 +73,42 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""InventoryLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ec4b2b7-3d7f-4807-9105-2f94e4e46173"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""844ad7e5-a237-42c8-a3a8-26088b4405f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Open/CloseInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""93407c67-0b83-4f4b-9bca-9d6ec039bcf2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""16e8d0ad-b4db-43d9-b0aa-d7d1c345a434"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""SelectTrap"",
                     ""type"": ""Value"",
                     ""id"": ""cf6a488b-3115-420d-997e-adb06b0e14c0"",
@@ -316,22 +352,66 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a3f04c66-d4d1-4497-9107-323f785c387f"",
-                    ""path"": ""<Keyboard>/m"",
+                    ""id"": ""8acdfd0d-204d-4a24-9bcc-5c1a671779a7"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""InventoryLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2fa7d191-5879-4627-944b-9ea59166641d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""InventoryRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4f2e825-f7ba-4acd-bac1-2c757c95147e"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Open/CloseInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3917ed4-8ba6-4508-b5bf-bc695a08306b"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e66f060-6594-405a-a8fd-a8fdccc54a68"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Swim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0bfd3eab-7e4b-4181-87a7-6615f51192f4"",
+                    ""id"": ""b9fb6ea5-669d-4204-a9d0-a3e369232462"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""SelectTrap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -925,6 +1005,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Swim = m_Player.FindAction("Swim", throwIfNotFound: true);
+        m_Player_InventoryLeft = m_Player.FindAction("InventoryLeft", throwIfNotFound: true);
+        m_Player_InventoryRight = m_Player.FindAction("InventoryRight", throwIfNotFound: true);
+        m_Player_OpenCloseInventory = m_Player.FindAction("Open/CloseInventory", throwIfNotFound: true);
+        m_Player_UseItem = m_Player.FindAction("UseItem", throwIfNotFound: true);
         m_Player_SelectTrap = m_Player.FindAction("SelectTrap", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1004,6 +1088,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Swim;
+    private readonly InputAction m_Player_InventoryLeft;
+    private readonly InputAction m_Player_InventoryRight;
+    private readonly InputAction m_Player_OpenCloseInventory;
+    private readonly InputAction m_Player_UseItem;
     private readonly InputAction m_Player_SelectTrap;
     public struct PlayerActions
     {
@@ -1014,6 +1102,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Swim => m_Wrapper.m_Player_Swim;
+        public InputAction @InventoryLeft => m_Wrapper.m_Player_InventoryLeft;
+        public InputAction @InventoryRight => m_Wrapper.m_Player_InventoryRight;
+        public InputAction @OpenCloseInventory => m_Wrapper.m_Player_OpenCloseInventory;
+        public InputAction @UseItem => m_Wrapper.m_Player_UseItem;
         public InputAction @SelectTrap => m_Wrapper.m_Player_SelectTrap;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -1039,6 +1131,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Swim.started += instance.OnSwim;
             @Swim.performed += instance.OnSwim;
             @Swim.canceled += instance.OnSwim;
+            @InventoryLeft.started += instance.OnInventoryLeft;
+            @InventoryLeft.performed += instance.OnInventoryLeft;
+            @InventoryLeft.canceled += instance.OnInventoryLeft;
+            @InventoryRight.started += instance.OnInventoryRight;
+            @InventoryRight.performed += instance.OnInventoryRight;
+            @InventoryRight.canceled += instance.OnInventoryRight;
+            @OpenCloseInventory.started += instance.OnOpenCloseInventory;
+            @OpenCloseInventory.performed += instance.OnOpenCloseInventory;
+            @OpenCloseInventory.canceled += instance.OnOpenCloseInventory;
+            @UseItem.started += instance.OnUseItem;
+            @UseItem.performed += instance.OnUseItem;
+            @UseItem.canceled += instance.OnUseItem;
             @SelectTrap.started += instance.OnSelectTrap;
             @SelectTrap.performed += instance.OnSelectTrap;
             @SelectTrap.canceled += instance.OnSelectTrap;
@@ -1061,6 +1165,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Swim.started -= instance.OnSwim;
             @Swim.performed -= instance.OnSwim;
             @Swim.canceled -= instance.OnSwim;
+            @InventoryLeft.started -= instance.OnInventoryLeft;
+            @InventoryLeft.performed -= instance.OnInventoryLeft;
+            @InventoryLeft.canceled -= instance.OnInventoryLeft;
+            @InventoryRight.started -= instance.OnInventoryRight;
+            @InventoryRight.performed -= instance.OnInventoryRight;
+            @InventoryRight.canceled -= instance.OnInventoryRight;
+            @OpenCloseInventory.started -= instance.OnOpenCloseInventory;
+            @OpenCloseInventory.performed -= instance.OnOpenCloseInventory;
+            @OpenCloseInventory.canceled -= instance.OnOpenCloseInventory;
+            @UseItem.started -= instance.OnUseItem;
+            @UseItem.performed -= instance.OnUseItem;
+            @UseItem.canceled -= instance.OnUseItem;
             @SelectTrap.started -= instance.OnSelectTrap;
             @SelectTrap.performed -= instance.OnSelectTrap;
             @SelectTrap.canceled -= instance.OnSelectTrap;
@@ -1251,6 +1367,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnSwim(InputAction.CallbackContext context);
+        void OnInventoryLeft(InputAction.CallbackContext context);
+        void OnInventoryRight(InputAction.CallbackContext context);
+        void OnOpenCloseInventory(InputAction.CallbackContext context);
+        void OnUseItem(InputAction.CallbackContext context);
         void OnSelectTrap(InputAction.CallbackContext context);
     }
     public interface IUIActions

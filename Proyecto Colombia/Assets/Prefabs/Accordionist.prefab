@@ -183,6 +183,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementStats: {fileID: 11400000, guid: dad494336d3e2314485dea80b9418889, type: 2}
+  _animator: {fileID: 0}
+  _move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 851fb6fc-f2bd-4931-875f-4efd66e0a2f1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1001 &1824952666515907600
 PrefabInstance:
   m_ObjectHideFlags: 0

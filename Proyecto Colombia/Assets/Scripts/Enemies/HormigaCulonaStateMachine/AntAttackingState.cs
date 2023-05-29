@@ -20,7 +20,9 @@ public class AntAttackingState : AntBaseState
     {
         if (_context._contextSteering.DistanceFromTarget() <= _context.AttackDistance)
         {
-            //_rb.velocity = _context._contextSteering.GetDirection() * _context.MoveWhileAttackingVelocity;
+            Vector2 desiredVector = _context._contextSteering.GetDirection();
+            Vector2 perpendicularVector = new Vector2(-desiredVector.y, desiredVector.x * Random.Range(0.8f, 1.3f)) * _context.RandomDirection;
+            _rb.velocity = perpendicularVector * _context.MoveVelocity;
 
             if (_ableToAttack)
             {

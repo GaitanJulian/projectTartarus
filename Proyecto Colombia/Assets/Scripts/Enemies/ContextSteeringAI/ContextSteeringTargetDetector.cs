@@ -44,8 +44,8 @@ public class ContextSteeringTargetDetector : ContextSteeringDetector
         if (_showGizmos == false)
             return;
 
-        //Gizmos.DrawWireSphere(transform.position, _targetDetectionRange);
-        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, _targetDetectionRange);
+        Gizmos.DrawWireSphere(transform.position, _targetDetectionRange);
+        //UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, _targetDetectionRange);
 
         if (_colliders == null)
             return;

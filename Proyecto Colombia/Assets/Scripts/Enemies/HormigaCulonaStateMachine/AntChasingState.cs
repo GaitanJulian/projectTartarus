@@ -12,7 +12,7 @@ public class AntChasingState : AntBaseState
                 //if target is further than attack distance
                 //_rb.velocity = _context._contextSteering.GetDirection() * _context.MoveVelocity;
                 _rb.AddForce(_context._contextSteering.GetDirection() * _context.MoveVelocity);
-                Debug.Log(_context._contextSteering.DistanceFromTarget());
+                //Debug.Log(_context._contextSteering.DistanceFromTarget());
             }
             else
             {
@@ -23,6 +23,9 @@ public class AntChasingState : AntBaseState
         else //if the player is not on sight
         {
             _context.SwitchState(_context._idleState);
+            
         }
+
+        if (Mathf.Abs(_rb.velocity.x) <= 0.01f) _context.SwitchState(_context._idleState); //there was a bug
     }
 }

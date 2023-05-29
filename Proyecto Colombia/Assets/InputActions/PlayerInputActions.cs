@@ -56,12 +56,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Attack"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""ad77682e-e11c-4255-9a6c-8d9da5c048ea"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Swim"",
+                    ""type"": ""Value"",
+                    ""id"": ""fbf8b676-8f20-4e7b-8072-1631be4b336d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""InventoryLeft"",
@@ -98,6 +107,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectTrap"",
+                    ""type"": ""Value"",
+                    ""id"": ""cf6a488b-3115-420d-997e-adb06b0e14c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -964,10 +982,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_Swim = m_Player.FindAction("Swim", throwIfNotFound: true);
         m_Player_InventoryLeft = m_Player.FindAction("InventoryLeft", throwIfNotFound: true);
         m_Player_InventoryRight = m_Player.FindAction("InventoryRight", throwIfNotFound: true);
         m_Player_OpenCloseInventory = m_Player.FindAction("Open/CloseInventory", throwIfNotFound: true);
         m_Player_UseItem = m_Player.FindAction("UseItem", throwIfNotFound: true);
+        m_Player_SelectTrap = m_Player.FindAction("SelectTrap", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1045,10 +1065,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_Swim;
     private readonly InputAction m_Player_InventoryLeft;
     private readonly InputAction m_Player_InventoryRight;
     private readonly InputAction m_Player_OpenCloseInventory;
     private readonly InputAction m_Player_UseItem;
+    private readonly InputAction m_Player_SelectTrap;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1057,10 +1079,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @Swim => m_Wrapper.m_Player_Swim;
         public InputAction @InventoryLeft => m_Wrapper.m_Player_InventoryLeft;
         public InputAction @InventoryRight => m_Wrapper.m_Player_InventoryRight;
         public InputAction @OpenCloseInventory => m_Wrapper.m_Player_OpenCloseInventory;
         public InputAction @UseItem => m_Wrapper.m_Player_UseItem;
+        public InputAction @SelectTrap => m_Wrapper.m_Player_SelectTrap;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1082,6 +1106,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @Swim.started += instance.OnSwim;
+            @Swim.performed += instance.OnSwim;
+            @Swim.canceled += instance.OnSwim;
             @InventoryLeft.started += instance.OnInventoryLeft;
             @InventoryLeft.performed += instance.OnInventoryLeft;
             @InventoryLeft.canceled += instance.OnInventoryLeft;
@@ -1094,6 +1121,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @UseItem.started += instance.OnUseItem;
             @UseItem.performed += instance.OnUseItem;
             @UseItem.canceled += instance.OnUseItem;
+            @SelectTrap.started += instance.OnSelectTrap;
+            @SelectTrap.performed += instance.OnSelectTrap;
+            @SelectTrap.canceled += instance.OnSelectTrap;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1110,6 +1140,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @Swim.started -= instance.OnSwim;
+            @Swim.performed -= instance.OnSwim;
+            @Swim.canceled -= instance.OnSwim;
             @InventoryLeft.started -= instance.OnInventoryLeft;
             @InventoryLeft.performed -= instance.OnInventoryLeft;
             @InventoryLeft.canceled -= instance.OnInventoryLeft;
@@ -1122,6 +1155,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @UseItem.started -= instance.OnUseItem;
             @UseItem.performed -= instance.OnUseItem;
             @UseItem.canceled -= instance.OnUseItem;
+            @SelectTrap.started -= instance.OnSelectTrap;
+            @SelectTrap.performed -= instance.OnSelectTrap;
+            @SelectTrap.canceled -= instance.OnSelectTrap;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1308,10 +1344,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnSwim(InputAction.CallbackContext context);
         void OnInventoryLeft(InputAction.CallbackContext context);
         void OnInventoryRight(InputAction.CallbackContext context);
         void OnOpenCloseInventory(InputAction.CallbackContext context);
         void OnUseItem(InputAction.CallbackContext context);
+        void OnSelectTrap(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

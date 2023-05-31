@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,10 @@ public class CharacterController : MonoBehaviour
 
     const string _animParamHorizontal = "Horizontal", _animParamVertical = "Vertical", _animSpeed = "Speed";
     private Vector2 _lastDireciton; // Last direction the player moved at
+
+    public event Action OnInteractionKeyPressed;
+    private InputAction _interact;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -27,16 +32,24 @@ public class CharacterController : MonoBehaviour
     {
         _move = _playerControls.Player.Move;
         _move.Enable();
+        _interact = _playerControls.Player.Interact;
     }
 
     private void OnDisable()
     {
         _move.Disable();
+        _interact.Disable();
     }
 
     private void Update()
     {
         _playerInput = _move.ReadValue<Vector2>();
+
+        if (_interact.WasPressedThisFrame())
+        {
+            OnInteractionKeyPressed?.Invoke();
+        }
+
     }
 
     private void FixedUpdate()

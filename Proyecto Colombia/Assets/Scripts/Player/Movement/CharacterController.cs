@@ -1,4 +1,5 @@
 using System;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,6 +34,7 @@ public class CharacterController : MonoBehaviour
         _move = _playerControls.Player.Move;
         _move.Enable();
         _interact = _playerControls.Player.Interact;
+        _interact.Enable();
     }
 
     private void OnDisable()

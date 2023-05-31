@@ -6,7 +6,7 @@ public class DialogTrigger : MonoBehaviour
     [SerializeField] private Flowchart _flowchart;
     [SerializeField] private GameObject _conversationSprite ;
     private string PLAYERTAG = "Player";
-    private bool _canInteract = false;
+    private string CONVERSATIONBLOCK = "Conversation";
 
     private void Start()
     {
@@ -18,7 +18,11 @@ public class DialogTrigger : MonoBehaviour
         if (other.CompareTag(PLAYERTAG))
         {
             _conversationSprite.SetActive(true); // Show the thinking sprite
-            _canInteract = true;
+            CharacterController characterController = other.GetComponent<CharacterController>();
+            if (characterController != null)
+            {
+                characterController.OnInteractionKeyPressed += StartDialog;
+            }
         }
     }
 
@@ -27,8 +31,18 @@ public class DialogTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _conversationSprite.SetActive(false); // Hide the thinking sprite
-            _canInteract = false;
         }
+        CharacterController characterController = other.GetComponent<CharacterController>();
+        if (characterController != null)
+        {
+            characterController.OnInteractionKeyPressed -= StartDialog;
+        }
+    }
+
+    private void StartDialog()
+    {
+        _conversationSprite.SetActive(false); // Hide the thinking sprite
+        _flowchart.ExecuteBlock(CONVERSATIONBLOCK);
     }
 
 }

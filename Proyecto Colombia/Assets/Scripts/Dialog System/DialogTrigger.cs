@@ -10,14 +10,13 @@ public class DialogTrigger : MonoBehaviour
 
     private void Start()
     {
-        _conversationSprite.SetActive(false);
+        _conversationSprite.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(PLAYERTAG))
         {
-            _conversationSprite.SetActive(true); // Show the thinking sprite
             CharacterController characterController = other.GetComponent<CharacterController>();
             if (characterController != null)
             {
@@ -28,10 +27,6 @@ public class DialogTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            _conversationSprite.SetActive(false); // Hide the thinking sprite
-        }
         CharacterController characterController = other.GetComponent<CharacterController>();
         if (characterController != null)
         {
@@ -43,6 +38,11 @@ public class DialogTrigger : MonoBehaviour
     {
         _conversationSprite.SetActive(false); // Hide the thinking sprite
         _flowchart.ExecuteBlock(CONVERSATIONBLOCK);
+    }
+
+    public void ActivateBubble()
+    {
+        _conversationSprite.SetActive(true);
     }
 
 }

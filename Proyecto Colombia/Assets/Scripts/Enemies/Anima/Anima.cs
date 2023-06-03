@@ -1,9 +1,10 @@
-/* using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anima : EnemyBaseState
+public class Anima
 {
+    /*
     public override void EnterState(EnemyStateManagerScriptableObject _stateManager, EnemyController _controller)
     {
        
@@ -13,4 +14,5 @@ public class Anima : EnemyBaseState
     {
        
     }
-} */
+    */
+}

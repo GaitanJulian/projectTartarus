@@ -5,11 +5,11 @@ public class InventoryUI : MonoBehaviour
 {
     Inventory _inventory;
     public Transform _itemsParent;
-    InventorySlot[] _slots;
+    SlotOfRadialInventory[] _slots;
     void Start()
     {
         _inventory = Inventory._instance;
-        _slots = _itemsParent.GetComponentsInChildren<InventorySlot>();
+        _slots = _itemsParent.GetComponentsInChildren<SlotOfRadialInventory>();
     }
 
     private void Awake()
@@ -21,23 +21,29 @@ public class InventoryUI : MonoBehaviour
         EventManager.RemoveListener(ENUM_Inventory.actualizeUI, UpdateUI);
     }
 
-    void Update()
-    {
-        
-    }
-
     void UpdateUI()
     {
-        for (int i = 0; i < _slots.Length; i++)
+        _slots = _itemsParent.GetComponentsInChildren<SlotOfRadialInventory>();
+
+        if (_inventory == null) return;
+
+        for (int i = 0; i < _inventory._items.Count; i++)
         {
-            if (i < _inventory._items.Count)
+            for (int j = 0; j < _slots.Length; j++)
             {
-                _slots[i].AddItemToSlot(_inventory._items[i]);
+                if (_slots[j]._id == i)
+                {
+                    _slots[j].AddItemToSlot(_inventory._items[i]);
+                }
             }
-            else
-            {
-                _slots[i].ClearItemSlot();
-            }
+        }
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            UpdateUI();
         }
     }
 }

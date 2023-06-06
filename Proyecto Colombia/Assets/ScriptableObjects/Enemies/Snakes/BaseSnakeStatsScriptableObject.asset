@@ -16,15 +16,18 @@ MonoBehaviour:
   acceleration: 10
   deceleration: 10
   freeMovementTime: 1.5
-  wallCheckDistance: 3.5
+  wallCheckDistance: 4
   damage: 5
-  attackRange: 2
+  attackRange: 1.5
   attackTime: 1.5
-  rotationSpeed: 10
-  evadeChance: 0.02
+  evasionSpeed: 3
+  evasionChance: 0.0015
+  evasionDuration: 1
+  evasionRadius: 10
+  evasionCooldown: 0.5
   playerLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64

@@ -5,102 +5,75 @@ using UnityEngine;
 public class BlackSnakeController : PurpleSnakeController
 {
     private IEnumerator _evadeCoroutine;
+    private bool _isEvading;
+    private float _evadingTime;
+    private Collider2D _collider;
+    private SpriteRenderer _spriteRenderer;
+    private float _currentDirection;
+    protected override void Awake()
+    {
+        base.Awake();
+        _evadeCoroutine = EvasionState();
+        _collider = GetComponent<Collider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _evadingTime = _enemyStats.evasionDuration;
+    }
 
     protected override void Start()
     {
         base.Start();
-        _evadeCoroutine = RandomEvade();
+        _currentDirection = 1;
     }
 
     protected override void Update()
     {
         base.Update();
-
-        if (_isAttacking)
+        print(_isAttacking);
+        // Check if the snake should start evading
+        if (!_isEvading && !_isAttacking && Random.value < _enemyStats.evasionChance)
         {
-            float randomValue = Random.value;
-
-            // Check if the random value is less than the evade chance
-            if (randomValue < _enemyStats.evadeChance)
-            {
-                // Perform the evade coroutine
-                _isAttacking = false;
-                ChangeState(_attackCoroutine, _evadeCoroutine);
-            }
-           
+                _isChasing = false;
+                ChangeState(_chasingCoroutine, _evadeCoroutine);
         }
+
+        // If in evasion state, keep control of the time
+        if (_isEvading)
+        {
+            _evadingTime -= Time.deltaTime;
+        }
+
     }
 
-    IEnumerator RandomEvade()
+    private IEnumerator EvasionState()
     {
-        Transform _playerTransform = _contextSteering.GetCurrentTarget();
-        // Store the initial position and rotation of the snake
-        Vector2 initialPosition = _rb.position;
-        Quaternion initialRotation = transform.rotation;
-         
-        // Calculate the target position for the evasive arc movement
-        Vector2 targetPosition =  new Vector2(_playerTransform.position.x, _playerTransform.position.y) ; // Implement this method to determine the target position
-
-        // Rotate the snake slightly in the opposite direction to telegraph the movement
-        Quaternion telegraphRotation = Quaternion.LookRotation(Vector3.forward, targetPosition - initialPosition);
-        Quaternion oppositeRotation = Quaternion.Inverse(telegraphRotation);
-        float telegraphDuration = 0.5f;
-        float telegraphTimer = 0f;
-
-        while (telegraphTimer < telegraphDuration)
+        while (true)
         {
-            // Rotate the snake gradually towards the telegraph rotation
-            transform.RotateAround(_playerTransform.position, Vector3.forward, _enemyStats.rotationSpeed * Time.deltaTime);
+            _isAttacking = false;
+            _isEvading = true;
+            _collider.enabled = false;
+            Vector2 direction = _contextSteering.GetDirection();
+            Vector2 perpendicular = new Vector2(-direction.y, direction.x);
+            Vector2 movement = perpendicular * _enemyStats.evasionSpeed;
 
-            // Rotate the snake around the player position
-            transform.rotation = Quaternion.Lerp(initialRotation, oppositeRotation, telegraphTimer / telegraphDuration);
+            // Perform a raycast to check for obstacles
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, movement, movement.magnitude, _enemyStats.wallLayerMask);
 
-            telegraphTimer += Time.deltaTime;
+            if (hit.collider != null)
+            {
+                _currentDirection *= -1;
+            }
+
+            _rb.velocity = movement * _currentDirection;
+
+            if (_evadingTime <= 0)
+            {
+                _evadingTime = _enemyStats.evasionDuration;
+                _isEvading = false;
+                ChangeState(_evadeCoroutine, _chasingCoroutine);
+            }
+            
             yield return null;
         }
 
-        // Reset the rotation to the initial rotation
-        transform.rotation = initialRotation;
-
-        // Move the snake in an arc-shaped path around the player
-        float arcDuration = 1.0f;
-        float arcTimer = 0f;
-
-        while (arcTimer < arcDuration)
-        {
-            // Calculate the current position along the arc path
-            float t = arcTimer / arcDuration;
-            Vector2 currentPos = CalculateArcPosition(initialPosition, targetPosition, t); // Implement this method to calculate the current position along the arc
-
-            // Rotate the snake around the player position
-            transform.RotateAround(_playerTransform.position, Vector3.forward, _enemyStats.rotationSpeed * Time.deltaTime);
-
-            // Move the snake by setting the position
-            _rb.MovePosition(currentPos);
-
-            arcTimer += Time.deltaTime;
-        }
-
-        // Transition to AttackState
-        ChangeState(_evadeCoroutine, _attackCoroutine);
     }
-
-    private Vector2 CalculateArcPosition(Vector2 initialPosition, Vector2 targetPosition, float t)
-    {
-        // Calculate the center point of the arc as the average of the initial and target positions
-        Vector2 centerPoint = (initialPosition + targetPosition) * 0.5f;
-
-        // Calculate the radius of the arc as the distance between the center point and the initial position
-        float radius = Vector2.Distance(centerPoint, initialPosition);
-
-        // Calculate the angle based on the current time value 't' and the total angle of the arc
-        float angle = Mathf.Lerp(0f, Mathf.PI, t);
-
-        // Calculate the current position along the arc using polar coordinates
-        float x = centerPoint.x + radius * Mathf.Cos(angle);
-        float y = centerPoint.y + radius * Mathf.Sin(angle);
-
-        return new Vector2(x, y);
-    }
-
 }

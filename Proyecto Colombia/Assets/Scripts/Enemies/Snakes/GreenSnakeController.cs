@@ -63,7 +63,8 @@ public class GreenSnakeController : EnemyController
             {
                 _isAttacking = false;
                 // If it is out of the attack range, we start chasing again
-                ChangeState(_attackCoroutine, _chasingCoroutine); 
+                ChangeState(_attackCoroutine, _chasingCoroutine);
+                yield return new WaitForSeconds(0.2f);
                 //ChangeAnimationState(SNAKE_IDLE);
             }
         }
@@ -79,7 +80,6 @@ public class GreenSnakeController : EnemyController
         while (true)
         {
             _isChasing = true;
-            _isAttacking = false;
             if (_contextSteering.TargetOnSight()) //if the target is on sight
             {
                 if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)

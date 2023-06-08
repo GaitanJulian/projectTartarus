@@ -9,12 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5204098483529563171}
+  - component: {fileID: 5204098483529563173}
+  - component: {fileID: 5204098483529563172}
+  - component: {fileID: 4076428196336539578}
   - component: {fileID: 5204098483529563170}
   - component: {fileID: 5204098483529563169}
   - component: {fileID: 5204098483529563168}
   - component: {fileID: 5204098483529563183}
-  - component: {fileID: 5204098483529563173}
-  - component: {fileID: 5204098483529563172}
   m_Layer: 0
   m_Name: GreenSnake
   m_TagString: Untagged
@@ -38,6 +39,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5204098483529563173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5204098483529563182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea05b6de48d8e9f4e818d4527ce893c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyStats: {fileID: 11400000, guid: fb428c56ce22b2c4bbe3e5de92e91c7d, type: 2}
+  _contextSteering: {fileID: 942212601431003587}
+--- !u!114 &5204098483529563172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5204098483529563182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24ecb26eca3bd54bb797ca31a40893b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _HitPoints: 100
+  _isBoss: 0
+  _onDamageTaken:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4076428196336539578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5204098483529563182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fed1f48ff3fa94fba921ee494f477a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyController: {fileID: 5204098483529563173}
 --- !u!212 &5204098483529563170
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -158,39 +206,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5204098483529563173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5204098483529563182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea05b6de48d8e9f4e818d4527ce893c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyStats: {fileID: 11400000, guid: fb428c56ce22b2c4bbe3e5de92e91c7d, type: 2}
-  _contextSteering: {fileID: 942212601431003587}
---- !u!114 &5204098483529563172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5204098483529563182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b24ecb26eca3bd54bb797ca31a40893b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _HitPoints: 100
-  _onDamageTaken:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &5204098484082406416
 PrefabInstance:
   m_ObjectHideFlags: 0

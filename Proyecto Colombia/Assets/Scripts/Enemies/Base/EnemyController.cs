@@ -14,6 +14,7 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
     // Coroutines for controlling enemy behavior
     protected IEnumerator _attackCoroutine, _chasingCoroutine, _idleCoroutine; // This variables allow to start and stop a certain coroutine
 
+    protected float _speedModifier = 1f, _attackModifier = 1f;
     protected virtual void Awake()
     {
         _damageable = GetComponent<Damageable>();
@@ -55,4 +56,60 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
         StartCoroutine(_startState);
     }
 
+    #region AlteredStates
+    private void Update()
+    {
+        AlteredStates();
+    }
+
+    float _poisonedTimer, _stunedTimer;
+    bool _isPoisoned = false, _isStuned = false;
+
+    public void Poison()
+    {
+        _isPoisoned = true;
+        _poisonedTimer = 5f;
+        Debug.Log("applied poisson");
+    }
+
+    public void Stun()
+    {
+        _isPoisoned = false;
+        _poisonedTimer = 0;
+        _isStuned = true;
+        _stunedTimer = 5f;
+        Debug.Log("applied stun");
+    }
+
+    void AlteredStates()
+    {
+        if (_isStuned)
+        {
+            _attackModifier = 0f;
+            _speedModifier = 0f;
+            if (_stunedTimer > 0) _stunedTimer -= Time.deltaTime;
+            else
+            {
+                _stunedTimer = 0;
+                _isStuned = false;
+            }
+        }
+        else if (_isPoisoned)
+        {
+            _attackModifier = 0.8f;
+            _speedModifier = 0.8f;
+            if (_poisonedTimer > 0) _poisonedTimer -= Time.deltaTime;
+            else
+            {
+                _poisonedTimer = 0;
+                _isPoisoned = false;
+            }
+        }
+        else
+        {
+            _attackModifier = 1f;
+            _speedModifier = 1f;
+        }
+    }
+    #endregion
 }

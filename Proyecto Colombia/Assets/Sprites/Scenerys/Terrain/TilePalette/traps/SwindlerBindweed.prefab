@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1757449696280356554}
   - component: {fileID: 5746241571309172337}
+  - component: {fileID: -4692927060910281409}
   m_Layer: 0
   m_Name: SwindlerBindweed
   m_TagString: Untagged
@@ -127,9 +128,23 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.4
+--- !u!114 &-4692927060910281409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6480101234068234783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bdfc8e0402726a40a6e604a946c5230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxLifeTime: 10
+  _stunTime: 5

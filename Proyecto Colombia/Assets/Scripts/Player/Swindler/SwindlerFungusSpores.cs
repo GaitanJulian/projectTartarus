@@ -6,6 +6,7 @@ using UnityEngine;
 public class SwindlerFungusSpores : MonoBehaviour
 {
     [SerializeField] float _maxLifeTime = 10;
+    [SerializeField] float _poisonTime = 5f;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class SwindlerFungusSpores : MonoBehaviour
                 Damageable damageScript = collision.transform.GetComponentInChildren<Damageable>();
                 damageScript.GetDamaged(damageScript.GetMaxHitPoints() * .1f);
                 //ApplyPoisson (reduction of stats):
-                if (collision.transform.GetComponentInChildren<AlteredStateIntermediary>() != null) collision.transform.GetComponentInChildren<AlteredStateIntermediary>()._enemyController.Poison();
+                if (collision.transform.GetComponentInChildren<AlteredStateIntermediary>() != null) collision.transform.GetComponentInChildren<AlteredStateIntermediary>()._enemyController.Poison(_poisonTime);
                 else Debug.Log("fail");
                 //Add periodical damage component
                 if (collision.transform.GetComponentInChildren<PoisonedDamage>() == null) collision.transform.AddComponent<PoisonedDamage>();

@@ -65,19 +65,19 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
     float _poisonedTimer, _stunedTimer;
     bool _isPoisoned = false, _isStuned = false;
 
-    public void Poison()
+    public void Poison(float time)
     {
         _isPoisoned = true;
-        _poisonedTimer = 5f;
+        _poisonedTimer = time;
         Debug.Log("applied poisson");
     }
 
-    public void Stun()
+    public void Stun(float time)
     {
         _isPoisoned = false;
         _poisonedTimer = 0;
         _isStuned = true;
-        _stunedTimer = 5f;
+        _stunedTimer = time;
         Debug.Log("applied stun");
     }
 

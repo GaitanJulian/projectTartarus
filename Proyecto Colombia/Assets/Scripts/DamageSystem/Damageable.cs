@@ -43,8 +43,15 @@ public class Damageable : MonoBehaviour
 
     #region For Poison
     float _damageMultiplier = 1f;
-
     
-
+    public void Stun(float time)
+    {
+        _damageMultiplier = 2f;
+        Invoke("RevertStun", time);
+    }
+     void RevertStun()
+    {
+        _damageMultiplier = 1f;
+    }
     #endregion
 }

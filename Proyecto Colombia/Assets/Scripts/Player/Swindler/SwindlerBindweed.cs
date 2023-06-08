@@ -6,6 +6,7 @@ using UnityEngine;
 public class SwindlerBindweed : MonoBehaviour
 {
     [SerializeField] float _maxLifeTime = 10;
+    [SerializeField] float _stunTime = 5f;
 
     private void Start()
     {
@@ -23,13 +24,14 @@ public class SwindlerBindweed : MonoBehaviour
         {
             if (collision.transform.GetComponentInChildren<Damageable>() != null)
             {
+                //Make susceptible to damage:
                 Damageable damageScript = collision.transform.GetComponentInChildren<Damageable>();
-                damageScript.GetDamaged(damageScript.GetMaxHitPoints() * .1f);
+                damageScript.Stun(_stunTime);
                 //ApplyStun (reduction of stats):
-                if (collision.transform.GetComponentInChildren<AlteredStateIntermediary>() != null) collision.transform.GetComponentInChildren<AlteredStateIntermediary>()._enemyController.Stun();
+                if (collision.transform.GetComponentInChildren<AlteredStateIntermediary>() != null) collision.transform.GetComponentInChildren<AlteredStateIntermediary>()._enemyController.Stun(_stunTime);
                 else Debug.Log("fail");
+                SelfDestroy();
             }
         }
-        SelfDestroy();
     }
 }

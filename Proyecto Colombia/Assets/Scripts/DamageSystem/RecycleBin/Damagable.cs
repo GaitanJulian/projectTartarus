@@ -8,7 +8,7 @@ public class Damagable : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    public void GetDamaged()
+    public void GetDamaged(float _attackDamage)
     {
         Debug.Log(gameObject.name + ": Ouch :(");
         animator.SetBool("hit", true);

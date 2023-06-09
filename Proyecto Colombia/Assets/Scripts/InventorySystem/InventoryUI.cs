@@ -1,19 +1,34 @@
 using Events;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryUI : MonoBehaviour
 {
     Inventory _inventory;
     public Transform _itemsParent;
     SlotOfRadialInventory[] _slots;
+    PlayerInputActions _playerControls;
+    InputAction _openOrCloseInventory;
+
     void Start()
     {
         _inventory = Inventory._instance;
         _slots = _itemsParent.GetComponentsInChildren<SlotOfRadialInventory>();
+        if(_itemsParent != null) _itemsParent.gameObject.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        _openOrCloseInventory = _playerControls.Player.OpenCloseInventory;
+        _openOrCloseInventory.Enable();
+    }
+    private void OnDisable()
+    {
+        _openOrCloseInventory.Disable();
+    }
     private void Awake()
     {
+        _playerControls = new PlayerInputActions();
         EventManager.AddListener(ENUM_Inventory.actualizeUI, UpdateUI);
     }
     private void OnDestroy()
@@ -41,9 +56,19 @@ public class InventoryUI : MonoBehaviour
 
     public void Update()
     {
+        if (_openOrCloseInventory.WasPressedThisFrame())
+        {
+            if(_itemsParent.gameObject.activeSelf) _itemsParent.gameObject.SetActive(false);
+            else _itemsParent.gameObject.SetActive(true);
+        }
+    }
+
+    /*
+    public void Update()
+    {
         if (Input.GetKeyDown(KeyCode.F))
         {
             UpdateUI();
         }
-    }
+    }*/
 }

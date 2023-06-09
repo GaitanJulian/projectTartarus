@@ -16,7 +16,7 @@ public class AntStateManager : MonoBehaviour
 
     [SerializeField]
     float _attackDistance = 1.1f, _moveVelocity = 1.5f, _moveWhileAttackingVelocity = 0.2f,
-        _attackWaitTime = 0.1f, _attackMagnitude = 1f, _c = 3f;
+        _attackWaitTime = 0.1f, _attackMagnitude = 1f;
     
     int _randomDirection = 1;
     Vector3 _startingPosition;
@@ -30,7 +30,6 @@ public class AntStateManager : MonoBehaviour
     public bool DebugState { get { return _debugState; } }
     public int RandomDirection { get { return _randomDirection;} }
     public Vector3 StartingPosition { get { return _startingPosition; } }
-    public float C { get { return _c; } }
     #endregion
 
     void Start()
@@ -74,5 +73,18 @@ public class AntStateManager : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, _attackDistance);
         }
+    }
+
+    public void Poison()
+    {
+        _moveVelocity *= 0.8f;
+        _attackMagnitude *= 0.8f;
+        Debug.Log("applied poisson");
+    }
+
+    public void RemovePoison()
+    {
+        _moveVelocity /= 0.8f;
+        _attackMagnitude /= 0.8f;
     }
 }

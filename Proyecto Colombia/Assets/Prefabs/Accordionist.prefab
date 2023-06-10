@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 400765999613289853}
   - component: {fileID: 2039481967394056262}
   - component: {fileID: 2039481967394056263}
+  - component: {fileID: 4910057128174265282}
   m_Layer: 0
   m_Name: Accordionist
   m_TagString: Player
@@ -193,6 +194,27 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+--- !u!95 &4910057128174265282
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039481967394056270}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1824952666515907600
 PrefabInstance:
   m_ObjectHideFlags: 0

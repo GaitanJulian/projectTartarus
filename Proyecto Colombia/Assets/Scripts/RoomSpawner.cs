@@ -6,10 +6,10 @@ public class RoomSpawner : MonoBehaviour
 {
     public int openSide;
 
-    //1 B
-    //2 T
-    //3 L
-    //4 R
+    //1 Button
+    //2 Top
+    //3 Left
+    //4 Right
 
     private RoomTemplates templates;
     private int rand;
@@ -62,15 +62,12 @@ public class RoomSpawner : MonoBehaviour
             }
             spawned = true;
         }
-
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("SpawnPoint")){
             if (other.GetComponent<RoomSpawner>().spawned==false && spawned==false){
-                Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
                 Destroy(this);
             }
             spawned = true;

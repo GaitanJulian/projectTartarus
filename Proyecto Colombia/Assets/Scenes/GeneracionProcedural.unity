@@ -40377,6 +40377,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2039481967394056263, guid: c7b91348c875677419ead494eec54d11, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 644967439}
+    - target: {fileID: 2039481967394056263, guid: c7b91348c875677419ead494eec54d11, type: 3}
       propertyPath: _move.m_Id
       value: f306e2b3-1ab6-4a38-a4c3-643cc796788d
       objectReference: {fileID: 0}
@@ -40388,8 +40392,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Accordionist
       objectReference: {fileID: 0}
+    - target: {fileID: 4910057128174265282, guid: c7b91348c875677419ead494eec54d11, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e63992cb0682e8844a97af6bd5fc95db, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7b91348c875677419ead494eec54d11, type: 3}
+--- !u!95 &644967439 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4910057128174265282, guid: c7b91348c875677419ead494eec54d11, type: 3}
+  m_PrefabInstance: {fileID: 644967438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &884209172
 GameObject:
   m_ObjectHideFlags: 0
@@ -40421,12 +40434,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomRooms:
   - {fileID: 4953635244869645821, guid: d982283461c38944ea6e489b7c7eaa1e, type: 3}
+  - {fileID: 4953635244869645821, guid: 6c1b44b23ddd5e345a7a94f77ec5a076, type: 3}
+  - {fileID: 4953635244869645821, guid: 7badd5916afa7fd4b93774d006a2b1b2, type: 3}
   topRooms:
   - {fileID: 4953635244869645821, guid: 6b213a3321da8d14a8a830cdf9ecaa8d, type: 3}
+  - {fileID: 4953635244869645821, guid: e06fecc25fa7abd4d9ba692e56905e00, type: 3}
+  - {fileID: 4953635244869645821, guid: 0509e1a47cccf2345bbfc4333dd7ca79, type: 3}
   leftRooms:
   - {fileID: 4953635244869645821, guid: eccdbc9fc39a4d642b034c89288e5099, type: 3}
+  - {fileID: 4953635244869645821, guid: 6c1b44b23ddd5e345a7a94f77ec5a076, type: 3}
+  - {fileID: 4953635244869645821, guid: e06fecc25fa7abd4d9ba692e56905e00, type: 3}
   rightRooms:
   - {fileID: 4953635244869645821, guid: 201c0808a9fcefe419fefd1c9923c95e, type: 3}
+  - {fileID: 4953635244869645821, guid: 7badd5916afa7fd4b93774d006a2b1b2, type: 3}
+  - {fileID: 4953635244869645821, guid: 0509e1a47cccf2345bbfc4333dd7ca79, type: 3}
   closedRoom: {fileID: 7474942505895952886, guid: 6c631f396dd19a347b1c4f027d0b21f8, type: 3}
   rooms: []
   boss: {fileID: 8621878284485204891, guid: 14b9a5c1f7dde014cb9e2fbfb9f6a92f, type: 3}

@@ -5,8 +5,6 @@ public class EnemyStatsScriptableObject : ScriptableObject
 {
     [Header("Movement system")]
     public float maxSpeed;
-    public float acceleration;
-    public float deceleration;
     public float freeMovementTime;
     public float wallCheckDistance;
 
@@ -16,8 +14,10 @@ public class EnemyStatsScriptableObject : ScriptableObject
     public float attackTime;
 
     [Header("Evade Mechanic")]
-    public float rotationSpeed;
-    public float evadeChance;
+    public float evasionSpeed;
+    public float evasionChance;
+    public float evasionDuration;
+    public float evasionCooldown;
 
     [Header("LayerMasks")]
     public LayerMask playerLayerMask;

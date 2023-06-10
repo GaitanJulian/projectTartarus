@@ -6,6 +6,7 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
     // Serialized fields accessible in the Unity inspector
     [SerializeField] protected EnemyStatsScriptableObject _enemyStats;
     [SerializeField] protected EnemyAiWithContextSteering _contextSteering;
+    [SerializeField] protected Animator _animator;
 
     // Protected fields accessible by child classes
     protected Rigidbody2D _rb;

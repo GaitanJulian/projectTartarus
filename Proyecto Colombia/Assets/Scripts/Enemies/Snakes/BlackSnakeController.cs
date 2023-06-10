@@ -5,6 +5,8 @@ using UnityEngine;
 public class BlackSnakeController : PurpleSnakeController
 {
     private IEnumerator _evadeCoroutine;
+    private IEnumerator _justHitCoroutine;
+    private bool _justHit;
     private bool _isEvading;
     private float _evadingTime;
     private Collider2D _collider;
@@ -15,6 +17,7 @@ public class BlackSnakeController : PurpleSnakeController
     {
         base.Awake();
         _evadeCoroutine = EvasionState();
+        _justHitCoroutine = JustHit();
         _collider = GetComponent<Collider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _evadingTime = _enemyStats.evasionDuration;
@@ -33,9 +36,18 @@ public class BlackSnakeController : PurpleSnakeController
         // Check if the snake should start evading
         if (!_isEvading && ShouldTriggerEvasion())
         {
+            if (_isChasing)
+            {
                 _isChasing = false;
                 ChangeState(_chasingCoroutine, _evadeCoroutine);
+            }
+            else if (_justHit && _isAttacking)
+            {
+                _isAttacking = false;
+                ChangeState(_attackCoroutine, _evadeCoroutine);
+            }
         }
+        
 
         // If in evasion state, keep control of the time
         if (_isEvading)
@@ -65,7 +77,6 @@ public class BlackSnakeController : PurpleSnakeController
         while (true)
         {
             _isEvading = true;
-            _collider.enabled = false;
             _spriteRenderer.material.color = new Color(1f, 1f, 1f, 0.5f);
             Vector2 direction = _contextSteering.GetDirection();
             Vector2 perpendicular = new Vector2(-direction.y, direction.x);
@@ -95,4 +106,20 @@ public class BlackSnakeController : PurpleSnakeController
         }
 
     }
+
+    protected override void OnDamageTaken(Transform _attacker, float damage)
+    {
+        if (_isAttacking && !_justHit)
+        {
+            StartCoroutine(_justHitCoroutine);
+        }
+    }
+
+    private IEnumerator JustHit()
+    {
+        _justHit = true;
+        yield return new WaitForSeconds(0.5f);
+        _justHit = false;
+    }
+
 }

@@ -16,6 +16,8 @@ public class GreenSnakeController : EnemyController
 
     // The followings states could be done in an ENUM or a ScriptableObject.
     const string SNAKE_IDLE = "Snake_idle";
+    const string SNAKE_IDLE_UPWARDS = "Snake_idle_upwards";
+    const string SNAKE_IDLE_DOWNWARDS = "Snake_idle_downwards";
     const string SNAKE_HORIZONTAL = "Snake_horizontal";
     const string SNAKE_HORIZONTAL_ATTACK = "Snake_horizontal_attack";
     const string SNAKE_UPWARDS = "Snake_upwards";
@@ -36,8 +38,9 @@ public class GreenSnakeController : EnemyController
 
         if(_isIdle || _isChasing)
         {
+            if (_rb.velocity.magnitude != 0) _lastSpeed = _rb.velocity;
             ChangeIdleAnimation();
-            _lastSpeed = _rb.velocity;
+            
         }
 
     }
@@ -53,7 +56,8 @@ public class GreenSnakeController : EnemyController
         while (true)
         {
             _isAttacking = true;
-            ChangeAttackAnimation();
+            ChangeAnimation();
+            yield return new WaitForEndOfFrame();
             _rb.velocity = Vector2.zero; // In this case, at the start of the attack the snake stops moving
             // Wait for the attack duration
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
@@ -64,7 +68,7 @@ public class GreenSnakeController : EnemyController
                 _isAttacking = false;
                 // If it is out of the attack range, we start chasing again
                 ChangeState(_attackCoroutine, _chasingCoroutine);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForEndOfFrame();
                 //ChangeAnimationState(SNAKE_IDLE);
             }
         }
@@ -92,12 +96,14 @@ public class GreenSnakeController : EnemyController
                 {
                     _isChasing = false;
                     ChangeState(_chasingCoroutine, _attackCoroutine);
+                    yield return new WaitForEndOfFrame();
                 }
             }
             else
             {
                 _isChasing = false;
                 ChangeState(_chasingCoroutine, _idleCoroutine);
+                yield return new WaitForEndOfFrame();
             }
             yield return null;
         }
@@ -188,7 +194,7 @@ public class GreenSnakeController : EnemyController
         _currentState = _newState;
     }
 
-    protected void ChangeAttackAnimation()
+    protected void ChangeAnimation()
     {
         float horizontalSpeed = Mathf.Abs(_lastSpeed.x);
         float verticalSpeed = Mathf.Abs(_lastSpeed.y);
@@ -229,7 +235,21 @@ public class GreenSnakeController : EnemyController
         }
         else
         {
-            ChangeAnimationState(SNAKE_IDLE);
+            float horizontalSpeed = Mathf.Abs(_lastSpeed.x);
+            float verticalSpeed = Mathf.Abs(_lastSpeed.y);
+            if (horizontalSpeed > verticalSpeed)
+            {
+                ChangeAnimationState(SNAKE_IDLE);
+            }
+            else if(_lastSpeed.y > 0)
+            {
+                ChangeAnimationState(SNAKE_IDLE_UPWARDS);
+            }
+            else
+            {
+                ChangeAnimationState(SNAKE_IDLE_DOWNWARDS);
+            }
+            
         }
     }
 

@@ -33,6 +33,7 @@ public class BlackSnakeController : PurpleSnakeController
     protected override void Update()
     {
         base.Update();
+
         // Check if the snake should start evading
         if (!_isEvading && ShouldTriggerEvasion())
         {

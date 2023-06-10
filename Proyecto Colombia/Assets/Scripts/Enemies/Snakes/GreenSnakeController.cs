@@ -55,12 +55,12 @@ public class GreenSnakeController : EnemyController
         while (true)
         {
             _isAttacking = true;
-            ChangeAnimation();
+            ChangeAttackAnimation();
             yield return new WaitForEndOfFrame();
             _rb.velocity = Vector2.zero; // In this case, at the start of the attack the snake stops moving
             // Wait for the attack duration
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
-            ChangeIdleAnimation() ;
+            ChangeIdleAnimation();
             // Check if the player is still within attack range, using the context Steering along with the Attack range from _enemyStats Scriptable Object
             if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
             {
@@ -193,7 +193,7 @@ public class GreenSnakeController : EnemyController
         _currentState = _newState;
     }
 
-    protected void ChangeAnimation()
+    protected void ChangeAttackAnimation()
     {
         float horizontalSpeed = Mathf.Abs(_lastSpeed.x);
         float verticalSpeed = Mathf.Abs(_lastSpeed.y);

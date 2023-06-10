@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,16 @@ public class CharacterController : MonoBehaviour
 
     const string _animParamHorizontal = "Horizontal", _animParamVertical = "Vertical", _animSpeed = "Speed";
     private Vector2 _lastDireciton; // Last direction the player moved at
+    Queue<Vector2> _vectorQueue; //last 5 "_playerInput" recorded different than zero
+
+    [SerializeField] bool _drawGizmos;
+
+    private void Start()
+    {
+        _vectorQueue = new Queue<Vector2>();
+        _vectorQueue.Enqueue(Vector2.zero);
+    }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -47,9 +58,12 @@ public class CharacterController : MonoBehaviour
             _desiredVelocity = _playerInput * _movementStats.maxSpeed;
             _currentVelocity = _rb.velocity;
             _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.acceleration * Time.fixedDeltaTime);
-            _animator.SetFloat(_animSpeed, 1);
+            if (_animator != null) _animator.SetFloat(_animSpeed, 1);
             Animate();
             _lastDireciton = _playerInput; // Stores the last direction the player intended to look at
+
+            _vectorQueue.Enqueue(_playerInput);
+            if (_vectorQueue.Count > 5) _vectorQueue.Dequeue();
         }
         else
         {
@@ -57,23 +71,45 @@ public class CharacterController : MonoBehaviour
             _desiredVelocity = Vector2.zero;
             _currentVelocity = _rb.velocity;
             _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.deceleration * Time.fixedDeltaTime);
-            _animator.SetFloat(_animSpeed, 0);
+            if (_animator != null) _animator.SetFloat(_animSpeed, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            foreach (Vector2 vector in _vectorQueue)
+            {
+                Debug.Log(vector);
+            }
         }
 
     }
 
     private void Animate()
-    { 
+    {
 
-        _animator.SetFloat(_animParamHorizontal, _playerInput.x);
-        _animator.SetFloat(_animParamVertical, _playerInput.y);
+        if (_animator != null) _animator.SetFloat(_animParamHorizontal, _playerInput.x);
+        if (_animator != null) _animator.SetFloat(_animParamVertical, _playerInput.y);
 
     }
 
     // This function will return the last direction the player was looking at
     public Vector2 ReturnDirection()
     {
-        return _lastDireciton;
+        Vector2 toReturn;
+        if (_playerInput != Vector2.zero) toReturn = _playerInput;
+        else toReturn = _vectorQueue != null ? _vectorQueue.Peek() : Vector2.zero;
+        return toReturn;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_drawGizmos)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, (Vector2)transform.position + ReturnDirection());
+        }
+
+
     }
 
 }

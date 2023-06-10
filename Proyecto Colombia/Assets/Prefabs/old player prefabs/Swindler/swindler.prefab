@@ -585,8 +585,8 @@ GameObject:
   - component: {fileID: 6477926205964105243}
   - component: {fileID: 6477926205964105241}
   - component: {fileID: 6477926205964105240}
-  - component: {fileID: 4621901677714766628}
   - component: {fileID: 6477926205964105246}
+  - component: {fileID: 4621901677714766628}
   - component: {fileID: 6477926205964105444}
   - component: {fileID: 6477926205964105445}
   m_Layer: 0
@@ -604,7 +604,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6477926205964105239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.107699, y: 2.3905408, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -712,6 +712,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.77, y: 0.24}
   m_EdgeRadius: 0
+--- !u!114 &6477926205964105246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6477926205964105239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2990798da93a6d94480e0526a7da64d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementStats: {fileID: 11400000, guid: dad494336d3e2314485dea80b9418889, type: 2}
+  _animator: {fileID: 0}
+  _move:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d9bfeb60-3de5-42cf-be74-e96ba682624a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &4621901677714766628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,28 +749,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capibara: {fileID: 4498727571744452936}
   TxInfo: {fileID: 4621901679608598654}
---- !u!114 &6477926205964105246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6477926205964105239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2990798da93a6d94480e0526a7da64d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movementStats: {fileID: 11400000, guid: dad494336d3e2314485dea80b9418889, type: 2}
-  _move:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: d9bfeb60-3de5-42cf-be74-e96ba682624a
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!114 &6477926205964105444
 MonoBehaviour:
   m_ObjectHideFlags: 0

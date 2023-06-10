@@ -1,7 +1,6 @@
 using Events;
 using System;
 using System.Collections;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -89,7 +88,7 @@ public class GreenSnakeController : EnemyController
                 if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
                 {
                     //if target is further than attack distance
-                    _rb.velocity = _contextSteering.GetDirection() * _enemyStats.maxSpeed;
+                    _rb.velocity = _contextSteering.GetDirection() * _enemyStats.maxSpeed * _speedModifier;
      
                 }
                 else

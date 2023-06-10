@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec4c173350085147b9c022407954b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyStats: {fileID: 11400000, guid: fb428c56ce22b2c4bbe3e5de92e91c7d, type: 2}
+  _enemyStats: {fileID: 11400000, guid: 90c927353c3a4894c901a6b45933a94a, type: 2}
   _contextSteering: {fileID: 7310637597556486580}
   _animator: {fileID: 2332680476567204875}
 --- !u!1001 &2332680475407570023

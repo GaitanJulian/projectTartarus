@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BlackSnakeController : PurpleSnakeController
 {
-    private IEnumerator _evadeCoroutine;
-    private IEnumerator _justHitCoroutine;
-    private bool _justHit;
+    private IEnumerator _evadeCoroutine; // To control the evade coroutine
+    private IEnumerator _justHitCoroutine; // To control the Just Hit coroutine
+    private bool _justHit; // Boolean to know if the snake has just been hit
     private bool _isEvading;
     private float _evadingTime;
     private Collider2D _collider;
@@ -36,12 +36,12 @@ public class BlackSnakeController : PurpleSnakeController
         // Check if the snake should start evading
         if (!_isEvading && ShouldTriggerEvasion())
         {
-            if (_isChasing)
+            if (_isChasing) // First condition, the snake can trigger evasion while chasing
             {
                 _isChasing = false;
                 ChangeState(_chasingCoroutine, _evadeCoroutine);
             }
-            else if (_justHit && _isAttacking)
+            else if (_justHit && _isAttacking) // Or trigger evasion if is attacking and has been attacked
             {
                 _isAttacking = false;
                 ChangeState(_attackCoroutine, _evadeCoroutine);
@@ -52,6 +52,7 @@ public class BlackSnakeController : PurpleSnakeController
         // If in evasion state, keep control of the time
         if (_isEvading)
         {
+            ChangeIdleAnimation(); // While evading we need to update the animation as well
             _evadingTime -= Time.deltaTime;
         }
 
@@ -85,6 +86,7 @@ public class BlackSnakeController : PurpleSnakeController
             // Perform a raycast to check for obstacles
             RaycastHit2D hit = Physics2D.Raycast(transform.position, movement, movement.magnitude, _enemyStats.wallLayerMask);
 
+            // Change direction quickly if is about to collide into a wall
             if (hit.collider != null && _changeDirectionCooldown <= 0 )
             {
                 _currentEvasionDirection *= -1;

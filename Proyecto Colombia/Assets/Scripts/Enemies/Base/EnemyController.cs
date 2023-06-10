@@ -23,6 +23,7 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
         _attackCoroutine = AttackState(); // Each variable must be assigned to its corresponding coroutine, this case the Attack State
         _chasingCoroutine = ChaseState();
         _idleCoroutine = IdleState();
+        _animator = GetComponent<Animator>();
     }
 
     private void OnEnable()

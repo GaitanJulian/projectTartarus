@@ -1,16 +1,47 @@
 using Events;
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 public class GreenSnakeController : EnemyController
 {
     private Vector2 _freeMoveDirection; // A random vector that is used in the IdleState for a free movement direction
     protected bool _isIdle = true; // A boolean to check if the enemy is in idle state, this will allow to change from idle to chasing.
     protected bool _isAttacking = false;
     protected bool _isChasing = false;
+    private Vector2 _lastSpeed; // Track the previous speed to determine the last direction
+    private string _currentState; // Current animation state
+
+    // The followings states could be done in an ENUM or a ScriptableObject.
+    const string SNAKE_IDLE = "Snake_idle";
+    const string SNAKE_IDLE_UPWARDS = "Snake_idle_upwards";
+    const string SNAKE_IDLE_DOWNWARDS = "Snake_idle_downwards";
+    const string SNAKE_HORIZONTAL = "Snake_horizontal";
+    const string SNAKE_HORIZONTAL_ATTACK = "Snake_horizontal_attack";
+    const string SNAKE_UPWARDS = "Snake_upwards";
+    const string SNAKE_UPWARDS_ATTACK = "Snake_upwards_attack";
+    const string SNAKE_DOWNWARDS = "Snake_downwards";
+    const string SNAKE_DOWNWARDS_ATTACK = "Snake_downwards_attack";
 
     protected virtual void Start()
     {
         StartCoroutine(_idleCoroutine); // The snake starts at the Idle Coroutine
+    }
+
+
+    protected void Update()
+    {
+        if (_rb.velocity.x > 0) transform.localScale = new Vector2(-1, 1);
+        if (_rb.velocity.x < 0) transform.localScale = Vector2.one;
+
+        if(_isIdle || _isChasing)
+        {
+            if (_rb.velocity.magnitude != 0) _lastSpeed = _rb.velocity;
+            ChangeIdleAnimation();
+            
+        }
+
     }
 
     /// <summary>
@@ -24,20 +55,19 @@ public class GreenSnakeController : EnemyController
         while (true)
         {
             _isAttacking = true;
+            ChangeAttackAnimation();
+            yield return new WaitForEndOfFrame();
             _rb.velocity = Vector2.zero; // In this case, at the start of the attack the snake stops moving
-
-            // Attack the player
-            Attack();
-
             // Wait for the attack duration
-            yield return new WaitForSeconds(_enemyStats.attackTime);
-
+            yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+            ChangeIdleAnimation();
             // Check if the player is still within attack range, using the context Steering along with the Attack range from _enemyStats Scriptable Object
             if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
             {
                 _isAttacking = false;
                 // If it is out of the attack range, we start chasing again
-                ChangeState(_attackCoroutine, _chasingCoroutine); 
+                ChangeState(_attackCoroutine, _chasingCoroutine);
+                yield return new WaitForEndOfFrame();
                 //ChangeAnimationState(SNAKE_IDLE);
             }
         }
@@ -65,12 +95,14 @@ public class GreenSnakeController : EnemyController
                 {
                     _isChasing = false;
                     ChangeState(_chasingCoroutine, _attackCoroutine);
+                    yield return new WaitForEndOfFrame();
                 }
             }
             else
             {
                 _isChasing = false;
                 ChangeState(_chasingCoroutine, _idleCoroutine);
+                yield return new WaitForEndOfFrame();
             }
             yield return null;
         }
@@ -139,7 +171,85 @@ public class GreenSnakeController : EnemyController
     /// </summary>
     protected override void Attack()
     {
-        print("Done " + _enemyStats.damage + " dmg");
-        EventManager.Dispatch(ENUM_Player.alterHitpoints, -_enemyStats.damage * _attackModifier);
+        // Perform a raycast in the attack direction
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, _lastSpeed.normalized, _enemyStats.attackRange, _enemyStats.playerLayerMask);
+
+        // Check if the raycast hits the player
+        if (hit.collider != null)
+        {
+            // Apply damage to the player
+            EventManager.Dispatch(ENUM_Player.alterHitpoints, -_enemyStats.damage);
+        }    
     }
+
+    protected void ChangeAnimationState(string _newState)
+    {
+        // Prevents the animation from interrumping itself
+        if (_currentState == _newState) return;
+
+        // Change the animation
+        _animator.Play(_newState);
+
+        _currentState = _newState;
+    }
+
+    protected void ChangeAttackAnimation()
+    {
+        float horizontalSpeed = Mathf.Abs(_lastSpeed.x);
+        float verticalSpeed = Mathf.Abs(_lastSpeed.y);
+
+        if (horizontalSpeed > verticalSpeed)
+        {
+            ChangeAnimationState(SNAKE_HORIZONTAL_ATTACK);
+        }
+        else if(_lastSpeed.y > 0)
+        {
+            ChangeAnimationState(SNAKE_UPWARDS_ATTACK);
+        }
+        else if (_lastSpeed.y < 0)
+        {
+            ChangeAnimationState(SNAKE_DOWNWARDS_ATTACK);
+        }
+        else
+        {
+            return;
+        }
+
+    }
+
+    protected void ChangeIdleAnimation()
+    {
+        if (Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_rb.velocity.y))
+        {
+            ChangeAnimationState(SNAKE_HORIZONTAL);
+        }
+        else if (_rb.velocity.y > 0)
+        {
+
+            ChangeAnimationState(SNAKE_UPWARDS);
+        }
+        else if (_rb.velocity.y < 0)
+        {
+            ChangeAnimationState(SNAKE_DOWNWARDS);
+        }
+        else
+        {
+            float horizontalSpeed = Mathf.Abs(_lastSpeed.x);
+            float verticalSpeed = Mathf.Abs(_lastSpeed.y);
+            if (horizontalSpeed > verticalSpeed)
+            {
+                ChangeAnimationState(SNAKE_IDLE);
+            }
+            else if(_lastSpeed.y > 0)
+            {
+                ChangeAnimationState(SNAKE_IDLE_UPWARDS);
+            }
+            else
+            {
+                ChangeAnimationState(SNAKE_IDLE_DOWNWARDS);
+            }
+            
+        }
+    }
+
 }

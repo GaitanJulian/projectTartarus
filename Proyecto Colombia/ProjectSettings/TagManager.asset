@@ -21,8 +21,8 @@ TagManager:
   - Player
   - PlayerBigCollider
   - Enemy
-  - 
-  - 
+  - Projectile
+  - Capibara
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 433608783
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

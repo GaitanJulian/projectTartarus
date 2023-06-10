@@ -39,6 +39,9 @@ public class InventoryOnScreen : MonoBehaviour
     }
     private void OnEnable()
     {
+        PlaceSlots();
+        _ableToRotate = true;
+
         _inventoryLeft = _playerControls.Player.InventoryLeft;
         _inventoryLeft.Enable();
         _inventoryRight = _playerControls.Player.InventoryRight;
@@ -48,6 +51,8 @@ public class InventoryOnScreen : MonoBehaviour
     }
     private void OnDisable()
     {
+        inputQueue.Clear();
+
         _inventoryLeft.Disable();
         _inventoryRight.Disable();
         _useItem.Disable();
@@ -198,6 +203,7 @@ public class InventoryOnScreen : MonoBehaviour
     void PlaceSlots()
     {
         HideSlots();
+        if( _slotPositions != null )
         for (int i = 0; i < _slotPositions.Length; i++)
         {
             _aviableSlots[_childIndexes[i]].SetActive(true);

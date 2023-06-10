@@ -10,7 +10,7 @@ public class Accordionist : MonoBehaviour
     private PlayerInputActions playerControls;
     CharacterController movControll;
     private InputAction Attack;
-    Vector2 direccion;
+    Vector2 direccion = Vector2.right;
     float time;
     void Awake()
     {
@@ -44,10 +44,10 @@ public class Accordionist : MonoBehaviour
     void shoot()
     {
         //funcion de disparo para la espera entre la generacion de cada onda
-        direccion = movControll.ReturnDirection();
-        
-        StartCoroutine(wait(0.2f));
+        if ( movControll.ReturnDirection() == null || movControll.ReturnDirection() == Vector2.zero) direccion = Vector2.right;
+        else direccion = movControll.ReturnDirection();
 
+        StartCoroutine(wait(0.2f));
     }
     IEnumerator wait(float sec)
     {
@@ -62,9 +62,11 @@ public class Accordionist : MonoBehaviour
             Ondas[i] = Instantiate(onda, salida, Quaternion.AngleAxis(angle, Vector3.forward));
            
             Ondas[i].GetComponent<Rigidbody2D>().velocity = direccion*force;
-            Ondas[i].transform.localScale = new Vector2(radio-i*3,radio-i*3);
+            Ondas[i].transform.localScale = new Vector2(radio-i*3,radio-i*3)/3;
             Ondas[i].GetComponent<OndaDestroy>().distance = t;
             t /= 2;
+
+            Ondas[i].GetComponent<OndaDestroy>()._direction = direccion;
            
             yield return new WaitForSeconds(sec);
 

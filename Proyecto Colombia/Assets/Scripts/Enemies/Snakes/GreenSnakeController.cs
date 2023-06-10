@@ -1,6 +1,5 @@
 using Events;
 using System.Collections;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 public class GreenSnakeController : EnemyController
 {
@@ -8,6 +7,7 @@ public class GreenSnakeController : EnemyController
     protected bool _isIdle = true; // A boolean to check if the enemy is in idle state, this will allow to change from idle to chasing.
     protected bool _isAttacking = false;
     protected bool _isChasing = false;
+
     protected virtual void Start()
     {
         StartCoroutine(_idleCoroutine); // The snake starts at the Idle Coroutine
@@ -58,7 +58,7 @@ public class GreenSnakeController : EnemyController
                 if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
                 {
                     //if target is further than attack distance
-                    _rb.velocity = _contextSteering.GetDirection() * _enemyStats.maxSpeed;
+                    _rb.velocity = _contextSteering.GetDirection() * _enemyStats.maxSpeed * _speedModifier;
      
                 }
                 else
@@ -140,8 +140,6 @@ public class GreenSnakeController : EnemyController
     protected override void Attack()
     {
         print("Done " + _enemyStats.damage + " dmg");
-        EventManager.Dispatch(ENUM_Player.alterHitpoints, -_enemyStats.damage);
+        EventManager.Dispatch(ENUM_Player.alterHitpoints, -_enemyStats.damage * _attackModifier);
     }
-
-
 }

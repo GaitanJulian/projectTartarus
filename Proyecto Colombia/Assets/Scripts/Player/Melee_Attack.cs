@@ -5,52 +5,71 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class Melee_Attack : MonoBehaviour
 {
-    PlayerInputActions playerControls;
-    CharacterController movControll;
-    InputAction Attack;
-    string enemyTag = "Enemy";
-    [SerializeField] float rangeAttack,damage;//radio del area de ataque 
-    Vector2 posAttack;//vector donde estara el area de ataque
-    float timeAttack;
+    //Component references:
+    PlayerInputActions _playerInputActions;
+    CharacterController _characterController;
+    InputAction _attack;
+    //Atack variables:
+    [SerializeField] float _attackRange, _attackDamage, _attackCooldown;
+    float _attackTimer;
+    Vector2 _attackPosition;
+    //debug:
+    [SerializeField] bool _drawGizmos;
+    bool _attackingForGizmos;
+
     void Awake()
     {
-        movControll = gameObject.GetComponent<CharacterController>();
-        playerControls = new PlayerInputActions();
+        _characterController = gameObject.GetComponent<CharacterController>();
+        _playerInputActions = new PlayerInputActions();
     }
     private void OnEnable()
     {
-        Attack = playerControls.Player.Attack;
-        Attack.Enable();
+        _attack = _playerInputActions.Player.Attack;
+        _attack.Enable();
     }
 
     private void OnDisable()
     {
-        Attack.Disable();
-    }
-    private void OnDrawGizmos()
-    {  
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(posAttack,rangeAttack);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        posAttack = new Vector2(transform.position.x + movControll.ReturnDirection().x / 2, transform.position.y + movControll.ReturnDirection().y / 2);
-        if (Attack.ReadValue<float>() > 0 && timeAttack<=0) { atack(); timeAttack = Attack.ReadValue<float>(); }
-        if (timeAttack >= 0) { timeAttack -= Time.deltaTime; }
+        _attack.Disable();
     }
 
-    private void atack()
+    void Update()
     {
-        
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(posAttack,rangeAttack);
-        foreach(Collider2D colider in colliders)
+        //_attackPosition = new Vector2(transform.position.x + _characterController.ReturnDirection().x / 2, transform.position.y + _characterController.ReturnDirection().y / 2);
+        _attackPosition = (Vector2)transform.position + _characterController.ReturnDirection().normalized * _attackRange;
+        if (_attack.ReadValue<float>() > 0 && _attackTimer <= 0)
         {
-            if (colider.CompareTag(enemyTag))
+            Attack();
+            _attackTimer = _attackCooldown;
+        }
+        if (_attackTimer > 0) _attackTimer -= Time.deltaTime;
+    }
+
+    private void Attack()
+    {
+        if (_drawGizmos) StartCoroutine(GizmosColor());
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(_attackPosition, _attackRange);
+        foreach(Collider2D collider in colliders)
+        {
+            if (collider.GetComponentInChildren<Damagable>() != null)
             {
-               // Debug.Log("damage");
-                //aqui se llamaria la función de hacerle daño al enemigo
+                collider.GetComponentInChildren<Damagable>().GetDamaged(_attackDamage);
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_attackingForGizmos) Gizmos.color = Color.red;
+        else Gizmos.color = Color.green;
+        //
+        if (_drawGizmos) Gizmos.DrawWireSphere(_attackPosition, _attackRange);
+    }
+
+    IEnumerator GizmosColor()
+    {
+        _attackingForGizmos = true;
+        yield return new WaitForSeconds(0.1f);
+        _attackingForGizmos = false;
     }
 }

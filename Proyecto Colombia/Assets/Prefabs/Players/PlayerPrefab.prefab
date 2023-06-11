@@ -395,6 +395,7 @@ GameObject:
   - component: {fileID: 7279330193142369134}
   - component: {fileID: 8991186761097583787}
   - component: {fileID: 4763335447399747939}
+  - component: {fileID: 1542968904030782943}
   - component: {fileID: 8991186761097583834}
   - component: {fileID: 403187970848508988}
   m_Layer: 7
@@ -475,6 +476,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capibara: {fileID: 1884067023044481474}
   TxInfo: {fileID: 7237134017371795700}
+--- !u!114 &1542968904030782943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8991186761097583828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616e08cbacc3e7542b9a97783611ea1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _terrainLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!50 &8991186761097583834
 Rigidbody2D:
   serializedVersion: 4

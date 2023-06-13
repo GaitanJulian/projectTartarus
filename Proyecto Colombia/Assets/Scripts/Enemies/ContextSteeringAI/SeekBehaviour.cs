@@ -10,7 +10,7 @@ public class SeekBehaviour : SteeringBehaviour
 
     //gizmo parameters
     [SerializeField] private bool showGizmo = true;
-    private Vector2 targetPositionCached;
+    public Vector2 targetPositionCached;
     private float[] interestsTemp;
 
     public override (float[] danger, float[] interest) GetSteering(float[] danger, float[] interest, ContextSteeringAIData aiData)

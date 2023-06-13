@@ -88,6 +88,11 @@ public class EnemyAiWithContextSteering : MonoBehaviour
         return _aiData._currentTarget;
     }
 
+    public Vector2 GetSeekedPosition()
+    {
+        SeekBehaviour seek = (SeekBehaviour)_steeringBehaviours[1];
+        return seek.targetPositionCached;
+    }
 }
 
 //TRASH BUT I'M AFRAID TO ERASE IT:

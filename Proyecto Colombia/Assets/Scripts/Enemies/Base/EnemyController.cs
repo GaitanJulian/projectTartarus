@@ -26,6 +26,11 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
         _animator = GetComponent<Animator>();
     }
 
+    protected virtual void Start()
+    {
+
+    }
+
     private void OnEnable()
     {
         _damageable._onDamageTaken.AddListener(OnDamageTaken); // Listen to the damage taken event, check event from the Damageable script

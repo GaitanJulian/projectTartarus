@@ -24,8 +24,9 @@ public class GreenSnakeController : EnemyController
     const string SNAKE_DOWNWARDS = "Snake_downwards";
     const string SNAKE_DOWNWARDS_ATTACK = "Snake_downwards_attack";
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         StartCoroutine(_idleCoroutine); // The snake starts at the Idle Coroutine
     }
 

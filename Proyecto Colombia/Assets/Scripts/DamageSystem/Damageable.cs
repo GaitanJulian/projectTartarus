@@ -3,11 +3,12 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] float _HitPoints = 100f;
+    [SerializeField] float _hitPoints = 100f;
     [SerializeField] bool _isBoss;
 
     float _startHitPoints;
     bool _hitByCactus = false;
+    bool _applyDoubleDamage = false;
     private Transform _attacker;
 
     public UnityEvent<Transform, float> _onDamageTaken = new UnityEvent<Transform, float>();
@@ -15,22 +16,34 @@ public class Damageable : MonoBehaviour
 
     private void Start()
     {
-        _startHitPoints = _HitPoints;
+        _startHitPoints = _hitPoints;
     }
 
     public void GetDamaged(float magnitude)
     {
-        if(_HitPoints > magnitude)
+        if (_applyDoubleDamage)
         {
-            _HitPoints -= magnitude;
-            _onDamageTaken?.Invoke(_attacker, magnitude * _damageMultiplier);
+            magnitude *= 2f;
+        }
+
+        if (_hitPoints > magnitude)
+        {
+            _hitPoints -= magnitude;
+            _onDamageTaken?.Invoke(_attacker, magnitude);
+        
         }
         else
         {
-            _HitPoints = 0;
+            _hitPoints = 0;
             _onDeath?.Invoke();
         }
     }
+
+    public void SetDoubleDamage(bool applyDoubleDamage)
+    {
+        _applyDoubleDamage = applyDoubleDamage;
+    }
+
 
     public void SetAttacker(Transform _attacker) => this._attacker = _attacker;
     public float GetMaxHitPoints() => _startHitPoints;

@@ -3,22 +3,20 @@ using UnityEngine;
 
 public class CharacterStatsManager : MonoBehaviour
 {
-    [SerializeField] private CharacterStatsScriptableObject _characterStats;
-    private Damagable _damageableScript;
+    public CharacterStatsScriptableObject _characterStats;
+    private Damageable _damageableScript;
     private SpriteRenderer _spriteRenderer;
-
-    public float _currentSpeed; // Store the current speed of the character
-    public float _currentAttackDamage; // Store the current attack damage of the character
-    public float _currentAttackRange; // Store the current attack range of the character
     private Color _originalColor; // Store the original color of the sprite
 
-
-    public bool _isParalized;
-    public bool _isStunned;
+    [HideInInspector] public float _currentSpeed; // Store the current speed of the character
+    [HideInInspector] public float _currentAttackDamage; // Store the current attack damage of the character
+    [HideInInspector] public float _currentAttackRange; // Store the current attack range of the character
+    [HideInInspector] public bool _isParalized;
+    [HideInInspector] public bool _isStunned;
 
     private void Awake()
     {
-        _damageableScript = GetComponent<Damagable>();
+        _damageableScript = GetComponent<Damageable>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -37,7 +35,13 @@ public class CharacterStatsManager : MonoBehaviour
         if (!_isStunned)
         {
             StartCoroutine(StunCoroutine(duration));
+
         }
+    }
+
+    public void ApplyDamageOverTime(float damageAmount, float interval, float duration)
+    {
+        StartCoroutine(DamageOverTimeCoroutine(damageAmount, interval, duration));
     }
 
     private IEnumerator StunCoroutine(float duration)
@@ -45,6 +49,7 @@ public class CharacterStatsManager : MonoBehaviour
         _isStunned = true;
         _currentAttackRange = 0f;
         _currentSpeed = 0f;
+        _damageableScript.SetDamageMultiplier(2f);
         // Change sprite color to indicate stun
         _spriteRenderer.color = Color.gray;
 
@@ -53,10 +58,36 @@ public class CharacterStatsManager : MonoBehaviour
         _currentAttackRange = _characterStats._attackRange;
         _currentSpeed = _characterStats._maxSpeed;
         _isStunned = false;
-
+        _damageableScript.SetDamageMultiplier(1f);
         // Reset sprite color to original color
         _spriteRenderer.color = _originalColor;
 
+    }
+
+    private IEnumerator DamageOverTimeCoroutine(float damageAmount, float interval, float duration)
+    {
+        _currentSpeed *= 0.8f; // Reduction of 20% to the speed
+        _currentAttackDamage *= 0.8f; // Reduction of 20% to the attack damage
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            yield return new WaitForSeconds(interval);
+
+            // Apply damage to the player
+            _damageableScript.GetDamaged(damageAmount);
+
+            // Change sprite color to indicate damage
+            _spriteRenderer.color = Color.red;
+
+            // Wait for a short duration to create the "Poisson" effect
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
+
+            // Reset sprite color to original color
+            _spriteRenderer.color = _originalColor;
+
+            elapsedTime += interval;
+        }
     }
 
 }

@@ -3,48 +3,41 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] float _hitPoints = 100f;
+    [SerializeField] float _HitPoints = 100f;
     [SerializeField] bool _isBoss;
 
     float _startHitPoints;
     bool _hitByCactus = false;
-    bool _applyDoubleDamage = false;
     private Transform _attacker;
+
+    public float _damageMultiplier;
 
     public UnityEvent<Transform, float> _onDamageTaken = new UnityEvent<Transform, float>();
     public UnityEvent _onDeath = new UnityEvent();
 
     private void Start()
     {
-        _startHitPoints = _hitPoints;
+        _startHitPoints = _HitPoints;
+    }
+
+    public void SetDamageMultiplier(float multiplier)
+    {
+        _damageMultiplier = multiplier;
     }
 
     public void GetDamaged(float magnitude)
     {
-        if (_applyDoubleDamage)
+        if (_HitPoints > magnitude * _damageMultiplier)
         {
-            magnitude *= 2f;
-        }
-
-        if (_hitPoints > magnitude)
-        {
-            _hitPoints -= magnitude;
-            _onDamageTaken?.Invoke(_attacker, magnitude);
-        
+            _HitPoints -= magnitude * _damageMultiplier;
+            _onDamageTaken?.Invoke(_attacker, magnitude * _damageMultiplier);
         }
         else
         {
-            _hitPoints = 0;
+            _HitPoints = 0;
             _onDeath?.Invoke();
         }
     }
-
-    public void SetDoubleDamage(bool applyDoubleDamage)
-    {
-        _applyDoubleDamage = applyDoubleDamage;
-    }
-
-
     public void SetAttacker(Transform _attacker) => this._attacker = _attacker;
     public float GetMaxHitPoints() => _startHitPoints;
 
@@ -55,7 +48,7 @@ public class Damageable : MonoBehaviour
     #endregion
 
     #region For Poison
-    float _damageMultiplier = 1f;
+
     
     public void Stun(float time)
     {

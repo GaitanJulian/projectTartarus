@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3200b86845eb43f4e80f5e8a2ff3b838, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  _maxSpeed: 0
-  _damage: 0
-  _attackRange: 0
-  playerLayerMask:
+  _maxSpeed: 7
+  _damage: 3
+  _attackRange: 5
+  _playerLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  wallLayerMask:
+    m_Bits: 256
+  _wallLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  acceleration: 0
-  deceleration: 0
+    m_Bits: 64
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _acceleration: 0
+  _deceleration: 0

@@ -12,18 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb448822f541714ebe7a87ee58c148f, type: 3}
   m_Name: BlackSnakeStats 1
   m_EditorClassIdentifier: 
-  _maxSpeed: 0
-  _damage: 0
-  _attackRange: 0
-  playerLayerMask:
+  _maxSpeed: 5
+  _damage: 8
+  _attackRange: 1.8
+  _playerLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  wallLayerMask:
+    m_Bits: 256
+  _wallLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  _freeMovementTime: 0
-  _wallCheckDistance: 0
-  _evasionSpeed: 0
-  _evasionChance: 0
-  _evasionDuration: 0
-  _evasionCooldown: 0
+    m_Bits: 64
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _freeMovementTime: 1.5
+  _wallCheckDistance: 4
+  _evasionSpeed: 3
+  _evasionChance: 0.001
+  _evasionDuration: 1.5
+  _evasionCooldown: 0.5

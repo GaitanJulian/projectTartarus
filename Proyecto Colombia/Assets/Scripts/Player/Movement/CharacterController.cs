@@ -25,7 +25,7 @@ public class CharacterController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerControls = new PlayerInputActions();
-        _characterStatsManager = GetComponent<CharacterStatsManager>();
+        _characterStatsManager = GetComponentInChildren<CharacterStatsManager>();
         // _animator = GetComponent<Animator>();
     }
 

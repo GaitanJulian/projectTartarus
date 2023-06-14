@@ -178,8 +178,12 @@ public class GreenSnakeController : EnemyController
         // Check if the raycast hits the player
         if (hit.collider != null)
         {
-            // Apply damage to the player
-            EventManager.Dispatch(ENUM_Player.alterHitpoints, -_enemyStats.damage);
+            CharacterStatsManager playerStats = hit.transform.GetComponentInChildren<CharacterStatsManager>();
+
+            if (playerStats != null){
+                print("si");
+                playerStats.ApplyDamageOverTime(3, 1, 5);
+            }
         }    
     }
 

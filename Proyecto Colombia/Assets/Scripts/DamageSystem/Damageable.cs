@@ -18,6 +18,7 @@ public class Damageable : MonoBehaviour
     private void Start()
     {
         _startHitPoints = _HitPoints;
+        _damageMultiplier = 1f;
     }
 
     public void SetDamageMultiplier(float multiplier)

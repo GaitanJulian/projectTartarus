@@ -11,13 +11,13 @@ public class CharacterStatsManager : MonoBehaviour
     [HideInInspector] public float _currentSpeed; // Store the current speed of the character
     [HideInInspector] public float _currentAttackDamage; // Store the current attack damage of the character
     [HideInInspector] public float _currentAttackRange; // Store the current attack range of the character
-    [HideInInspector] public bool _isParalized;
+    [HideInInspector] public bool _isPoissoned;
     [HideInInspector] public bool _isStunned;
 
     private void Awake()
     {
-        _damageableScript = GetComponent<Damageable>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _damageableScript = transform.parent.GetComponent<Damageable>(); // The damageable script is in the father
+        _spriteRenderer = transform.parent.GetComponentInChildren<SpriteRenderer>(); // The Sprite renderer is a children
     }
 
     // Start is called before the first frame update
@@ -41,7 +41,10 @@ public class CharacterStatsManager : MonoBehaviour
 
     public void ApplyDamageOverTime(float damageAmount, float interval, float duration)
     {
-        StartCoroutine(DamageOverTimeCoroutine(damageAmount, interval, duration));
+        if(!_isPoissoned)
+        {
+            StartCoroutine(DamageOverTimeCoroutine(damageAmount, interval, duration));
+        }
     }
 
     private IEnumerator StunCoroutine(float duration)
@@ -66,6 +69,7 @@ public class CharacterStatsManager : MonoBehaviour
 
     private IEnumerator DamageOverTimeCoroutine(float damageAmount, float interval, float duration)
     {
+        _isPoissoned = true;
         _currentSpeed *= 0.8f; // Reduction of 20% to the speed
         _currentAttackDamage *= 0.8f; // Reduction of 20% to the attack damage
         float elapsedTime = 0f;
@@ -88,6 +92,10 @@ public class CharacterStatsManager : MonoBehaviour
 
             elapsedTime += interval;
         }
+
+        _isPoissoned = false;
+        _currentSpeed = _characterStats._maxSpeed;
+        _currentAttackDamage = _characterStats._damage;
     }
 
 }

@@ -1334,6 +1334,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 153993126152972633, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
+      propertyPath: m_Size.x
+      value: 2.851079
+      objectReference: {fileID: 0}
+    - target: {fileID: 153993126152972633, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
+      propertyPath: m_Size.y
+      value: 6.007229
+      objectReference: {fileID: 0}
+    - target: {fileID: 153993126152972633, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.07972121
+      objectReference: {fileID: 0}
+    - target: {fileID: 153993126152972633, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.09201336
+      objectReference: {fileID: 0}
+    - target: {fileID: 153993126152972633, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 153993126152972633, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6414692826313060265, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
       propertyPath: m_Name
       value: NPC MOCKUP
@@ -1382,5 +1406,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6414692826592672958, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6414692826592672958, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 6414692826965274640, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c540b7b5e87eec842a430914525f2b1b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97b4bb939d6742a41a4d4212a2fc6819, type: 3}

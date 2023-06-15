@@ -82,7 +82,6 @@ public class GreenSnakeController : EnemyController
                 // If it is out of the attack range, we start chasing again
                 ChangeState(_attackCoroutine, _chasingCoroutine);
                 yield return new WaitForEndOfFrame();
-                //ChangeAnimationState(SNAKE_IDLE);
             }
         }
     }

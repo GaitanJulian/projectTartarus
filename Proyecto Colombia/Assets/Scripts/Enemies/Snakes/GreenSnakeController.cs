@@ -47,14 +47,9 @@ public class GreenSnakeController : EnemyController
 
         if(_isIdle || _isChasing)
         {
-            if (_rb.velocity.magnitude != 0) _lastSpeed = _rb.velocity;
-            ChangeIdleAnimation();
-            
-        }
+            if (_rb.velocity.magnitude >= 0.1f || _rb.velocity.magnitude <= 0.1f) _lastSpeed = _rb.velocity;
+            StartCoroutine(ChangeIdleAnimationCoroutine());
 
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            _characterStatsManager.ApplyDamageOverTime(2,1,5);
         }
     }
 
@@ -69,19 +64,19 @@ public class GreenSnakeController : EnemyController
         while (true)
         {
             _isAttacking = true;
-            ChangeAttackAnimation();
-            yield return new WaitForEndOfFrame();
+            yield return StartCoroutine(ChangeAttackAnimationCoroutine());
             _rb.velocity = Vector2.zero; // In this case, at the start of the attack the snake stops moving
             // Wait for the attack duration
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
-            ChangeIdleAnimation();
+            yield return StartCoroutine(ChangeIdleAnimationCoroutine());
+            yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
             // Check if the player is still within attack range, using the context Steering along with the Attack range from _enemyStats Scriptable Object
             if (_contextSteering.DistanceFromTarget() > _characterStatsManager._currentAttackRange)
             {
                 _isAttacking = false;
                 // If it is out of the attack range, we start chasing again
                 ChangeState(_attackCoroutine, _chasingCoroutine);
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }
@@ -205,55 +200,54 @@ public class GreenSnakeController : EnemyController
         
     }
 
-    protected void ChangeAnimationState(string _newState)
+    protected IEnumerator ChangeAnimationStateCoroutine(string newState)
     {
-        // Prevents the animation from interrumping itself
-        if (_currentState == _newState) return;
+        // Prevents the animation from interrupting itself
+        if (_currentState == newState)
+            yield break;
 
         // Change the animation
-        _animator.Play(_newState);
+        _animator.Play(newState);
 
-        _currentState = _newState;
+        _currentState = newState;
     }
 
-    protected void ChangeAttackAnimation()
+    protected IEnumerator ChangeAttackAnimationCoroutine()
     {
         float horizontalSpeed = Mathf.Abs(_lastSpeed.x);
         float verticalSpeed = Mathf.Abs(_lastSpeed.y);
 
         if (horizontalSpeed > verticalSpeed)
         {
-            ChangeAnimationState(SNAKE_HORIZONTAL_ATTACK);
+            yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_HORIZONTAL_ATTACK));
         }
-        else if(_lastSpeed.y > 0)
+        else if (_lastSpeed.y > 0)
         {
-            ChangeAnimationState(SNAKE_UPWARDS_ATTACK);
+            yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_UPWARDS_ATTACK));
         }
         else if (_lastSpeed.y < 0)
         {
-            ChangeAnimationState(SNAKE_DOWNWARDS_ATTACK);
+            yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_DOWNWARDS_ATTACK));
         }
         else
         {
-            return;
+            yield break;
         }
-
     }
 
-    protected void ChangeIdleAnimation()
+    protected IEnumerator ChangeIdleAnimationCoroutine()
     {
         if (Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_rb.velocity.y))
         {
-            ChangeAnimationState(SNAKE_HORIZONTAL);
+            yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_HORIZONTAL));
         }
         else if (_rb.velocity.y > 0)
         {
-
-            ChangeAnimationState(SNAKE_UPWARDS);
+            yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_UPWARDS));
         }
         else if (_rb.velocity.y < 0)
         {
-            ChangeAnimationState(SNAKE_DOWNWARDS);
+            yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_DOWNWARDS));
         }
         else
         {
@@ -261,17 +255,16 @@ public class GreenSnakeController : EnemyController
             float verticalSpeed = Mathf.Abs(_lastSpeed.y);
             if (horizontalSpeed > verticalSpeed)
             {
-                ChangeAnimationState(SNAKE_IDLE);
+                yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_IDLE));
             }
-            else if(_lastSpeed.y > 0)
+            else if (_lastSpeed.y > 0)
             {
-                ChangeAnimationState(SNAKE_IDLE_UPWARDS);
+                yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_IDLE_UPWARDS));
             }
             else
             {
-                ChangeAnimationState(SNAKE_IDLE_DOWNWARDS);
+                yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_IDLE_DOWNWARDS));
             }
-            
         }
     }
 

@@ -53,7 +53,7 @@ public class BlackSnakeController : PurpleSnakeController
         // If in evasion state, keep control of the time
         if (_isEvading)
         {
-            ChangeIdleAnimation(); // While evading we need to update the animation as well
+            StartCoroutine(ChangeIdleAnimationCoroutine()); // While evading we need to update the animation as well
             _evadingTime -= Time.deltaTime;
         }
 

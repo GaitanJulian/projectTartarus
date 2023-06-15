@@ -26,13 +26,17 @@ public class GreenSnakeController : EnemyController
     const string SNAKE_DOWNWARDS = "Snake_downwards";
     const string SNAKE_DOWNWARDS_ATTACK = "Snake_downwards_attack";
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _otherEnemyStats = (SnakesStatsScriptableObject)_characterStatsManager._characterStats;
+    }
+
     protected override void Start()
     {
         base.Start();
-        _otherEnemyStats = (SnakesStatsScriptableObject)_characterStatsManager._characterStats;
         StartCoroutine(_idleCoroutine); // The snake starts at the Idle Coroutine
-       
-
     }
 
 
@@ -176,22 +180,30 @@ public class GreenSnakeController : EnemyController
             ChangeState(_idleCoroutine, _chasingCoroutine);
         }
     }
-    /// <summary>
-    /// Attack method, calls the event to alter player hitpoints
-    /// </summary>
-    protected CharacterStatsManager _playerStats { get; private set; }
 
-    protected override void Attack()
+    protected virtual RaycastHit2D RayHit()
     {
         // Perform a raycast in the attack direction
         RaycastHit2D hit = Physics2D.Raycast(transform.position, _lastSpeed.normalized, _characterStatsManager._currentAttackRange, _otherEnemyStats._playerLayerMask);
 
+        return hit;
+    }
+    protected RaycastHit2D _lastHit; // This variable will be used in the child classes
+    /// <summary>
+    /// Attack method, calls the event to alter player hitpoints
+    /// </summary>
+    protected override void Attack()
+    {
+        // Perform a raycast in the attack direction
+        RaycastHit2D _hit = RayHit();
+
         // Check if the raycast hits the player
-        if (hit.collider != null)
+        if (_hit.collider != null)
         {
-            _playerStats = hit.transform.GetComponentInChildren<CharacterStatsManager>();
-            hit.transform.gameObject.GetComponent<Damageable>().GetDamaged(_characterStatsManager._currentAttackDamage);
+            _hit.transform.gameObject.GetComponent<Damageable>().GetDamaged(_characterStatsManager._currentAttackDamage);
+            _lastHit = _hit;
         }
+        
     }
 
     protected void ChangeAnimationState(string _newState)

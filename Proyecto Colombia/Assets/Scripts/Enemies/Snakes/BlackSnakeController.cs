@@ -65,6 +65,20 @@ public class BlackSnakeController : PurpleSnakeController
 
     }
 
+
+    protected override void Attack()
+    {
+        // Perform a raycast in the attack direction
+        RaycastHit2D _hit = RayHit();
+
+        // Check if the raycast hits the player
+        if (_hit.collider != null)
+        {
+            _hit.transform.gameObject.GetComponent<Damageable>().GetDamaged(_characterStatsManager._currentAttackDamage);
+            _lastHit = _hit;
+        }
+    }
+
     bool ShouldTriggerEvasion()
     {
         // Generate a random probability

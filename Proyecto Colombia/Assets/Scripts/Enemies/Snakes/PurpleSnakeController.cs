@@ -1,5 +1,6 @@
 
 using Unity.VisualScripting;
+using UnityEngine;
 
 public class PurpleSnakeController : GreenSnakeController
 {
@@ -16,7 +17,11 @@ public class PurpleSnakeController : GreenSnakeController
     protected override void Attack()
     {
         base.Attack();
-        _playerStats.ApplyDamageOverTime(_otherEnemyStats._poissonDamage, _otherEnemyStats._poissonInterval, _otherEnemyStats._poissonDuration);
+        if(_lastHit.collider != null)
+        {
+            _lastHit.transform.gameObject.GetComponentInChildren<CharacterStatsManager>().ApplyDamageOverTime(_otherEnemyStats._poissonDamage, _otherEnemyStats._poissonInterval, _otherEnemyStats._poissonDuration);
+            
+        }
     }
 
 }

@@ -17,7 +17,7 @@ public class CharacterStatsManager : MonoBehaviour
     private void Awake()
     {
         _damageableScript = transform.parent.GetComponent<Damageable>(); // The damageable script is in the father
-        _spriteRenderer = transform.parent.GetComponentInChildren<SpriteRenderer>(); // The Sprite renderer is a children
+        _spriteRenderer = transform.parent.GetComponentInChildren<SpriteRenderer>();
     }
 
     // Start is called before the first frame update
@@ -29,7 +29,11 @@ public class CharacterStatsManager : MonoBehaviour
         _originalColor = _spriteRenderer.color;
     }
 
-
+    /// <summary>
+    /// Applies a stun effect to the character, temporarily disabling movement and reducing attack range.
+    /// </summary>
+    /// <param name="duration">The duration of the stun effect.</param>
+    /// <returns>An IEnumerator for running the stun coroutine.</returns>
     public void ApplyStun(float duration)
     {
         if (!_isStunned)
@@ -67,6 +71,14 @@ public class CharacterStatsManager : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// Applies damage over time to the player.
+    /// </summary>
+    /// <param name="damageAmount">The amount of damage to apply in each tick of the damage over time effect.</param>
+    /// <param name="interval">The time interval between each tick of the damage over time effect.</param>
+    /// <param name="duration">The total duration of the damage over time effect.</param>
+    /// <returns>An IEnumerator for running the damage over time coroutine.</returns>
     private IEnumerator DamageOverTimeCoroutine(float damageAmount, float interval, float duration)
     {
         _isPoissoned = true;
@@ -85,7 +97,7 @@ public class CharacterStatsManager : MonoBehaviour
             _spriteRenderer.color = Color.red;
 
             // Wait for a short duration to create the "Poisson" effect
-            yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
+            yield return new WaitForSeconds(0.5f);
 
             // Reset sprite color to original color
             _spriteRenderer.color = _originalColor;

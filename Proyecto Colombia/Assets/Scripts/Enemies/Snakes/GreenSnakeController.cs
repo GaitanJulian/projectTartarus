@@ -13,6 +13,8 @@ public class GreenSnakeController : EnemyController
     private Vector2 _lastSpeed; // Track the previous speed to determine the last direction
     private string _currentState; // Current animation state
 
+    protected SnakesStatsScriptableObject _otherEnemyStats;
+
     // The followings states could be done in an ENUM or a ScriptableObject.
     const string SNAKE_IDLE = "Snake_idle";
     const string SNAKE_IDLE_UPWARDS = "Snake_idle_upwards";
@@ -27,7 +29,10 @@ public class GreenSnakeController : EnemyController
     protected override void Start()
     {
         base.Start();
+        _otherEnemyStats = (SnakesStatsScriptableObject)_characterStatsManager._characterStats;
         StartCoroutine(_idleCoroutine); // The snake starts at the Idle Coroutine
+       
+
     }
 
 
@@ -43,6 +48,10 @@ public class GreenSnakeController : EnemyController
             
         }
 
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            _characterStatsManager.ApplyDamageOverTime(2,1,5);
+        }
     }
 
     /// <summary>
@@ -63,7 +72,7 @@ public class GreenSnakeController : EnemyController
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
             ChangeIdleAnimation();
             // Check if the player is still within attack range, using the context Steering along with the Attack range from _enemyStats Scriptable Object
-            if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
+            if (_contextSteering.DistanceFromTarget() > _characterStatsManager._currentAttackRange)
             {
                 _isAttacking = false;
                 // If it is out of the attack range, we start chasing again
@@ -86,10 +95,10 @@ public class GreenSnakeController : EnemyController
             _isChasing = true;
             if (_contextSteering.TargetOnSight()) //if the target is on sight
             {
-                if (_contextSteering.DistanceFromTarget() > _enemyStats.attackRange)
+                if (_contextSteering.DistanceFromTarget() > _characterStatsManager._currentAttackRange)
                 {
                     //if target is further than attack distance
-                    _rb.velocity = _contextSteering.GetDirection() * _enemyStats.maxSpeed * _speedModifier;
+                    _rb.velocity = _contextSteering.GetDirection() * _characterStatsManager._currentSpeed ;
      
                 }
                 else
@@ -122,34 +131,34 @@ public class GreenSnakeController : EnemyController
             _freeMoveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
 
             // Check if the snake hits a wall in the desired direction
-            RaycastHit2D wallHit = Physics2D.Raycast(transform.position, _freeMoveDirection, _enemyStats.wallCheckDistance, _enemyStats.wallLayerMask);
+            RaycastHit2D wallHit = Physics2D.Raycast(transform.position, _freeMoveDirection, _otherEnemyStats._wallCheckDistance, _otherEnemyStats._wallLayerMask);
             if (wallHit.collider == null)
             {
                 // Move the snake in the specified direction
-                _rb.velocity = _freeMoveDirection * _enemyStats.maxSpeed;
+                _rb.velocity = _freeMoveDirection * _characterStatsManager._currentSpeed;
 
-                yield return new WaitForSeconds(_enemyStats.freeMovementTime);
+                yield return new WaitForSeconds(_otherEnemyStats._freeMovementTime);
 
                 _rb.velocity = Vector2.zero;
             }
             else
             {
                 // Check if the snake hits a wall in the opposite direction
-                RaycastHit2D oppositeWallHit = Physics2D.Raycast(transform.position, -_freeMoveDirection, _enemyStats.wallCheckDistance, _enemyStats.wallLayerMask);
+                RaycastHit2D oppositeWallHit = Physics2D.Raycast(transform.position, -_freeMoveDirection, _otherEnemyStats._wallCheckDistance, _otherEnemyStats._wallLayerMask);
                 if (oppositeWallHit.collider == null)
                 {
                     // Calculate the opposite direction of the wall
                     _freeMoveDirection = Vector2.Reflect(-_freeMoveDirection, oppositeWallHit.normal);
 
                     // Move the snake in the opposite direction
-                    _rb.velocity = _freeMoveDirection * _enemyStats.maxSpeed;
+                    _rb.velocity = _freeMoveDirection * _characterStatsManager._currentSpeed;
 
-                    yield return new WaitForSeconds(_enemyStats.freeMovementTime);
+                    yield return new WaitForSeconds(_otherEnemyStats._freeMovementTime);
 
                     _rb.velocity = Vector2.zero;
                 }
             }
-            yield return new WaitForSeconds(_enemyStats.freeMovementTime);
+            yield return new WaitForSeconds(_otherEnemyStats._freeMovementTime);
         }
     }
     /// <summary>
@@ -170,21 +179,19 @@ public class GreenSnakeController : EnemyController
     /// <summary>
     /// Attack method, calls the event to alter player hitpoints
     /// </summary>
+    protected CharacterStatsManager _playerStats { get; private set; }
+
     protected override void Attack()
     {
         // Perform a raycast in the attack direction
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, _lastSpeed.normalized, _enemyStats.attackRange, _enemyStats.playerLayerMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, _lastSpeed.normalized, _characterStatsManager._currentAttackRange, _otherEnemyStats._playerLayerMask);
 
         // Check if the raycast hits the player
         if (hit.collider != null)
         {
-            CharacterStatsManager playerStats = hit.transform.GetComponentInChildren<CharacterStatsManager>();
-
-            if (playerStats != null){
-                print("si");
-                playerStats.ApplyDamageOverTime(3, 1, 5);
-            }
-        }    
+            _playerStats = hit.transform.GetComponentInChildren<CharacterStatsManager>();
+            hit.transform.gameObject.GetComponent<Damageable>().GetDamaged(_characterStatsManager._currentAttackDamage);
+        }
     }
 
     protected void ChangeAnimationState(string _newState)

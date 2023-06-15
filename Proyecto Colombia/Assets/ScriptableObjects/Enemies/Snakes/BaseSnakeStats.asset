@@ -30,3 +30,6 @@ MonoBehaviour:
   _evasionChance: 0
   _evasionDuration: 0
   _evasionCooldown: 0
+  _poissonDamage: 1
+  _poissonInterval: 1
+  _poissonDuration: 5

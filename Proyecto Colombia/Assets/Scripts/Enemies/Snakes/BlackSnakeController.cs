@@ -20,14 +20,14 @@ public class BlackSnakeController : PurpleSnakeController
         _justHitCoroutine = JustHit();
         _collider = GetComponent<Collider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _evadingTime = _enemyStats.evasionDuration;
+        _evadingTime = _otherEnemyStats._evasionDuration;
     }
 
     protected override void Start()
     {
         base.Start();
         _currentEvasionDirection = 1;
-        _changeDirectionCooldown = _enemyStats.evasionCooldown;
+        _changeDirectionCooldown = _otherEnemyStats._evasionCooldown;
     }
 
     protected override void Update()
@@ -71,7 +71,7 @@ public class BlackSnakeController : PurpleSnakeController
         float randomProbability = Random.Range(0f, 1f);
 
         // Check if the random probability is less than or equal to the mean probability
-        return randomProbability <= _enemyStats.evasionChance;
+        return randomProbability <= _otherEnemyStats._evasionChance;
     }
 
     private IEnumerator EvasionState()
@@ -82,16 +82,16 @@ public class BlackSnakeController : PurpleSnakeController
             _spriteRenderer.material.color = new Color(1f, 1f, 1f, 0.5f);
             Vector2 direction = _contextSteering.GetDirection();
             Vector2 perpendicular = new Vector2(-direction.y, direction.x);
-            Vector2 movement = perpendicular * _enemyStats.evasionSpeed;
+            Vector2 movement = perpendicular * _otherEnemyStats._evasionSpeed;
 
             // Perform a raycast to check for obstacles
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, movement, movement.magnitude, _enemyStats.wallLayerMask);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, movement, movement.magnitude, _otherEnemyStats._wallLayerMask);
 
             // Change direction quickly if is about to collide into a wall
             if (hit.collider != null && _changeDirectionCooldown <= 0 )
             {
                 _currentEvasionDirection *= -1;
-                _changeDirectionCooldown = _enemyStats.evasionCooldown;
+                _changeDirectionCooldown = _otherEnemyStats._evasionCooldown;
 
             }
 
@@ -99,7 +99,7 @@ public class BlackSnakeController : PurpleSnakeController
 
             if (_evadingTime <= 0)
             {
-                _evadingTime = _enemyStats.evasionDuration;
+                _evadingTime = _otherEnemyStats._evasionDuration;
                 _isEvading = false;
                 _spriteRenderer.material.color = new Color(1f, 1f, 1f, 1f);
                 ChangeState(_evadeCoroutine, _chasingCoroutine);

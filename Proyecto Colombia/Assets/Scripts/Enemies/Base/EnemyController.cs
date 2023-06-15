@@ -3,11 +3,13 @@ using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
 {
+    // Stats manager, Responsable for applying different states to characters based on their Stats Scriptable object
+    protected CharacterStatsManager _characterStatsManager;
+
     // Serialized fields accessible in the Unity inspector
-    [SerializeField] protected EnemyStatsScriptableObject _enemyStats;
     [SerializeField] protected EnemyAiWithContextSteering _contextSteering;
     [SerializeField] protected Animator _animator;
-
+ 
     // Protected fields accessible by child classes
     protected Rigidbody2D _rb;
     protected Damageable _damageable;
@@ -15,7 +17,6 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
     // Coroutines for controlling enemy behavior
     protected IEnumerator _attackCoroutine, _chasingCoroutine, _idleCoroutine; // This variables allow to start and stop a certain coroutine
 
-    protected float _speedModifier = 1f, _attackModifier = 1f;
     protected virtual void Awake()
     {
         _damageable = GetComponent<Damageable>();
@@ -23,7 +24,8 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
         _attackCoroutine = AttackState(); // Each variable must be assigned to its corresponding coroutine, this case the Attack State
         _chasingCoroutine = ChaseState();
         _idleCoroutine = IdleState();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
+        _characterStatsManager = GetComponentInChildren<CharacterStatsManager>();
     }
 
     protected virtual void Start()
@@ -64,10 +66,6 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
     }
 
     #region AlteredStates
-    private void Update()
-    {
-        AlteredStates();
-    }
 
     float _poisonedTimer, _stunedTimer;
     bool _isPoisoned = false, _isStuned = false;
@@ -86,37 +84,6 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
         _isStuned = true;
         _stunedTimer = time;
         Debug.Log("applied stun");
-    }
-
-    void AlteredStates()
-    {
-        if (_isStuned)
-        {
-            _attackModifier = 0f;
-            _speedModifier = 0f;
-            if (_stunedTimer > 0) _stunedTimer -= Time.deltaTime;
-            else
-            {
-                _stunedTimer = 0;
-                _isStuned = false;
-            }
-        }
-        else if (_isPoisoned)
-        {
-            _attackModifier = 0.8f;
-            _speedModifier = 0.8f;
-            if (_poisonedTimer > 0) _poisonedTimer -= Time.deltaTime;
-            else
-            {
-                _poisonedTimer = 0;
-                _isPoisoned = false;
-            }
-        }
-        else
-        {
-            _attackModifier = 1f;
-            _speedModifier = 1f;
-        }
     }
     #endregion
 }

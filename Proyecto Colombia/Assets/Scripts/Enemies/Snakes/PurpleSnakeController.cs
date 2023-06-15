@@ -12,4 +12,11 @@ public class PurpleSnakeController : GreenSnakeController
             ChangeState(_idleCoroutine, _chasingCoroutine);
         }
     }
+
+    protected override void Attack()
+    {
+        base.Attack();
+        _playerStats.ApplyDamageOverTime(_otherEnemyStats._poissonDamage, _otherEnemyStats._poissonInterval, _otherEnemyStats._poissonDuration);
+    }
+
 }

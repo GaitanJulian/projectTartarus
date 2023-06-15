@@ -12,4 +12,9 @@ public class SnakesStatsScriptableObject : CharacterStatsScriptableObject
     public float _evasionChance;
     public float _evasionDuration;
     public float _evasionCooldown;
+
+    [Header("Poisson Effect")]
+    public float _poissonDamage;
+    public float _poissonInterval;
+    public float _poissonDuration;
 }

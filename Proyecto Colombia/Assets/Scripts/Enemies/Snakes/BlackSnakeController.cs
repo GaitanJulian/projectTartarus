@@ -124,7 +124,7 @@ public class BlackSnakeController : PurpleSnakeController
 
     }
 
-    protected override void OnDamageTaken(Transform _attacker, float damage)
+    protected override void OnDamageTaken(float damage)
     {
         if (_isAttacking && !_justHit)
         {

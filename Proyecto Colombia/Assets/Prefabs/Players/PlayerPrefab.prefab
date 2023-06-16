@@ -442,8 +442,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8991186761097583839}
-  - component: {fileID: 361296244017155514}
-  - component: {fileID: 7279330193142369134}
+  - component: {fileID: 7463221966888622214}
   - component: {fileID: 8991186761097583787}
   - component: {fileID: 4763335447399747939}
   - component: {fileID: 8991186761097583834}
@@ -475,7 +474,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &361296244017155514
+--- !u!114 &7463221966888622214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -484,10 +483,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8991186761097583828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b24ecb26eca3bd54bb797ca31a40893b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d52329a6af83c9449a3f2f228714ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _HitPoints: 100
+  _maxHitPoints: 20
   _isBoss: 0
   _damageMultiplier: 0
   _onDamageTaken:
@@ -496,20 +495,9 @@ MonoBehaviour:
   _onDeath:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7279330193142369134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8991186761097583828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1777b68ee6fd4f043bab282cf8a76d72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _HitPoints: 10
-  _MaxHitPoints: 15
+  onHealTaken:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8991186761097583787
 MonoBehaviour:
   m_ObjectHideFlags: 0

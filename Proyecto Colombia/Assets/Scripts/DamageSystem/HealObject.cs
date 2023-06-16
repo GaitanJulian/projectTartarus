@@ -7,7 +7,7 @@ public class HealObject : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBigCollider"))
         {
-            PlayerHealthTrigger playerHealthTrigger = collision.gameObject.GetComponent<PlayerHealthTrigger>();
+            PlayerHealthTrigger playerHealthTrigger = collision.gameObject.GetComponentInParent<PlayerHealthTrigger>();
             if (playerHealthTrigger != null)
             {
                 playerHealthTrigger.RecoverHealth(_healAmount);

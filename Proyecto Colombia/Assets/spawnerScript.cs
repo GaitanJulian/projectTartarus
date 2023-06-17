@@ -11,7 +11,8 @@ public class spawnerScript : MonoBehaviour
         int rand = Random.Range(3, 9);
         for (int i = 0; i < rand; i++)
         {
-            Instantiate(enemys[i], transform);
+            int a = Random.Range(0, enemys.Count);
+            Instantiate(enemys[a], transform);
         }
         Destroy(this);
     }

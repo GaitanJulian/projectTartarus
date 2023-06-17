@@ -176,7 +176,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\n\n\n\n\n\n\n\nGAME DESIGN\nSebastian Blanco\n\xC1ngel Caviedes\n\nPRODUCTION\nJuan
+    Pablo Camacho\n\nART\n\nCharacter Design\nMaria Olarte\nPedro Vel\xE1zquez\n\nTiles
+    Design\nEsteban Ruiz\n\nPROGRAMMING\n\nSystems Programming\nJuli\xE1n Gait\xE1n\nAngel
+    Caviedes\n\n\nProcedural Generation\nLuis Chaparro\nBrandon Jaimes\n\nEnemies
+    AI\nAngel Caviedes\nJuli\xE1n Gait\xE1n\n\nSPECIAL THANKS!!\nAndr\xE9s Caicedo\n\nDIGITAL
+    SPROUT -  GAMEDEV SEEDBED UIS. "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

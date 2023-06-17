@@ -49,3 +49,7 @@ MonoBehaviour:
   - {fileID: 5204098483529563182, guid: 86732471ad1971f409b9f2dedc63adc4, type: 3}
   - {fileID: 4057328952022864504, guid: b1e5c72c77ded054cb684d3590f9a56d, type: 3}
   - {fileID: 8621878284485204891, guid: 14b9a5c1f7dde014cb9e2fbfb9f6a92f, type: 3}
+  dialogos:
+  - {fileID: 6489961687940388441, guid: 9b427e89c9ed1d446bdecd1e72d1e81b, type: 3}
+  - {fileID: 2482146807599843250, guid: 0bad1bdebb6b25b48bb127cc3b03cd9a, type: 3}
+  - {fileID: 3487131570156733082, guid: 7a5c0124e4643db4190c9ef1e8afe932, type: 3}

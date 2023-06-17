@@ -166,7 +166,7 @@ public class GreenSnakeController : EnemyController
     /// <param name="_attacker"></param>
     /// the transform of the attacker, this could be removed later on
     /// <param name="damage"></param>
-    protected override void OnDamageTaken(Transform _attacker, float damage)
+    protected override void OnDamageTaken(float damage)
     {
         if (_isIdle)
         {

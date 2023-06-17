@@ -45,7 +45,7 @@ public abstract class EnemyController : MonoBehaviour, IEnemyStandarStates
         _damageable._onDeath.RemoveListener(OnDeath); // Stop listening to the death event
     }
 
-    protected abstract void OnDamageTaken(Transform _enemy, float _damage); // Method to handle damage taken by the enemy
+    protected abstract void OnDamageTaken(float _damage); // Method to handle damage taken by the enemy
     protected abstract void Attack(); // Method to perform the attack action
 
     // Abstract methods representing the standard enemy states

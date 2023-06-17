@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: _characterStats
       value: 
       objectReference: {fileID: 11400000, guid: d48cd77c13b06d842939744e3835e3e9, type: 2}
+    - target: {fileID: 5204098483529563168, guid: 86732471ad1971f409b9f2dedc63adc4, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.4733334
+      objectReference: {fileID: 0}
     - target: {fileID: 5204098483529563169, guid: 86732471ad1971f409b9f2dedc63adc4, type: 3}
       propertyPath: m_Controller
       value: 
@@ -156,11 +160,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5204098483529563171, guid: 86732471ad1971f409b9f2dedc63adc4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.39
+      value: 6.71
       objectReference: {fileID: 0}
     - target: {fileID: 5204098483529563171, guid: 86732471ad1971f409b9f2dedc63adc4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.43
+      value: -0.79
       objectReference: {fileID: 0}
     - target: {fileID: 5204098483529563171, guid: 86732471ad1971f409b9f2dedc63adc4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -373,17 +377,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8621878284485204834, guid: 14b9a5c1f7dde014cb9e2fbfb9f6a92f, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8621878284485204837, guid: 14b9a5c1f7dde014cb9e2fbfb9f6a92f, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8621878284485204837, guid: 14b9a5c1f7dde014cb9e2fbfb9f6a92f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.75
+      value: 5.8
       objectReference: {fileID: 0}
     - target: {fileID: 8621878284485204837, guid: 14b9a5c1f7dde014cb9e2fbfb9f6a92f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.91
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 8621878284485204837, guid: 14b9a5c1f7dde014cb9e2fbfb9f6a92f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -828,6 +836,18 @@ PrefabInstance:
     - target: {fileID: 1862826252618301427, guid: 6d5fd2e0984cd1f4bb89f7623e7dd997, type: 3}
       propertyPath: m_Name
       value: BlackSnake
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862826252618301428, guid: 6d5fd2e0984cd1f4bb89f7623e7dd997, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862826252618301428, guid: 6d5fd2e0984cd1f4bb89f7623e7dd997, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862826252618301428, guid: 6d5fd2e0984cd1f4bb89f7623e7dd997, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1862826252618301431, guid: 6d5fd2e0984cd1f4bb89f7623e7dd997, type: 3}
       propertyPath: m_RootOrder

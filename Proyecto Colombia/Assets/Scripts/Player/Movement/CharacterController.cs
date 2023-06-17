@@ -11,6 +11,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private Animator _animator;
     private Rigidbody2D _rb;
     private PlayerInputActions _playerControls; // New Input system
+    private PlayerHealthTrigger _playerHealthTrigger;
     public InputAction _move; // Input Action for movement
 
     private Vector2 _playerInput;
@@ -31,6 +32,7 @@ public class CharacterController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _playerControls = new PlayerInputActions();
         _characterStatsManager = GetComponentInChildren<CharacterStatsManager>();
+        _playerHealthTrigger = GetComponent<PlayerHealthTrigger>();
         // _animator = GetComponent<Animator>();
     }
 
@@ -47,12 +49,14 @@ public class CharacterController : MonoBehaviour
         _move.Enable();
         _interact = _playerControls.Player.Interact;
         _interact.Enable();
+        _playerHealthTrigger._onDeath.AddListener(OnDeath);
     }
 
     private void OnDisable()
     {
         _move.Disable();
         _interact.Disable();
+        _playerHealthTrigger._onDeath.RemoveListener(OnDeath);
     }
 
     private void Update()
@@ -126,6 +130,11 @@ public class CharacterController : MonoBehaviour
         }
 
 
+    }
+
+    private void OnDeath()
+    {
+        Destroy(gameObject);
     }
 
 }

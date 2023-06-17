@@ -249,7 +249,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4c1d37bdb0d9bc04abe54a63677fd08d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -274,39 +274,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1432171196}
     m_Modifications:
-    - target: {fileID: 8388252525079228320, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252525079228320, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 3458.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252525079228320, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252525079228324, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_text
-      value: "\n\n\n\n\n\n\n\nGAME DESIGN\nSebastian Blanco\n\xC1ngel Caviedes\n\nPRODUCTION\nJuan
-        Pablo Camacho\n\nART\n\nCharacter Design\nMaria Olarte\nPedro Vel\xE1zques\n\nTiles
-        Design\nEsteban Ruiz\n\nPROGRAMMING\n\nSystems Programming\nJuli\xE1n Gait\xE1n\nAngel
-        Caviedes\n\n\nProcedural Generation\nLuis Chaparro\nBrandon Jaimes\n\nEnemies
-        AI\nAngel Caviedes\nJuli\xE1n Gait\xE1n\n\nSPECIAL THANKS!!\nAndr\xE9s Caicedo\n\nDIGITAL
-        SPROUT -  GAMEDEV SEEDBED UIS. "
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252525287835211, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252525287835211, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 171
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252525287835212, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_text
-      value: CREDITS
-      objectReference: {fileID: 0}
     - target: {fileID: 8388252526886649425, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
       propertyPath: m_Name
       value: ScrollCredits
@@ -393,22 +360,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8388252526886649426, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252526984816018, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -77.031494
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252526984816018, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -0.0000015497208
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252526984816018, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -38.515747
-      objectReference: {fileID: 0}
-    - target: {fileID: 8388252526984816018, guid: 3025b7abeb546eb429aa0828190f281e, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

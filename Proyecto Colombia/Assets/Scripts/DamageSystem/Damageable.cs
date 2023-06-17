@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] protected float _maxHitPoints = 100f;
+    [SerializeField] protected float _maxHitPoints;
     [SerializeField] bool _isBoss;
 
     protected float _currentHitPoints;

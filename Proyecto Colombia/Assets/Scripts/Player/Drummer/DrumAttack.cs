@@ -66,10 +66,14 @@ public class DrumAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<Damageable>() != null)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            collision.gameObject.GetComponent<Damageable>().GetDamaged(_damage);
-            collision.gameObject.GetComponent<Damageable>().SetAttacker(transform);
+            Damageable damageable = collision.gameObject.GetComponent<Damageable>();
+            if (damageable != null)
+            {
+                damageable.GetDamaged(_damage);
+                damageable.SetAttacker(transform);
+            }
         }
     }
 }

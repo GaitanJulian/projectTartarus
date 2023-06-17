@@ -43,19 +43,21 @@ public class Melee_Attack : MonoBehaviour
             _attackTimer = _attackCooldown;
         }
         if (_attackTimer > 0) _attackTimer -= Time.deltaTime;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(_attackPosition, _attackRange);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.GetComponent<Damagable>() != null && _attackingForGizmos)
+            {
+                Debug.Log("atacado");
+                collider.GetComponent<Damagable>().GetDamaged(_attackDamage);
+            }
+        }
     }
 
     private void Attack()
     {
         if (_drawGizmos) StartCoroutine(GizmosColor());
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(_attackPosition, _attackRange);
-        foreach(Collider2D collider in colliders)
-        {
-            if (collider.GetComponentInChildren<Damagable>() != null)
-            {
-                collider.GetComponentInChildren<Damagable>().GetDamaged(_attackDamage);
-            }
-        }
+       
     }
 
     private void OnDrawGizmos()

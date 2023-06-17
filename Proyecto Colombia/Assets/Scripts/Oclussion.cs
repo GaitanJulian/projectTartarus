@@ -4,58 +4,47 @@ using UnityEngine;
 
 public class Oclussion : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    public Transform player;
+    public float distance,d;
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     private void Update()
     {
-        // Obtiene todos los objetos en la escena con el componente Renderer.
-        Renderer[] renderers = FindObjectsOfType<Renderer>();
-
-        foreach (Renderer renderer in renderers)
+        if (player != null)
         {
-            if (renderer.isVisible)
-            {
-                Debug.Log("visible");
-                activar(renderer.gameObject);
-                //renderer.gameObject.SetActive(true);
-            }
-            else
-            {
-                // El objeto es visible en la cámara, se activa.
-                desactivar(renderer.gameObject);
-                //renderer.gameObject.SetActive(false);
-            }
+         d  = Vector2.Distance(transform.position,player.position);
+            if (d > distance) { invisible(); }
+            else { visible(); }
+        }
+    }
+    private void invisible()
+    {
+        Debug.Log("no visible");
+        DisableAllChildren();
+    }
 
-            void activar(GameObject a)
-            {
-                // Obtén todos los componentes del objeto
-                Component[] components = a.GetComponents<Component>();
+    private void visible()
+    {
+        EnableAllChildren();
+    }
 
-                // Recorre todos los componentes y desactívalos
-                foreach (var component in components)
-                {
-                    // No desactives los componentes Transform o GameObject
-                    if (component.GetType() != typeof(Transform) && component.GetType() != typeof(GameObject))
-                    {
-                        // Desactiva el componente
-                        component.gameObject.SetActive(true);
-                    }
-                }
-            }
-            void desactivar(GameObject a)
-            {
-                // Obtén todos los componentes del objeto
-                Component[] components = a.GetComponents<Component>();
+    private void DisableAllChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+    }
 
-                // Recorre todos los componentes y desactívalos
-                foreach (var component in components)
-                {
-                    // No desactives los componentes Transform o GameObject
-                    if (component.GetType() != typeof(Transform) && component.GetType() != typeof(GameObject))
-                    {
-                        // Desactiva el componente
-                       
-                    }
-                }
-            }
+    private void EnableAllChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
         }
     }
 }

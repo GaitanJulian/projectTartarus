@@ -116,6 +116,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdf8353f-6eb7-45cd-9d6e-5cd2a7a7ded6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -413,6 +422,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SelectTrap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35e3b20e-04ac-405f-b429-968ad4106109"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1010,6 +1030,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_OpenCloseInventory = m_Player.FindAction("Open/CloseInventory", throwIfNotFound: true);
         m_Player_UseItem = m_Player.FindAction("UseItem", throwIfNotFound: true);
         m_Player_SelectTrap = m_Player.FindAction("SelectTrap", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1093,6 +1114,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_OpenCloseInventory;
     private readonly InputAction m_Player_UseItem;
     private readonly InputAction m_Player_SelectTrap;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1107,6 +1129,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @OpenCloseInventory => m_Wrapper.m_Player_OpenCloseInventory;
         public InputAction @UseItem => m_Wrapper.m_Player_UseItem;
         public InputAction @SelectTrap => m_Wrapper.m_Player_SelectTrap;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1146,6 +1169,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SelectTrap.started += instance.OnSelectTrap;
             @SelectTrap.performed += instance.OnSelectTrap;
             @SelectTrap.canceled += instance.OnSelectTrap;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1180,6 +1206,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SelectTrap.started -= instance.OnSelectTrap;
             @SelectTrap.performed -= instance.OnSelectTrap;
             @SelectTrap.canceled -= instance.OnSelectTrap;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1372,6 +1401,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnOpenCloseInventory(InputAction.CallbackContext context);
         void OnUseItem(InputAction.CallbackContext context);
         void OnSelectTrap(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

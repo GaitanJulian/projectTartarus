@@ -1,11 +1,13 @@
+using System;
+using TMPro.EditorUtilities;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CharacterController : MonoBehaviour
 {
-    [SerializeField] private MovementStatsScriptableObject _movementStats;
-
+    private CharacterStatsManager _characterStatsManager;
+    private PlayerStatsScriptableObject _otherPlayerStats; // We will reference the player stats scriptable object to call unmutable stats.
     [SerializeField] private Animator _animator;
     private Rigidbody2D _rb;
     private PlayerInputActions _playerControls; // New Input system
@@ -17,37 +19,51 @@ public class CharacterController : MonoBehaviour
 
     const string _animParamHorizontal = "Horizontal", _animParamVertical = "Vertical", _animSpeed = "Speed";
     private Vector2 _lastDireciton; // Last direction the player moved at
+
+    public event Action OnInteractionKeyPressed;
+    private InputAction _interact;
     Queue<Vector2> _vectorQueue; //last 5 "_playerInput" recorded different than zero
 
     [SerializeField] bool _drawGizmos;
-
-    private void Start()
-    {
-        _vectorQueue = new Queue<Vector2>();
-        _vectorQueue.Enqueue(Vector2.zero);
-    }
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerControls = new PlayerInputActions();
-       // _animator = GetComponent<Animator>();
+        _characterStatsManager = GetComponentInChildren<CharacterStatsManager>();
+        // _animator = GetComponent<Animator>();
     }
 
+
+    private void Start()
+    {
+        _vectorQueue = new Queue<Vector2>();
+        _vectorQueue.Enqueue(Vector2.zero);
+        _otherPlayerStats = (PlayerStatsScriptableObject)_characterStatsManager._characterStats;
+    }
     private void OnEnable()
     {
         _move = _playerControls.Player.Move;
         _move.Enable();
+        _interact = _playerControls.Player.Interact;
+        _interact.Enable();
     }
 
     private void OnDisable()
     {
         _move.Disable();
+        _interact.Disable();
     }
 
     private void Update()
     {
         _playerInput = _move.ReadValue<Vector2>();
+
+        if (_interact.WasPressedThisFrame())
+        {
+            OnInteractionKeyPressed?.Invoke();
+        }
+
     }
 
     private void FixedUpdate()
@@ -55,9 +71,9 @@ public class CharacterController : MonoBehaviour
         // Apply movement
         if (_playerInput != Vector2.zero)
         {
-            _desiredVelocity = _playerInput * _movementStats.maxSpeed;
+            _desiredVelocity = _playerInput * _characterStatsManager._currentSpeed;
             _currentVelocity = _rb.velocity;
-            _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.acceleration * Time.fixedDeltaTime);
+            _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _otherPlayerStats._acceleration * Time.fixedDeltaTime);
             if (_animator != null) _animator.SetFloat(_animSpeed, 1);
             Animate();
             _lastDireciton = _playerInput; // Stores the last direction the player intended to look at
@@ -70,7 +86,7 @@ public class CharacterController : MonoBehaviour
             // if the player is not moving the desired speed is zero
             _desiredVelocity = Vector2.zero;
             _currentVelocity = _rb.velocity;
-            _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _movementStats.deceleration * Time.fixedDeltaTime);
+            _rb.velocity = Vector2.Lerp(_currentVelocity, _desiredVelocity, _otherPlayerStats._deceleration * Time.fixedDeltaTime);
             if (_animator != null) _animator.SetFloat(_animSpeed, 0);
         }
 

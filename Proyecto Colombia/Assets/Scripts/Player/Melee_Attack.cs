@@ -51,7 +51,7 @@ public class Melee_Attack : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(_attackPosition, _attackRange);
         foreach(Collider2D collider in colliders)
         {
-            if (collider.GetComponentInChildren<Damageable>() != null)
+            if (collider.GetComponentInChildren<Damageable>() != null && collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 collider.GetComponentInChildren<Damageable>().GetDamaged(_attackDamage);
             }

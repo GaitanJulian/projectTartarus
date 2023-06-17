@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5256779524500832370}
+  - {fileID: 4566939282204498374}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -123,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec4c173350085147b9c022407954b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyStats: {fileID: 11400000, guid: 90c927353c3a4894c901a6b45933a94a, type: 2}
   _contextSteering: {fileID: 6697367469330287728}
   _animator: {fileID: 0}
 --- !u!114 &1862826252618301432
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _HitPoints: 100
   _isBoss: 0
+  _damageMultiplier: 0
   _onDamageTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -193,6 +194,56 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75772905, y: 1.2259881}
   m_EdgeRadius: 0
+--- !u!1 &3380672420563668705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4566939282204498374}
+  - component: {fileID: 6953182358808440620}
+  m_Layer: 0
+  m_Name: Stats Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4566939282204498374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3380672420563668705}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.97, y: -0.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1862826252618301431}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6953182358808440620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3380672420563668705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ac829ee5b78414d8199bdd4399e2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterStats: {fileID: 11400000, guid: a49717f0f0c57414c9f9732c37283eea, type: 2}
+  _currentSpeed: 0
+  _currentAttackDamage: 0
+  _currentAttackRange: 0
+  _isPoissoned: 0
+  _isStunned: 0
 --- !u!1001 &1862826252849654179
 PrefabInstance:
   m_ObjectHideFlags: 0

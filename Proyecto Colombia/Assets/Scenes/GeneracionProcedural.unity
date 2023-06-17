@@ -768,7 +768,7 @@ MonoBehaviour:
   closedRoom: {fileID: 43717409575207948, guid: d75a6050b6627ad41a65bfc47d727331, type: 3}
   rooms: []
   dialogos:
-  - {fileID: 3487131570156733082, guid: 7a5c0124e4643db4190c9ef1e8afe932, type: 3}
+  - {fileID: 3487131570156733082, guid: fd02c799f3f5c4c83b2fc26c105a3821, type: 3}
   - {fileID: 6489961687940388441, guid: 9b427e89c9ed1d446bdecd1e72d1e81b, type: 3}
   - {fileID: 2482146807599843250, guid: 0bad1bdebb6b25b48bb127cc3b03cd9a, type: 3}
   boss: {fileID: 250190102793464152, guid: decb948ef32306243adb6ec3938eadb3, type: 3}

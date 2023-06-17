@@ -1,3 +1,5 @@
+using System;
+using TMPro.EditorUtilities;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +19,9 @@ public class CharacterController : MonoBehaviour
 
     const string _animParamHorizontal = "Horizontal", _animParamVertical = "Vertical", _animSpeed = "Speed";
     private Vector2 _lastDireciton; // Last direction the player moved at
+
+    public event Action OnInteractionKeyPressed;
+    private InputAction _interact;
     Queue<Vector2> _vectorQueue; //last 5 "_playerInput" recorded different than zero
 
     [SerializeField] bool _drawGizmos;
@@ -40,16 +45,25 @@ public class CharacterController : MonoBehaviour
     {
         _move = _playerControls.Player.Move;
         _move.Enable();
+        _interact = _playerControls.Player.Interact;
+        _interact.Enable();
     }
 
     private void OnDisable()
     {
         _move.Disable();
+        _interact.Disable();
     }
 
     private void Update()
     {
         _playerInput = _move.ReadValue<Vector2>();
+
+        if (_interact.WasPressedThisFrame())
+        {
+            OnInteractionKeyPressed?.Invoke();
+        }
+
     }
 
     private void FixedUpdate()

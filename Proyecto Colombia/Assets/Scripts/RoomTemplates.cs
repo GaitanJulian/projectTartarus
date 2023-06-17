@@ -23,11 +23,11 @@ public class RoomTemplates : MonoBehaviour
     }
 
     void SpawnEnemy(){
-        Instantiate(boss, rooms[rooms.Count - 1].transform.position, Quaternion.identity);
+        //Instantiate(boss, rooms[rooms.Count - 1].transform.position, Quaternion.identity);
 
         for (int i = 0; i < rooms.Count - 1; i++)
         {
-            Instantiate(simpleEnemy,rooms[i].transform.position, Quaternion.identity);
+            //Instantiate(simpleEnemy,rooms[i].transform.position, Quaternion.identity);
         }
     }
 }

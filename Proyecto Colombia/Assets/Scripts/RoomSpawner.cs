@@ -66,9 +66,9 @@ public class RoomSpawner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("colision");
         if (other.CompareTag("SpawnPoint")){
             if (other.GetComponent<RoomSpawner>().spawned==false && spawned==false){
+                Debug.Log("colision");
                 Destroy(this);
             }
             spawned = true;

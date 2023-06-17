@@ -2,32 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Oclussion : MonoBehaviour
+public class oclussion : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
-    public Transform player;
-    public float distance,d;
+    private  SpriteRenderer spriteRenderer; 
+
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    private void Update()
-    {
-        if (player != null)
-        {
-         d  = Vector2.Distance(transform.position,player.position);
-            if (d > distance) { invisible(); }
-            else { visible(); }
-        }
-    }
-    private void invisible()
+
+    private void OnBecameInvisible()
     {
         Debug.Log("no visible");
         DisableAllChildren();
     }
 
-    private void visible()
+    private void OnBecameVisible()
     {
         EnableAllChildren();
     }
@@ -48,4 +38,3 @@ public class Oclussion : MonoBehaviour
         }
     }
 }
-

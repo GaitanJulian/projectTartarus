@@ -33,11 +33,13 @@ public class RoomTemplates : MonoBehaviour
         {
             if (i >= rand - 1 && i <= rand + 1)
             {
-                Instantiate(dialogos[p], rooms[i].transform.position, Quaternion.identity);
+                GameObject dialogo = Instantiate(dialogos[p], rooms[i].transform);
+                dialogo.transform.localPosition = new Vector2(0, 0);
                 p++;
             }
 
-            Instantiate(simpleEnemy, rooms[i].transform.position, Quaternion.identity);
+           GameObject simple= Instantiate(simpleEnemy, rooms[i].transform);
+            simple.transform.localPosition = new Vector2(0, 0);
         }
     }
 }

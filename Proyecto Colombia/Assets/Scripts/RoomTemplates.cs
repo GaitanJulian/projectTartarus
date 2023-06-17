@@ -11,7 +11,7 @@ public class RoomTemplates : MonoBehaviour
 
     public GameObject closedRoom;
 
-    public List<GameObject> rooms,dialogos;
+    public List<GameObject> rooms, dialogos;
 
     public GameObject boss;
     public GameObject simpleEnemy;
@@ -22,20 +22,22 @@ public class RoomTemplates : MonoBehaviour
         Invoke("SpawnEnemy", 3f);
     }
 
-    void SpawnEnemy(){
+    void SpawnEnemy()
+    {
         Instantiate(boss, rooms[rooms.Count - 1].transform.position, Quaternion.identity);
-        Debug.Log("rooms"+rooms.Count);
-        int rand = Random.Range(1, rooms.Count-1);
+        Debug.Log("rooms" + rooms.Count);
+        int rand = Random.Range(1, rooms.Count - 1);
         int p = 0;
-        Debug.Log("rand:"+rand);
+        Debug.Log("rand:" + rand);
         for (int i = 0; i < rooms.Count - 1; i++)
         {
-            if (i >= rand - 1 && i <= rand + 1){
-                Instantiate(dialogos[p], rooms[i].transform.position,Quaternion.identity);
+            if (i >= rand - 1 && i <= rand + 1)
+            {
+                Instantiate(dialogos[p], rooms[i].transform.position, Quaternion.identity);
                 p++;
             }
-        
-            Instantiate(simpleEnemy,rooms[i].transform.position, Quaternion.identity);
+
+            Instantiate(simpleEnemy, rooms[i].transform.position, Quaternion.identity);
         }
     }
 }

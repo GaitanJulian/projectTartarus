@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24ecb26eca3bd54bb797ca31a40893b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHitPoints: 0
+  _maxHitPoints: 30
   _isBoss: 0
   _currentHitPoints: 0
   _damageMultiplier: 0

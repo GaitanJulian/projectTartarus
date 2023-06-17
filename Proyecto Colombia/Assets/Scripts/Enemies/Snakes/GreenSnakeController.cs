@@ -47,7 +47,7 @@ public class GreenSnakeController : EnemyController
 
         if(_isIdle || _isChasing)
         {
-            if (_rb.velocity.magnitude >= 0.1f || _rb.velocity.magnitude <= 0.1f) _lastSpeed = _rb.velocity;
+            if (_rb.velocity.magnitude >= 0.1f || _rb.velocity.magnitude <= -0.1f) _lastSpeed = _rb.velocity;
             StartCoroutine(ChangeIdleAnimationCoroutine());
 
         }
@@ -237,15 +237,15 @@ public class GreenSnakeController : EnemyController
 
     protected IEnumerator ChangeIdleAnimationCoroutine()
     {
-        if (Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_rb.velocity.y))
+        if (Mathf.Abs(_rb.velocity.x) > 0.1f && Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_rb.velocity.y))
         {
             yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_HORIZONTAL));
         }
-        else if (_rb.velocity.y > 0)
+        else if (_rb.velocity.y > 0.1f)
         {
             yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_UPWARDS));
         }
-        else if (_rb.velocity.y < 0)
+        else if (_rb.velocity.y < -0.1f)
         {
             yield return StartCoroutine(ChangeAnimationStateCoroutine(SNAKE_DOWNWARDS));
         }

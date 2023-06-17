@@ -14,15 +14,49 @@ public class Oclussion : MonoBehaviour
             if (renderer.isVisible)
             {
                 Debug.Log("visible");
-               
-                renderer.gameObject.SetActive(true);
+                activar(renderer.gameObject);
+                //renderer.gameObject.SetActive(true);
             }
             else
             {
                 // El objeto es visible en la cámara, se activa.
-                Debug.Log("no visible");
-                renderer.gameObject.SetActive(false);
+                desactivar(renderer.gameObject);
+                //renderer.gameObject.SetActive(false);
+            }
+
+            void activar(GameObject a)
+            {
+                // Obtén todos los componentes del objeto
+                Component[] components = a.GetComponents<Component>();
+
+                // Recorre todos los componentes y desactívalos
+                foreach (var component in components)
+                {
+                    // No desactives los componentes Transform o GameObject
+                    if (component.GetType() != typeof(Transform) && component.GetType() != typeof(GameObject))
+                    {
+                        // Desactiva el componente
+                        component.gameObject.SetActive(true);
+                    }
+                }
+            }
+            void desactivar(GameObject a)
+            {
+                // Obtén todos los componentes del objeto
+                Component[] components = a.GetComponents<Component>();
+
+                // Recorre todos los componentes y desactívalos
+                foreach (var component in components)
+                {
+                    // No desactives los componentes Transform o GameObject
+                    if (component.GetType() != typeof(Transform) && component.GetType() != typeof(GameObject))
+                    {
+                        // Desactiva el componente
+                       
+                    }
+                }
             }
         }
     }
 }
+

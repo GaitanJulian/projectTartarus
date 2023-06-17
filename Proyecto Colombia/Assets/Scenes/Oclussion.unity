@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &34858937 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8991186761097583839, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
-  m_PrefabInstance: {fileID: 78010620}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &78010620
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8991186761097583787, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8991186761097583828, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab
@@ -396,6 +395,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f786bccd617134c98580b67f0a6fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1437144546 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6794844021973907099, guid: 6dc118e6d6937b945a6cc87341e1b532, type: 3}
+  m_PrefabInstance: {fileID: 1596500293}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1596500293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -410,6 +414,10 @@ PrefabInstance:
     - target: {fileID: 6794844021973907097, guid: 6dc118e6d6937b945a6cc87341e1b532, type: 3}
       propertyPath: _move.m_Id
       value: 8d06f3f2-d8aa-44f0-a6ea-1fcd18ac96c1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794844021973907097, guid: 6dc118e6d6937b945a6cc87341e1b532, type: 3}
+      propertyPath: _move.m_Name
+      value: Move
       objectReference: {fileID: 0}
     - target: {fileID: 6794844021973907099, guid: 6dc118e6d6937b945a6cc87341e1b532, type: 3}
       propertyPath: m_RootOrder
@@ -578,10 +586,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008596753}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.0571012, y: 2.181187, z: -10}
+  m_LocalPosition: {x: 4.6005764, y: 4.54, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 34858937}
-  m_RootOrder: 4
+  m_Father: {fileID: 1437144546}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

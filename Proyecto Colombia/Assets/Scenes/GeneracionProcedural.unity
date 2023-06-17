@@ -40450,7 +40450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 114094183539183980, guid: 5192b1b391d8cd54f84d39d06a4a3dc8, type: 3}
+  selectedFlowchart: {fileID: 0}
 --- !u!4 &612107895
 Transform:
   m_ObjectHideFlags: 1
@@ -40980,6 +40980,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2585392942915918646, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237134016102127464, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237134016102127464, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -6.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237134016102127465, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237134017371795700, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237134017371795700, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8991186761097583828, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab

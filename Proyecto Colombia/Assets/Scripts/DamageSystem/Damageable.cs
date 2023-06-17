@@ -6,7 +6,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] protected float _maxHitPoints;
     [SerializeField] bool _isBoss;
 
-    protected float _currentHitPoints;
+    [SerializeField] protected float _currentHitPoints;
     bool _hitByCactus = false;
     private Transform _attacker;
 

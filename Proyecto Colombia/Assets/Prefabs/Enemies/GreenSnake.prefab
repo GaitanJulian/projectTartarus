@@ -256,6 +256,10 @@ PrefabInstance:
       propertyPath: _targetDetectionRange
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5760290007347930425, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: _obstacleLayerMask.m_Bits
+      value: 592
+      objectReference: {fileID: 0}
     - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
       propertyPath: m_RootOrder
       value: 1

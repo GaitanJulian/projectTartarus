@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5670917711316343400}
   - component: {fileID: 853362924446164290}
   - component: {fileID: 3409893524621350784}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: agua2 (1)
   m_TagString: Water
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 1986675337062639469}
   - component: {fileID: 1986675337062639470}
   - component: {fileID: 1986675337062639471}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: agua2
   m_TagString: Water
   m_Icon: {fileID: 0}

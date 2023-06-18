@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHitPoints: 1
   _isBoss: 0
+  _currentHitPoints: 0
   _damageMultiplier: 0
   _onDamageTaken:
     m_PersistentCalls:
@@ -176,6 +177,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5128383375888171945}
     m_Modifications:
+    - target: {fileID: 1325376743025587418, guid: 9027690a6c6a5174aa198d79f8fae91a, type: 3}
+      propertyPath: dropProbability
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4302283391061749425, guid: 9027690a6c6a5174aa198d79f8fae91a, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -6,15 +6,18 @@ using UnityEngine.InputSystem;
 
 public class CapibaraMov : MonoBehaviour
 {
-    [SerializeField] GameObject capibara,TxInfo;
+    [SerializeField] GameObject capibara, TxInfo;
     private bool navigation = false;
     PlayerInputActions playerInput;
     InputAction nav;
+    CharacterController character;
+    Animator animator;
 
- 
     private void Awake()
     {
+        character = gameObject.GetComponent<CharacterController>();
         playerInput = new PlayerInputActions();
+        animator = capibara.GetComponent<Animator>();
     }
     private void OnEnable()
     {
@@ -37,6 +40,7 @@ public class CapibaraMov : MonoBehaviour
 
     private void salirAgua()
     {
+
         gameObject.GetComponent<Collider2D>().isTrigger = false;
         capibara.SetActive(false);
         navigation = false;
@@ -62,11 +66,40 @@ public class CapibaraMov : MonoBehaviour
 
     void Update()
     {
-       
-            if (nav.ReadValue<float>() > 0&& TxInfo.activeInHierarchy){ si(); }
-            if (nav.ReadValue<float>() > 0&& TxInfo.activeInHierarchy){ si(); }
+        if (capibara.activeSelf)
+        {
+            character._animator.SetFloat("Speed", 0);
+        }
+        if (character.ReturnDirection() == new Vector2(0, 0))
+        {
+            animator.SetBool("move", false);
+        }
+        else
+        {
+            animator.SetBool("move", true);
+
+        }
+        if (character.ReturnDirection().x != 0 && character.ReturnDirection().y != 0)
+        {
+            if (character.ReturnDirection().x > 0)
+            {
+                animator.SetFloat("Horizontal", character.ReturnDirection().x);
+            }
+            if (character.ReturnDirection().y > 0 && character.ReturnDirection().x <= 0)
+            {
+                animator.SetFloat("Vertical", character.ReturnDirection().y);
+
+            }
+        }
+        else
+        {
+            animator.SetFloat("Horizontal", character.ReturnDirection().x);
+            animator.SetFloat("Vertical", character.ReturnDirection().y);
+        }
+        if (nav.ReadValue<float>() > 0 && TxInfo.activeInHierarchy) { si(); }
+        if (nav.ReadValue<float>() > 0 && TxInfo.activeInHierarchy) { si(); }
     }
-   void si()
+    void si()
     {
         gameObject.GetComponent<Collider2D>().isTrigger = true;
         TxInfo.gameObject.SetActive(false);
@@ -78,5 +111,5 @@ public class CapibaraMov : MonoBehaviour
          capibaraobject.transform.SetParent(transform);*/
         navigation = true;
     }
-    
+
 }

@@ -8,7 +8,7 @@ public class CharacterController : MonoBehaviour
 {
     private CharacterStatsManager _characterStatsManager;
     private PlayerStatsScriptableObject _otherPlayerStats; // We will reference the player stats scriptable object to call unmutable stats.
-    [SerializeField] private Animator _animator;
+    [SerializeField] public Animator _animator;
     private Rigidbody2D _rb;
     private PlayerInputActions _playerControls; // New Input system
     private PlayerHealthTrigger _playerHealthTrigger;

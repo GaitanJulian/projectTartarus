@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1862826252618301432}
   - component: {fileID: 1862826252618301433}
   - component: {fileID: 1862826252618301430}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BlackSnake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1453263396, guid: 8b462f1eb80ae2641a4683122ef27fad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -179,7 +179,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.04637724, y: 0}
@@ -205,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4566939282204498374}
   - component: {fileID: 6953182358808440620}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stats Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,6 +252,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1862826252618301431}
     m_Modifications:
+    - target: {fileID: 4096302418708362732, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5360614961138966377, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
       propertyPath: _targetDetectionRange
       value: 30
@@ -303,6 +307,18 @@ PrefabInstance:
     - target: {fileID: 7564609997376683080, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
       propertyPath: m_Name
       value: Context Steering Component
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564609997376683080, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389057469689440939, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8451536028162451277, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}

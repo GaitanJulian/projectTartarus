@@ -208,7 +208,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.021224976, y: 0.010612398}
@@ -254,7 +254,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5360614961138966377, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
       propertyPath: _targetDetectionRange
-      value: 8
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5848420800302639569, guid: bb09494fcbdf5c24aaa2819c6e8c787b, type: 3}
       propertyPath: m_RootOrder

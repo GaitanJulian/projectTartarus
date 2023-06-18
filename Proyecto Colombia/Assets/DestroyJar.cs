@@ -25,4 +25,14 @@ public class DestroyJar : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            Vector2 newPos = new Vector2(Random.Range(-10, 12), Random.Range(-10, 11));
+            transform.position = newPos;
+        }
+    }
+
 }

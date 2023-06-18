@@ -140,7 +140,7 @@ MonoBehaviour:
   _detectionRadius: 2
   _obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 592
   _showGizmos: 1
 --- !u!1 &4726105115901302974
 GameObject:

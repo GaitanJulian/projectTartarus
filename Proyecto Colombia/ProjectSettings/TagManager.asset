@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - SpawnPoint
   - Rooms
+  - Room
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Enemy
   - Projectile
   - Capibara
-  - 
+  - Room
   - 
   - 
   - 

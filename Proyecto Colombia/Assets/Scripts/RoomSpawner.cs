@@ -6,10 +6,10 @@ public class RoomSpawner : MonoBehaviour
 {
     public int openSide;
 
-    //1 B
-    //2 T
-    //3 L
-    //4 R
+    //1 Button
+    //2 Top
+    //3 Left
+    //4 Right
 
     private RoomTemplates templates;
     private int rand;
@@ -26,34 +26,49 @@ public class RoomSpawner : MonoBehaviour
             if (openSide == 1){
                 //B Door
                 rand = Random.Range(0, templates.bottomRooms.Length);
-                Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
+
+                if (transform.position != Vector3.zero)
+                {
+                    Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
+                }
+
             }
             else if (openSide == 2){
                 //T Door
                 rand = Random.Range(0, templates.topRooms.Length);
-                Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
+
+                if (transform.position != Vector3.zero)
+                {
+                    Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
+                }
             }
             else if (openSide == 3){
                 //L Door
                 rand = Random.Range(0, templates.leftRooms.Length);
-                Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
+
+                if (transform.position != Vector3.zero)
+                {
+                    Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
+                }
             }
             else if (openSide == 4){
                 //R Door
                 rand = Random.Range(0, templates.rightRooms.Length);
-                Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
+
+                if (transform.position != Vector3.zero)
+                {
+                    Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
+                }
             }
             spawned = true;
         }
-
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("colision");
         if (other.CompareTag("SpawnPoint")){
             if (other.GetComponent<RoomSpawner>().spawned==false && spawned==false){
-                Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
                 Destroy(this);
             }
             spawned = true;

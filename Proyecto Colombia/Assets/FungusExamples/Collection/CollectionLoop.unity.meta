@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Proyecto Colombia/Assets/Tiles/terreno.meta
+guid: 91a9cb2ce29923f46896b1e83391d173
+folderAsset: yes
+========
 guid: 67bd479c6dc011c49a480569a7983c23
+>>>>>>>> main:Proyecto Colombia/Assets/FungusExamples/Collection/CollectionLoop.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

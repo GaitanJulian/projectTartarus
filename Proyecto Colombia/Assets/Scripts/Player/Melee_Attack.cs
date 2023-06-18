@@ -52,7 +52,7 @@ public class Melee_Attack : MonoBehaviour
     {
         if (_drawGizmos) StartCoroutine(GizmosColor());
         Collider2D[] colliders = Physics2D.OverlapCircleAll(_attackPosition, _attackRange);
-        foreach(Collider2D collider in colliders)
+        foreach (Collider2D collider in colliders)
         {
             if (collider.GetComponentInChildren<Damageable>() != null && collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
@@ -61,7 +61,7 @@ public class Melee_Attack : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+        private void OnDrawGizmos()
     {
         if (_attackingForGizmos) Gizmos.color = Color.red;
         else Gizmos.color = Color.green;

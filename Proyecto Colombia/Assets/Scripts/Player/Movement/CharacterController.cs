@@ -52,6 +52,7 @@ public class CharacterController : MonoBehaviour
         _interact.Enable();
         _playerHealthTrigger._onDeath.AddListener(OnDeath);
         _attack = _playerControls.Player.Attack;
+        _attack.Enable();
     }
 
     private void OnDisable()
@@ -74,6 +75,7 @@ public class CharacterController : MonoBehaviour
 
         if (_attack.WasPressedThisFrame())
         {
+            print("funciona");
             _animator.SetTrigger(_animParamAttack);
         }
 
@@ -93,7 +95,7 @@ public class CharacterController : MonoBehaviour
             _lastDireciton = _playerInput; // Stores the last direction the player intended to look at
 
             _vectorQueue.Enqueue(_playerInput);
-            if (_vectorQueue.Count > 5) _vectorQueue.Dequeue();
+            if (_vectorQueue.Count > 3) _vectorQueue.Dequeue();
         }
         else
         {

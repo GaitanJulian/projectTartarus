@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8991186761097583787, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 5457922072097028608}
     - target: {fileID: 8991186761097583828, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
       propertyPath: m_Name
       value: MachetePlayer
@@ -57,6 +61,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+--- !u!95 &5457922072097028608 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6608851019866869041, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}
+  m_PrefabInstance: {fileID: 1155513920220297009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7840249566738082789 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8991186761097583828, guid: bd6fda80c0eb7f748b1f66583a88851e, type: 3}

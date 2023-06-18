@@ -13,12 +13,13 @@ public class CharacterController : MonoBehaviour
     private PlayerInputActions _playerControls; // New Input system
     private PlayerHealthTrigger _playerHealthTrigger;
     public InputAction _move; // Input Action for movement
+    public InputAction _attack;
 
     private Vector2 _playerInput;
     private Vector2 _desiredVelocity; // Variable that indicates the max Speed the player can get in any direction
     private Vector2 _currentVelocity; // Current speed in a frame
 
-    const string _animParamHorizontal = "Horizontal", _animParamVertical = "Vertical", _animSpeed = "Speed";
+    const string _animParamHorizontal = "Horizontal", _animParamVertical = "Vertical", _animSpeed = "Speed",  _animParamAttack = "Attack";
     private Vector2 _lastDireciton; // Last direction the player moved at
 
     public event Action OnInteractionKeyPressed;
@@ -50,12 +51,15 @@ public class CharacterController : MonoBehaviour
         _interact = _playerControls.Player.Interact;
         _interact.Enable();
         _playerHealthTrigger._onDeath.AddListener(OnDeath);
+        _attack = _playerControls.Player.Attack;
+        _attack.Enable();
     }
 
     private void OnDisable()
     {
         _move.Disable();
         _interact.Disable();
+        _attack.Disable();
         _playerHealthTrigger._onDeath.RemoveListener(OnDeath);
     }
 
@@ -67,6 +71,14 @@ public class CharacterController : MonoBehaviour
         {
             OnInteractionKeyPressed?.Invoke();
         }
+
+
+        if (_attack.WasPressedThisFrame())
+        {
+            print("funciona");
+            _animator.SetTrigger(_animParamAttack);
+        }
+
 
     }
 
@@ -83,7 +95,7 @@ public class CharacterController : MonoBehaviour
             _lastDireciton = _playerInput; // Stores the last direction the player intended to look at
 
             _vectorQueue.Enqueue(_playerInput);
-            if (_vectorQueue.Count > 5) _vectorQueue.Dequeue();
+            if (_vectorQueue.Count > 3) _vectorQueue.Dequeue();
         }
         else
         {
@@ -109,6 +121,7 @@ public class CharacterController : MonoBehaviour
 
         if (_animator != null) _animator.SetFloat(_animParamHorizontal, _playerInput.x);
         if (_animator != null) _animator.SetFloat(_animParamVertical, _playerInput.y);
+
 
     }
 

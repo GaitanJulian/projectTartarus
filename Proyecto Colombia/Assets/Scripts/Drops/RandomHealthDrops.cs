@@ -9,6 +9,11 @@ public class RandomHealthDrops : MonoBehaviour
 
     private void OnDestroy()
     {
+        #if UNITY_EDITOR
+                if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode) // Prevents this function to be active in the editor mode
+                    return;
+        #endif
+
         if (Random.value <= dropProbability)
         {
             Instantiate(heartPrefab, transform.position, Quaternion.identity);
